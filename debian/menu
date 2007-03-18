@@ -1,0 +1,2 @@
+?package(isomaster):needs="X11" section="Apps/Tools"\
+  title="isomaster" command="/usr/bin/isomaster"

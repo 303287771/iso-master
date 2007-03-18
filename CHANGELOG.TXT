@@ -1,0 +1,89 @@
+17 Mar 2007 - 0.8
+=================
+- Added 3 more icons by kearone for a consistent look.
+- Tested on big-endian machine, confirmed everything works as it should.
+- Fixed allignment problem on some strange CPUs.
+- Added Spanish, Italian, Slovak, Simplified Chineese, Romanian, Dutch, Portuguese translations.
+- Added isomaster.desktop file (used as a shortcut in desktop environments).
+- Added support for symbolic links (both on the ISO and the filesystem).
+- Added support for duplicate files (a.k.a. hard links).
+- Several usability improvements.
+
+11 Jan 2007 - 0.7
+=================
+- Fixed the double warning message when adding directories.
+- Changed bkisofs to make it ready for links and get rid of a lot of duplicate code.
+- Added Bulgarian, Chinese, Russian, German, French, Polish and Albanian translations.
+- Fixed 'bug' that images with a broken root directory identifier would fail to open.
+- Writing and extracting operations can now be canceled.
+- Minor usability improvements.
+- Can now open and read (but not write) .nrg images.
+- Writing progress bar now works in percentage mode instead of activity mode.
+- Images that failed to write fully are now deleted.
+- Added Help/Overview with a brief description of how to use the program.
+- Changed mangling so that winxp CDs would still boot.
+- Tested on a 64bit machine, confirmed everything works as it should.
+- Now remember the scroll offset for the browsers so adding/extracting/deleting something doesn't cause the browser to scroll to the top.
+
+09 Dec 2006 - 0.6
+=================
+- Replaced the Add and Extract icons with the two I got from kearone.
+- Added gettext() support so that can now make use of .po files.
+- Can now read, add, extract and write files with long directory names (up to 255 characters for RockRidge).
+- Am allowing more characters in filenames on the image.
+- Enter key now works in 'reate new directory' dialog.
+- Added button to refresh the filesystem and iso view.
+- Am now recording last location of file open/save dialogs.
+- Filesystem address bar is now editable.
+- Added confirmation dialog when closing unsaved image.
+- The backspace key now goes up the directory tree in the selected view.
+- Popup windows no longer have a taskbar entry.
+- Changed toolbar icon size to large
+
+30 Oct 2006 - 0.5
+=================
+- If only one file in a directory fails to add or extract, added a callback in bk and a dialog window in the GUI to allow the user to ignore that error.
+- Moved some structures away from bk.h (they weren't for public use).
+- Added keyboard shortcuts for new, open, save and quit.
+- Moved the responsibility for opening the iso file (for reading or writing) from the user to bk.
+- Added option (enabled by default) to sort directories first.
+- Added window to allow to set the disk label, publisher and the filename types for the new image.
+- Fixed bug that cause newly created images to have broken permissions (RockRidge) on the root directory.
+- Saving an iso now compares the inode of the new image with the old one rather than the name, so overwriting should not be possible now under any circumstnces.
+- Size is now stored in a 64bit size_t o avoid warnings and errors with the file browser looking at files > 4G.
+- Create new directory window now checks for blank filename, bk now refuses to accept a blank name new directory request.
+- Can now have an iso file as a command-line parameter, so can open iso files in ISO Master using a file manager.
+
+27 Sep 2006 - 0.4
+=================
+- Fixed a bug that caused a segmentation fault when starting to save the image.
+- Minor improvement to the makefile to facilitate customising.
+- Changed the 'failed to stat' error to a warning, for some reason people were getting it a lot.
+
+19 Sep 2006 - 0.3
+=================
+- Can now read and write no-emulation and floppy-emulation boot records.
+- Fixed bug where deleting the directory last viewed in the filesystem browser would cause strange things to happen.
+- Improved 9660 name mangling to only include the ~xxxx hash in case of conflicts, also significantly increased the number of times to try to remangle a name before giving up.
+- Can now create new directories both on the image and the filesystem.
+- Added fields to show location (path) on the image and the filesystem.
+- Added option to show hidden files on the filesystem.
+- Fixed bug where having a large directory tree would cause a corrupt path table.
+- Other small but technically interesting changes, see svn log r118-r126
+
+26 Aug 2006 - 0.2
+=================
+- Default is now to not keep the permissions from rockridge as some cds have 
+  directories with no write permissions and that makes them hard to write to.
+- Added application icon, got it from 
+  http://tango.freedesktop.org/Tango_Icon_Gallery
+- Added case insensitive *.ISO mask to file open/save dialogs
+- Can now remember window size, pane height and last fs directory visited, 
+  all stored in ~/.isomaster, config file parser/writer from 
+  http://ndevilla.free.fr/iniparser/
+- Can now create new image from scratch.
+
+23 Aug 2006 - 0.1
+=================
+- First public release
+

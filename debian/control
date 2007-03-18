@@ -1,0 +1,17 @@
+Source: isomaster
+Section: otherosfs
+Priority: optional
+Maintainer: David Johnson <dj@david-web.co.uk>
+Build-Depends: debhelper (>= 5), libgtk2.0-dev, gettext
+Standards-Version: 3.7.2
+
+Package: isomaster
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: A graphical CD image editor
+ You can use isomaster to:
+  - add files to an image
+  - extract files from an image
+  - delete files from an image
+ .
+  Homepage: http://littlesvr.ca/isomaster/
