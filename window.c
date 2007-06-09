@@ -140,6 +140,14 @@ void buildMenu(GtkWidget* boxToPackInto)
                      G_CALLBACK(openIsoCbk), NULL);
     gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Image/Open");
     
+#ifdef ENABLE_SAVE_OVERWRITE
+    menuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, NULL);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show(menuItem);
+    g_signal_connect(G_OBJECT(menuItem), "activate",
+                     G_CALLBACK(saveOverwriteIsoCbk), NULL);
+#endif
+    
     menuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE_AS, NULL);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
     gtk_widget_show(menuItem);
@@ -383,11 +391,6 @@ gboolean closeMainWindowCbk(GtkWidget *widget, GdkEvent *event)
     return TRUE;
 }
 
-void closeWindowCbk(GtkWidget *widget, GdkEvent *event)
-{
-    gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_REJECT);
-}
-
 void loadIcon(GtkWidget** destIcon, const char* srcFile, int size)
 {
     GdkPixbuf* pixbuf;
@@ -419,6 +422,11 @@ void loadIcons(void)
     loadIcon(&GBLaddIcon, ICONPATH"/add2-kearone.png", size);
     loadIcon(&GBLextractIcon, ICONPATH"/extract2-kearone.png", size);
     loadIcon(&GBLdeleteIcon2, ICONPATH"/delete-kearone.png", size);
+}
+
+void rejectDialogCbk(GtkWidget *widget, GdkEvent *event)
+{
+    gtk_dialog_response(GTK_DIALOG(widget), GTK_RESPONSE_REJECT);
 }
 
 void sortDirsFirstCbk(GtkButton *button, gpointer data)

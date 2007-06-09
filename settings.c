@@ -35,6 +35,7 @@ extern GtkWidget* GBLbrowserPaned;
 extern char* GBLfsCurrentDir;
 extern bool GBLisoPaneActive;
 extern VolInfo GBLvolInfo;
+extern bool GBLisoChangesProbable;
 
 void buildImagePropertiesWindow(GtkWidget *widget, GdkEvent *event)
 {
@@ -64,9 +65,7 @@ void buildImagePropertiesWindow(GtkWidget *widget, GdkEvent *event)
                                          GTK_STOCK_CANCEL,
                                          GTK_RESPONSE_REJECT,
                                          NULL);
-    //g_signal_connect_swapped(dialog, "response", G_CALLBACK (gtk_widget_destroy), dialog);
-    g_signal_connect(dialog, "close",
-                     G_CALLBACK(closeWindowCbk), NULL);
+    g_signal_connect(dialog, "close", G_CALLBACK(rejectDialogCbk), NULL);
     
     table = gtk_table_new(1, 2, FALSE);
     gtk_table_set_row_spacings(GTK_TABLE(table), 5);
@@ -98,6 +97,7 @@ void buildImagePropertiesWindow(GtkWidget *widget, GdkEvent *event)
     volNameField = gtk_entry_new_with_max_length(32);
     gtk_entry_set_text(GTK_ENTRY(volNameField), bk_get_volume_name(&GBLvolInfo));
     gtk_entry_set_width_chars(GTK_ENTRY(volNameField), fieldLen);
+    g_signal_connect(volNameField, "activate", (GCallback)acceptDialogCbk, dialog);
     gtk_table_attach_defaults(GTK_TABLE(table), volNameField, 1, 2, 1, 2);
     gtk_widget_show(volNameField);
     
@@ -109,6 +109,7 @@ void buildImagePropertiesWindow(GtkWidget *widget, GdkEvent *event)
     publisherField = gtk_entry_new_with_max_length(128);
     gtk_entry_set_text(GTK_ENTRY(publisherField), bk_get_publisher(&GBLvolInfo));
     gtk_entry_set_width_chars(GTK_ENTRY(publisherField), fieldLen);
+    g_signal_connect(publisherField, "activate", (GCallback)acceptDialogCbk, dialog);
     gtk_table_attach_defaults(GTK_TABLE(table), publisherField, 1, 2, 2, 3);
     gtk_widget_show(publisherField);
     
@@ -156,6 +157,8 @@ void buildImagePropertiesWindow(GtkWidget *widget, GdkEvent *event)
             GBLappSettings.filenameTypesToWrite |= FNTYPE_JOLIET;
         else
             GBLappSettings.filenameTypesToWrite &= ~FNTYPE_JOLIET;
+        
+        GBLisoChangesProbable = true;
     }
     
     gtk_widget_destroy(dialog);
@@ -261,6 +264,7 @@ void loadSettings(void)
     int scanForDuplicateFiles;
     int followSymLinks;
     char* tempStr;
+    int appendExtension;
     
     configFileName = malloc(strlen(GBLuserHomeDir) + strlen(".isomaster") + 1);
     if(configFileName == NULL)
@@ -423,6 +427,20 @@ void loadSettings(void)
     /* no config file */
         GBLappSettings.lastBootRecordDir = NULL;
     
+    /* read/set show hidden files on filesystem */
+    if(GBLsettingsDictionary != NULL)
+    {
+        appendExtension = iniparser_getboolean(GBLsettingsDictionary, 
+                                              "ui:appendextension", INT_MAX);
+        if(showHidden == INT_MAX)
+            GBLappSettings.appendExtension = true;
+        else
+            GBLappSettings.appendExtension = appendExtension;
+    }
+    else
+    /* no config file */
+        GBLappSettings.appendExtension = true;
+    
     free(configFileName);
 }
 
@@ -515,6 +533,9 @@ void writeSettings(void)
     
     if(GBLappSettings.lastBootRecordDir != NULL)
         iniparser_setstr(GBLsettingsDictionary, "ui:lastbootrecorddir", GBLappSettings.lastBootRecordDir);
+    
+    snprintf(numberStr, 20, "%d", GBLappSettings.appendExtension);
+    iniparser_setstr(GBLsettingsDictionary, "ui:appendextension", numberStr);
     
     iniparser_dump_ini(GBLsettingsDictionary, fileToWrite);
 }

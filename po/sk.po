@@ -4,21 +4,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ISO Master 0.7\n"
+"Project-Id-Version: ISO Master 0.8.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-18 13:42-0400\n"
-"PO-Revision-Date: 2007-01-17 01:39+0100\n"
+"POT-Creation-Date: 2007-06-07 14:21-0400\n"
+"PO-Revision-Date: 2007-05-25 10:33+0200\n"
 "Last-Translator: Jozef Riha <jose1711@gmail.com\n"
 "Language-Team: Slovak <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../window.c:360
+#: ../window.c:368
 msgid "      Estimated ISO Size: "
 msgstr "      Odhadovaná veľkosť ISO: "
 
-#: ../isobrowser.c:1026
+#: ../isobrowser.c:1103
 #, c-format
 msgid ""
 "%s\n"
@@ -29,55 +29,59 @@ msgstr ""
 "\n"
 "Prajete si pokračovať?"
 
-#: ../isobrowser.c:134 ../isobrowser.c:877
+#: ../isobrowser.c:138 ../isobrowser.c:949
 msgid "(scanning for duplicate files)"
-msgstr ""
+msgstr "(hľadám zdvojené súbory)"
 
-#: ../window.c:346
+#: ../window.c:354
 msgid "Add"
 msgstr "Pridať"
 
-#: ../window.c:346
+#: ../isobrowser.c:1336
+msgid "Add extension automatically"
+msgstr "Pridať príponu automaticky"
+
+#: ../window.c:354
 msgid "Add to the ISO"
 msgstr "Pridať do ISO"
 
-#: ../isobrowser.c:972 ../isobrowser.c:1162
+#: ../isobrowser.c:1049 ../isobrowser.c:1333
 msgid "All files"
 msgstr "Všetky súbory"
 
-#: ../boot.c:328
+#: ../boot.c:334
 msgid "Boot Record Information"
 msgstr "Informácie o Boot Recorde"
 
-#: ../boot.c:119
+#: ../boot.c:122
 msgid "Boot record deleted"
 msgstr "Boot Record vymazaný"
 
-#: ../boot.c:344
+#: ../boot.c:350
 #, c-format
 msgid "Boot record type: 1200KiB Floppy"
 msgstr "Typ Boot Recordu: 1200KiB Floppy"
 
-#: ../boot.c:346
+#: ../boot.c:352
 #, c-format
 msgid "Boot record type: 1440KiB Floppy"
 msgstr "Typ Boot Recordu: 1440KiB Floppy"
 
-#: ../boot.c:348
+#: ../boot.c:354
 #, c-format
 msgid "Boot record type: 2880KiB Floppy"
 msgstr "Typ Boot Recordu: 2880KiB Floppy"
 
-#: ../boot.c:342
+#: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
 msgstr "Typ Boot Recordu: Bez emulácie"
 
-#: ../boot.c:39
+#: ../boot.c:40
 msgid "Chose Boot Record File"
 msgstr "Vyberte súbor s Boot Recordom"
 
-#: ../window.c:342
+#: ../window.c:350
 msgid "Create new directory on the ISO"
 msgstr "Vytvoriť nový adresár na ISO"
 
@@ -85,37 +89,41 @@ msgstr "Vytvoriť nový adresár na ISO"
 msgid "Create new directory on the filesystem"
 msgstr "Vytvoriť nový adresár na súborovom systéme"
 
-#: ../settings.c:77
+#: ../settings.c:76
 msgid "Creation time:"
 msgstr "Čas vytvorenia:"
 
-#: ../window.c:356
+#: ../window.c:364
 msgid "Delete from the ISO"
 msgstr "Vymazať z ISO"
+
+#: ../isobrowser.c:1190
+msgid "Enter a new name:"
+msgstr "Zadajte nový názov:"
 
 #: ../browser.c:71
 msgid "Enter name for new directory"
 msgstr "Zadajte názov pre nový adresár"
 
-#: ../window.c:351
+#: ../window.c:359
 msgid "Extract"
 msgstr "Extrahovať"
 
-#: ../window.c:351
+#: ../window.c:359
 msgid "Extract from the ISO"
 msgstr "Extrahovať z ISO"
 
-#: ../isobrowser.c:202
+#: ../isobrowser.c:206
 #, c-format
 msgid "Failed to add '%s': '%s'"
 msgstr "Zlyhalo pridávanie '%s': '%s'"
 
-#: ../boot.c:78
+#: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
 msgstr "Zlyhalo pridávanie Boot Recordu: '%s'"
 
-#: ../isobrowser.c:338
+#: ../isobrowser.c:349
 #, c-format
 msgid "Failed to change directory: '%s'"
 msgstr "Nepodarilo sa prepnúť do adresára: '%s'"
@@ -130,22 +138,22 @@ msgstr "Zlyhalo vytváranie adresára %s"
 msgid "Failed to create directory %s: '%s'"
 msgstr "Zlyhalo vytváranie adresára %s: '%s'"
 
-#: ../isobrowser.c:512
+#: ../isobrowser.c:531
 #, c-format
 msgid "Failed to delete '%s': '%s'"
 msgstr "Chyba pri mazaní '%s': '%s'"
 
-#: ../isobrowser.c:621
+#: ../isobrowser.c:639
 #, c-format
 msgid "Failed to extract '%s': '%s'"
 msgstr "Chyba pri extrahovaní '%s': '%s'"
 
-#: ../boot.c:197
+#: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
 msgstr "Chyba pri extrahovaní Boot Recordu: '%s'"
 
-#: ../isobrowser.c:765 ../isobrowser.c:813
+#: ../isobrowser.c:837 ../isobrowser.c:885
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
 msgstr "Zlyhala inicializácia bkisofs: '%s'"
@@ -155,65 +163,70 @@ msgstr "Zlyhala inicializácia bkisofs: '%s'"
 msgid "Failed to open directory '%s', error %d"
 msgstr "Zlyhalo otváranie adresára '%s', chyba %d"
 
-#: ../isobrowser.c:832
+#: ../isobrowser.c:904
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
 msgstr "Zlyhalo otváranie iso súboru na čítanie: '%s'"
 
-#: ../isobrowser.c:907
+#: ../isobrowser.c:979
 #, c-format
 msgid "Failed to read directory tree: '%s'"
 msgstr "Nepodarilo sa prečítať adresárový strom: '%s'"
 
-#: ../isobrowser.c:847
+#: ../isobrowser.c:919
 #, c-format
 msgid "Failed to read volume info: '%s'"
 msgstr "Nepodarilo sa prečítať informácie o zväzku: '%s'"
 
-#: ../boot.c:292
+#: ../isobrowser.c:1213
+#, c-format
+msgid "Failed to rename '%s': %s"
+msgstr "Zlyhalo premenovanie '%s': %s"
+
+#: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
 msgstr "Nepodarilo sa nastaviť %s ako Boot Record: '%s'"
 
-#: ../isobrowser.c:1112
+#: ../isobrowser.c:1279
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
 msgstr "Nepodarilo sa zapísať obraz do '%s': '%s'"
 
-#: ../settings.c:119
+#: ../settings.c:120
 msgid "Filename types (both recommended):"
 msgstr "Typy názvov súborov (oba odporúčané):"
 
-#: ../window.c:285
+#: ../window.c:293
 msgid "Follow symbolic links"
-msgstr ""
+msgstr "Nasledovať symbolické odkazy"
 
-#: ../window.c:248
+#: ../window.c:256
 msgid "From file: 1200KiB floppy"
 msgstr "Zo súboru: 1200KiB floppy"
 
-#: ../window.c:254
+#: ../window.c:262
 msgid "From file: 1440KiB floppy"
 msgstr "Zo súboru: 1440KiB floppy"
 
-#: ../window.c:260
+#: ../window.c:268
 msgid "From file: 2880KiB floppy"
 msgstr "Zo súboru: 2880KiB floppy"
 
-#: ../window.c:242
+#: ../window.c:250
 msgid "From file: no emulation"
 msgstr "Zo súboru: bez emulácie"
 
-#: ../isobrowser.c:530
+#: ../isobrowser.c:549
 msgid ""
 "GUI error, deleting anything other then files and directories doesn't work"
 msgstr "Chyba GUI, mazanie čohokoľvek mimo súborov a adresárov nefunguje"
 
-#: ../window.c:53 ../window.c:335
+#: ../window.c:53 ../window.c:343
 msgid "Go back"
 msgstr "Ísť späť"
 
-#: ../window.c:336
+#: ../window.c:344
 msgid "Go back up one directory on the ISO"
 msgstr "Prejsť o jeden adresár vyššie v ISO"
 
@@ -221,29 +234,29 @@ msgstr "Prejsť o jeden adresár vyššie v ISO"
 msgid "Go back up one directory on the filesystem"
 msgstr "Prejsť o jeden adresár vyššie v súborovom systéme"
 
-#: ../isobrowser.c:962 ../isobrowser.c:1157
+#: ../isobrowser.c:1039 ../isobrowser.c:1328
 msgid "ISO Images"
 msgstr "ISO obrazy"
 
-#: ../about.c:227
+#: ../about.c:260
 msgid "ISO Master Help"
 msgstr "ISO Master pomocník"
 
-#: ../settings.c:59
+#: ../isobrowser.c:1180 ../settings.c:60
 msgid "Image Information"
 msgstr "Informácie o obraze"
 
-#: ../boot.c:385
+#: ../boot.c:391
 #, c-format
 msgid "Is not visible on image"
 msgstr "Nie je vidieť v obraze"
 
-#: ../boot.c:383
+#: ../boot.c:389
 #, c-format
 msgid "Is visible on image as '%s'"
 msgstr "Je vidieť v obraze ako '%s'"
 
-#: ../isobrowser.c:441
+#: ../isobrowser.c:460
 msgid ""
 "It seems that you have made changes to the ISO but haven't saved them. Are "
 "you sure you want to close it?"
@@ -251,70 +264,68 @@ msgstr ""
 "Zrejme ste urobili zmeny v ISO, ale neuložili ste ich. Ste si istý, že ho "
 "chcete uzavrieť?"
 
-#: ../boot.c:267
+#: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
 msgstr ""
 "Vybraná položka nie je normálny súbor a nemôže byť použitý ako Boot Record"
 
-#: ../boot.c:367 ../boot.c:374
+#: ../boot.c:373 ../boot.c:380
 #, c-format
 msgid "Location: on original image at 0x%llX"
 msgstr "Umiestnenie: v pôvodnom súbore na 0x%llX"
 
-#: ../boot.c:369 ../boot.c:376
+#: ../boot.c:375 ../boot.c:382
 #, c-format
 msgid "Location: to be added from '%s'"
 msgstr "Umiestnenie: bude pridané z '%s'"
 
-#: ../isobrowser.c:967
+#: ../isobrowser.c:1044
 msgid "NRG Images"
 msgstr "NRG súbory"
 
-#: ../fsbrowser.c:110 ../isobrowser.c:272
+#: ../fsbrowser.c:110 ../isobrowser.c:281
 msgid "Name"
 msgstr "Názov"
 
-#: ../window.c:59 ../window.c:341
+#: ../window.c:59 ../window.c:349
 msgid "New Directory"
 msgstr "Nový adresár"
 
-#: ../boot.c:144 ../boot.c:321
+#: ../boot.c:149 ../boot.c:327
 msgid "No boot record read from original or set on image"
 msgstr "Nebol načítaný Boot Record z originálu alebo nebol pre súbor nastavený"
 
-#: ../boot.c:105
+#: ../boot.c:108
 msgid "No boot to delete"
 msgstr "Neexistuje boot, ktorý by bolo možné vymazať"
 
-#: ../boot.c:224
+#: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
 msgstr ""
 "Prosím vyberte súbor v ISO prehliadači, ktorý má byť použitý ako Boot Record"
 
-#: ../boot.c:238
+#: ../boot.c:243
 msgid "Please select no more then one file in the ISO browser"
 msgstr "Prosím nevyberajte viacej než jeden súbor v ISO prehliadači"
 
-#: ../isobrowser.c:128
-#, fuzzy
+#: ../isobrowser.c:132
 msgid "Please wait while I'm adding the selected items..."
-msgstr "Prosím čakajte kým extrahujem vybrané súbory..."
+msgstr "Prosím čakajte kým pridám vybrané položky..."
 
-#: ../isobrowser.c:568
+#: ../isobrowser.c:586
 msgid "Please wait while I'm extracting the selected files..."
 msgstr "Prosím čakajte kým extrahujem vybrané súbory..."
 
-#: ../isobrowser.c:871
-#, fuzzy
+#: ../isobrowser.c:943
 msgid "Please wait while I'm reading the image..."
-msgstr "Prosím čakajte kým ukladám nový obraz na disk..."
+msgstr "Prosím čakajte kým prečítam obraz..."
 
-#: ../isobrowser.c:1084
+#: ../isobrowser.c:1251
 msgid "Please wait while I'm saving the new image to disk..."
 msgstr "Prosím čakajte kým ukladám nový obraz na disk..."
 
-#: ../isobrowser.c:121 ../isobrowser.c:560 ../isobrowser.c:864
-#: ../isobrowser.c:1074
+#: ../isobrowser.c:125 ../isobrowser.c:578 ../isobrowser.c:936
+#: ../isobrowser.c:1241
 msgid "Progress"
 msgstr "Priebeh"
 
@@ -322,31 +333,31 @@ msgstr "Priebeh"
 msgid "Publisher:"
 msgstr "Vydávateľ:"
 
-#: ../window.c:356
+#: ../window.c:364
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: ../isobrowser.c:1148
+#: ../isobrowser.c:1317
 msgid "Save File"
 msgstr "Uložiť súbor"
 
-#: ../boot.c:151
+#: ../boot.c:156
 msgid "Save a copy of the boot record"
 msgstr "Uložiť kópiu Boot Recordu"
 
-#: ../window.c:275
+#: ../window.c:283
 msgid "Scan for duplicate files (slow)"
-msgstr ""
+msgstr "Hľadanie zdvojených súborov (pomalé)"
 
-#: ../window.c:182
+#: ../window.c:190
 msgid "Show _hidden files"
 msgstr "Zobraziť _skryté súbory"
 
-#: ../fsbrowser.c:131 ../isobrowser.c:293
+#: ../fsbrowser.c:131 ../isobrowser.c:304
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../boot.c:357
+#: ../boot.c:363
 #, c-format
 msgid "Size: %d bytes"
 msgstr "Veľkosť: %d bajtov"
@@ -363,7 +374,7 @@ msgstr ""
 msgid "Skiping directory entry because stat(%s) failed with %d"
 msgstr "Preskakujem adresárovú položku, pretože stat(%s) skončilo s chybou %d"
 
-#: ../about.c:183
+#: ../about.c:204
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
 " - The top file browser shows files and directories on your machine.\n"
@@ -385,25 +396,43 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'Image' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
+"Okno ISO Mastera je rozdelené do dvoch častí:\n"
+" - horný prehliadač súborov zobrazuje súbory a adresáre na vašom\n"
+"stroji.\n"
+" - spodný prehliadač súborov zobrazuje súbory a adresáre v obraze\n"
+"ISO.\n"
+"\n"
+"Pre otvorenie existujúceho súboru ISO kliknite na 'Obraz' a 'Otvoriť'. Pre\n"
+"vytvorenie nového ISO súboru kliknite na 'Obraz' a 'Nový'.\n"
+"\n"
+"Pre pridanie jedného alebo viacerých súborov alebo adresárov do ISO\n"
+"obrazu, vyberte ich v hornom prehliadači súborov a kliknite na tlačidlo\n"
+"'Pridať do ISO' na strednej lište.\n"
+"\n"
+"Môžete tiež vymazať súbory alebo adresáre z ISO súboru alebo vytvoriť\n"
+"nové adresáre tak v ISO obraze ako aj v lokálnom súborovom systéme.\n"
+"\n"
+"Po vykonaní všetkých zmien na novom ISO obraze, kliknite na 'Obraz' a\n"
+"'Uložiť ako'. Nemôžete prepísať pôvodný ISO súbor.\n"
 
-#: ../window.c:236
+#: ../window.c:244
 msgid "Use selected file on image (no emulation)"
 msgstr "Použiť vybraný súbor v obraze (bez emulácie)"
 
-#: ../settings.c:93
+#: ../settings.c:92
 msgid "Volume name:"
 msgstr "Názov zväzku:"
 
-#: ../settings.c:440
+#: ../settings.c:458
 msgid ""
 "You will have to close and reopen the ISO for this change to take effect"
-msgstr ""
+msgstr "Budete musieť zavrieť a opätovne otvoriť ISO, aby boli zmeny použité"
 
-#: ../window.c:204
+#: ../window.c:212
 msgid "_BootRecord"
 msgstr "_BootRecord"
 
-#: ../window.c:297
+#: ../window.c:305
 msgid "_Help"
 msgstr "_Pomocník"
 
@@ -411,18 +440,18 @@ msgstr "_Pomocník"
 msgid "_Image"
 msgstr "_Obraz"
 
-#: ../window.c:306
+#: ../window.c:314
 msgid "_Overview"
 msgstr "P_rehľad"
 
-#: ../window.c:268
+#: ../window.c:276
 msgid "_Settings"
-msgstr ""
+msgstr "_Nastavenia"
 
-#: ../window.c:192
+#: ../window.c:200
 msgid "_Sort directories first"
 msgstr "Radiť _adresáre ako prvé"
 
-#: ../window.c:169
+#: ../window.c:177
 msgid "_View"
 msgstr "Po_hľad"

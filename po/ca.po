@@ -1,22 +1,23 @@
-# German translation of ISO Master
+# Catalan translation of ISO Master
 # This file is distributed under the same license as the ISO Master package.
+# Translation by Josep Sanchez Mesegue <papapep@gmail.com>
+# and Rafael Carreras <rcarreras@caliu.cat>, 2007.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: ISO Master Unknown\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-07 14:21-0400\n"
-"PO-Revision-Date: 2007-05-26 14:54+0100\n"
-"Last-Translator: Toni <toni@links2linux.de>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2007-06-03 17:10-0500\n"
+"Last-Translator: Josep Sanchez Mesegue <papapep@gmail.com>\n"
+"Language-Team: Catala\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
 
 #: ../window.c:368
 msgid "      Estimated ISO Size: "
-msgstr "      Ungefähre Abbildgröße"
+msgstr " Mida estimada de la imatge ISO:"
 
 #: ../isobrowser.c:1103
 #, c-format
@@ -27,348 +28,357 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Wollen Sie fortfahren?"
+"Voleu continuar?"
 
 #: ../isobrowser.c:138 ../isobrowser.c:949
 msgid "(scanning for duplicate files)"
-msgstr "(suche nach doppelten Dateien)"
+msgstr "(Cercant fitxers duplicats)"
 
 #: ../window.c:354
 msgid "Add"
-msgstr "Hinzufügen"
+msgstr "Afegeix"
 
 #: ../isobrowser.c:1336
 msgid "Add extension automatically"
-msgstr "Erweiterung automatisch hinzufügen"
+msgstr "Afegeix l'extensió automàticament"
 
 #: ../window.c:354
 msgid "Add to the ISO"
-msgstr "Zum Abbild hinzufügen "
+msgstr "Afegeix a la ISO"
 
 #: ../isobrowser.c:1049 ../isobrowser.c:1333
 msgid "All files"
-msgstr "Alle Dateien"
+msgstr "Tots els fitxers"
 
 #: ../boot.c:334
 msgid "Boot Record Information"
-msgstr "'boot record' Information"
+msgstr "Informació del registre d'arrencada"
 
 #: ../boot.c:122
 msgid "Boot record deleted"
-msgstr "'boot record' wurde gelöscht"
+msgstr "S'ha esborrat el registre d'arrencada"
 
 #: ../boot.c:350
 #, c-format
 msgid "Boot record type: 1200KiB Floppy"
-msgstr "'boot record' Typ: 1200KiB Diskette"
+msgstr "Tipus de registre d'arrencada: Disquet de 1200 KB"
 
 #: ../boot.c:352
 #, c-format
 msgid "Boot record type: 1440KiB Floppy"
-msgstr "'boot record' Typ: 1440KiB Diskette"
+msgstr "Tipus de registre d'arrencada: Disquet de 1440 KB"
 
 #: ../boot.c:354
 #, c-format
 msgid "Boot record type: 2880KiB Floppy"
-msgstr "'boot record' Typ: 2880KiB Diskette"
+msgstr "Tipus de registre d'arrencada: Disquet de 2880 KB"
 
 #: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
-msgstr "'boot record' Typ: keine Emulation"
+msgstr "Tipus de registre d'arrencada: Sense emulació"
 
 #: ../boot.c:40
 msgid "Chose Boot Record File"
-msgstr "Wähle eine 'boot record' Datei"
+msgstr "Fitxer de registre d'arrencada seleccionat"
 
 #: ../window.c:350
 msgid "Create new directory on the ISO"
-msgstr "Erstelle neues Verzeichnis auf dem Abbild"
+msgstr "Crea un nou directori a la ISO"
 
 #: ../window.c:60
 msgid "Create new directory on the filesystem"
-msgstr "Erstelle neues Verzeichnis"
+msgstr "Crea un nou directori al sistema de fitxers"
 
 #: ../settings.c:76
 msgid "Creation time:"
-msgstr "Zeit der Erstellung:"
+msgstr "Hora de la creació:"
 
 #: ../window.c:364
 msgid "Delete from the ISO"
-msgstr "Aus Abbild löschen"
+msgstr "Esborra de la ISO"
 
 #: ../isobrowser.c:1190
 msgid "Enter a new name:"
-msgstr "Neuer Name:"
+msgstr "Introduïu un nou nom:"
 
 #: ../browser.c:71
 msgid "Enter name for new directory"
-msgstr "Geben Sie für den neuen Ordner einen Namen ein."
+msgstr "Introduïu un nom per al nou directori"
 
 #: ../window.c:359
 msgid "Extract"
-msgstr "Entpacken"
+msgstr "Extreu"
 
 #: ../window.c:359
 msgid "Extract from the ISO"
-msgstr "Datei aus Abbild extrahieren"
+msgstr "Extreu de la ISO"
 
 #: ../isobrowser.c:206
 #, c-format
 msgid "Failed to add '%s': '%s'"
-msgstr "Konnte Datei '%s nicht hinzufügen: '%s'"
+msgstr "Error afegint '%s': '%s'"
 
 #: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
-msgstr "Fehler beim Hinzufügen des 'boot record': '%s'"
+msgstr "Error afegint el registre d'arrencada: '%s'"
 
 #: ../isobrowser.c:349
 #, c-format
 msgid "Failed to change directory: '%s'"
-msgstr "Kann nicht in Verzeichnis %s wechseln"
+msgstr "Error canviant de directori: '%s'"
 
 #: ../browser.c:112
 #, c-format
 msgid "Failed to create directory %s"
-msgstr "Konnte Verzeichnis %s nicht erstellen"
+msgstr "Error creant el directori %s"
 
 #: ../browser.c:135
 #, c-format
 msgid "Failed to create directory %s: '%s'"
-msgstr "Konnte Verzeichnis %s nicht erstellen: %s"
+msgstr "Error creant el directori %s: '%s'"
 
 #: ../isobrowser.c:531
 #, c-format
 msgid "Failed to delete '%s': '%s'"
-msgstr "Konnte »%s«: %s nicht löschen."
+msgstr "Error esborrant '%s': '%s'"
 
 #: ../isobrowser.c:639
 #, c-format
 msgid "Failed to extract '%s': '%s'"
-msgstr "Die Datei %s:%s  kann nicht entpackt werden."
+msgstr "Error extraient '%s': '%s'"
 
 #: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
-msgstr "Fehler beim Entpacken des 'boot record': %s"
+msgstr "Error extraient el registre d'arrencada: '%s'"
 
 #: ../isobrowser.c:837 ../isobrowser.c:885
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
-msgstr "Initialisieren von bkisofs fehlgeschlagen '%s'"
+msgstr "Error inicialitzant bkisofs: '%s'"
 
 #: ../fsbrowser.c:215
 #, c-format
 msgid "Failed to open directory '%s', error %d"
-msgstr "Fehler beim Öffnen des Verzeichnisses %s, Fehler: %d"
+msgstr "Error obrint el directori '%s', error %d"
 
 #: ../isobrowser.c:904
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
-msgstr "Fehler beim Lesen der Abbilddatei: %s"
+msgstr "Error obrint el fitxer ISO per a lectura: '%s'"
 
 #: ../isobrowser.c:979
 #, c-format
 msgid "Failed to read directory tree: '%s'"
-msgstr "Konnte Verzeichnis %s nicht lesen"
+msgstr "Error llegint l'arbre del directori: '%s'"
 
 #: ../isobrowser.c:919
 #, c-format
 msgid "Failed to read volume info: '%s'"
-msgstr "Fehler beim Lesen der Datenträgerinformation: %s"
+msgstr "Error llegint la informació del volum: '%s'"
 
 #: ../isobrowser.c:1213
 #, c-format
 msgid "Failed to rename '%s': %s"
-msgstr "Datei '%s' konnte nicht umbenannt werden: %s"
+msgstr "Error reanomenant '%s': '%s'"
 
 #: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
-msgstr "Die Datei %s kann nicht als 'boot record' verwendet werden: %s"
+msgstr "Error fixant %s com a registre d'arrencada: '%s'"
 
 #: ../isobrowser.c:1279
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
-msgstr "Schreiben des Abbilds fehlgeschlagen (%s %s)"
+msgstr "Error desant la imatge a '%s': '%s'"
 
 #: ../settings.c:120
 msgid "Filename types (both recommended):"
-msgstr "Dateiname Typ (beides empfohlen):"
+msgstr "Tipus de nom de fitxers (ambdós recomanats):"
 
 #: ../window.c:293
 msgid "Follow symbolic links"
-msgstr "Folge symbolischen Verweisen"
+msgstr "Segueix els enllaços simbòlics"
 
 #: ../window.c:256
 msgid "From file: 1200KiB floppy"
-msgstr "Von Datei: 1200KiB Diskette"
+msgstr "De fitxer: disquet de 1200 KB"
 
 #: ../window.c:262
 msgid "From file: 1440KiB floppy"
-msgstr "Von Datei: 1440KiB Diskette"
+msgstr "De fitxer: disquet de 1440 KB"
 
 #: ../window.c:268
 msgid "From file: 2880KiB floppy"
-msgstr "Von Date: 2880KiB Diskette"
+msgstr "De fitxer: disquet de 2880 KB"
 
 #: ../window.c:250
 msgid "From file: no emulation"
-msgstr "Von Datei: Ohne Emulation"
+msgstr "Des de fitxer: sense emulació"
 
 #: ../isobrowser.c:549
 msgid ""
 "GUI error, deleting anything other then files and directories doesn't work"
-msgstr "GUI Fehler, es können nur Verzeichnisse und Dateien gelöscht werden"
+msgstr ""
+"Error d'interfície gràfica, esborrar altra cosa que fitxers i directoris no "
+"funciona"
 
 #: ../window.c:53 ../window.c:343
 msgid "Go back"
-msgstr "Zurück"
+msgstr "Puja"
 
 #: ../window.c:344
 msgid "Go back up one directory on the ISO"
-msgstr "Zum übergeordneten Verzeichnis auf dem Abbild"
+msgstr "Puja un directori a la ISO"
 
 #: ../window.c:54
 msgid "Go back up one directory on the filesystem"
-msgstr "Zum übergeordneten Verzeichnis wechseln"
+msgstr "Puja un directori del sistema de fitxers"
 
 #: ../isobrowser.c:1039 ../isobrowser.c:1328
 msgid "ISO Images"
-msgstr "ISO Abbilder:"
+msgstr "Imatges ISO"
 
 #: ../about.c:260
 msgid "ISO Master Help"
-msgstr "ISO Master Hilfe"
+msgstr "Ajuda d'ISO Master"
 
 #: ../isobrowser.c:1180 ../settings.c:60
 msgid "Image Information"
-msgstr "Abbild-Information"
+msgstr "Informació de la imatge"
 
 #: ../boot.c:391
 #, c-format
 msgid "Is not visible on image"
-msgstr "Nicht sichtbar auf Abbild"
+msgstr "No es veu a la imatge"
 
 #: ../boot.c:389
 #, c-format
 msgid "Is visible on image as '%s'"
-msgstr "Ist sichtbar auf dem Abbild als '%s'"
+msgstr "Es veu a la imatge com a '%s'"
 
 #: ../isobrowser.c:460
 msgid ""
 "It seems that you have made changes to the ISO but haven't saved them. Are "
 "you sure you want to close it?"
-msgstr "Ungesicherte Änderungen auf dem Abbild. Willst du wirklich beenden ?"
+msgstr ""
+"Sembla que heu efectuat canvis a la ISO però no s'han desat. Esteu segur que "
+"voleu tancar?"
 
 #: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
-msgstr "Ungültige Datei und kann nicht als 'boot record' verwendet werden"
+msgstr ""
+"L'objecte seleccionat no és un fitxer normal i no pot emprar-se com a "
+"registre d'arrencada"
 
 #: ../boot.c:373 ../boot.c:380
 #, c-format
 msgid "Location: on original image at 0x%llX"
-msgstr "Location: auf Original Abbild bei 0x%llX"
+msgstr "Ubicació: a la imatge original es troba a 0x%llX"
 
 #: ../boot.c:375 ../boot.c:382
 #, c-format
 msgid "Location: to be added from '%s'"
-msgstr "Location: wird hinzugefügt von '%s'"
+msgstr "Ubicació: afegeix-lo de '%s'"
 
 #: ../isobrowser.c:1044
 msgid "NRG Images"
-msgstr "NRG Abbilder:"
+msgstr "Imatges NRG"
 
 #: ../fsbrowser.c:110 ../isobrowser.c:281
 msgid "Name"
-msgstr "Name"
+msgstr "Nom"
 
 #: ../window.c:59 ../window.c:349
 msgid "New Directory"
-msgstr "Verzeichnis anlegen"
+msgstr "Nou directori"
 
 #: ../boot.c:149 ../boot.c:327
 msgid "No boot record read from original or set on image"
 msgstr ""
-"Kein 'boot record' auf dem Original vorhanden oder kein 'boot record' auf "
-"dem Abbild definiert"
+"No s'ha llegit cap registre d'arrencada de l'original o conjunt de la imatge"
 
 #: ../boot.c:108
 msgid "No boot to delete"
-msgstr "Kein 'boot record' zum löschen"
+msgstr "No hi ha cap arrencada per a esborrar"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
-msgstr "Wähle den 'boot record' für das Abbild"
+msgstr ""
+"Si us plau, seleccioneu un fitxer al navegador d'ISO per a utilitzar-lo com "
+"a registre d'arrencada"
 
 #: ../boot.c:243
 msgid "Please select no more then one file in the ISO browser"
-msgstr "Bitte nur ein Abbild auswählen"
+msgstr "Si us plau, no seleccioneu més d'un fitxer al navegador d'ISO"
 
 #: ../isobrowser.c:132
 msgid "Please wait while I'm adding the selected items..."
-msgstr "Bitte warten, ausgewählte Dateien werden hinzugefügt..."
+msgstr "Si us plau, espereu mentre afegeixo els objectes seleccionats..."
 
 #: ../isobrowser.c:586
 msgid "Please wait while I'm extracting the selected files..."
-msgstr "Bitte warten, ausgewählte Dateien werden entpackt ..."
+msgstr "Si us plau, espereu mentre extrec els fitxers seleccionats..."
 
 #: ../isobrowser.c:943
 msgid "Please wait while I'm reading the image..."
-msgstr "Bitte warten, Abbild wird geschrieben ..."
+msgstr "Si us plau, espereu mentre llegeixo la imatge..."
 
 #: ../isobrowser.c:1251
 msgid "Please wait while I'm saving the new image to disk..."
-msgstr "Bitte warten, Abbild wird geschrieben ..."
+msgstr "Si us plau, espereu mentre deso la nova imatge al disc..."
 
 #: ../isobrowser.c:125 ../isobrowser.c:578 ../isobrowser.c:936
 #: ../isobrowser.c:1241
 msgid "Progress"
-msgstr "Fortschritt"
+msgstr "Progrés"
 
 #: ../settings.c:104
 msgid "Publisher:"
-msgstr "Veröffentlicher:"
+msgstr "Creador:"
 
 #: ../window.c:364
 msgid "Remove"
-msgstr "Entferne"
+msgstr "Esborra"
 
 #: ../isobrowser.c:1317
 msgid "Save File"
-msgstr "Datei speichern"
+msgstr "Desa el fitxer"
 
 #: ../boot.c:156
 msgid "Save a copy of the boot record"
-msgstr "Speichere eine Kopie des 'boot record'"
+msgstr "Desa una còpia del registre d'arrencada"
 
 #: ../window.c:283
 msgid "Scan for duplicate files (slow)"
-msgstr "Suche nach doppelten Einträgen (langsam)"
+msgstr "Busca els fitxers duplicats (lent)"
 
 #: ../window.c:190
 msgid "Show _hidden files"
-msgstr "_Verborgene Dateien anzeigen"
+msgstr "Mostra els fitxers _amagats"
 
 #: ../fsbrowser.c:131 ../isobrowser.c:304
 msgid "Size"
-msgstr "Größe"
+msgstr "Mida"
 
 #: ../boot.c:363
 #, c-format
 msgid "Size: %d bytes"
-msgstr "Größe: %d (Bytes)"
+msgstr "Mida: %d bytes"
 
 #: ../fsbrowser.c:260
 msgid ""
 "Skiping directory entry because cannot handle filename longer than 256 chars"
-msgstr "Überspringe das Verzeichnis, da Dateinamen länger als 256 Zeichen"
+msgstr ""
+"S'omet l'entrada de directori perquè no es poden gestionar noms de fitxer "
+"més grans de 256 caràcters"
 
 #: ../fsbrowser.c:278
 #, c-format
 msgid "Skiping directory entry because stat(%s) failed with %d"
-msgstr "Überspringe Verzeichnis %s, Fehler: %d"
+msgstr "S'omet el directori perquè l'estat (%s) ha fallat amb %d"
 
 #: ../about.c:204
 msgid ""
@@ -392,75 +402,68 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'Image' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
-"Das ISO Master Fenster ist aufgeteilt in zwei Teile:\n"
-" - Das obere Fenster zeigt die Verzeichnisse und Dateien des\n"
-"Dateisystems an.\n"
-" - Das untere Fenster zeigt die Verzeichnisse und Dateien auf der\n"
-"Abbild-Datei an.\n"
+"La finestra principal d'ISO Master està dividida en dues parts:\n"
+" - La part de dalt mostra els fitxers i directoris a la vostra màquina.\n"
+" - La part de baix mostra els fitxers i directoris a la imatge ISO.\n"
 "\n"
-"Um ein Abbild zu öffnen, wählen Sie 'Abbild' und 'Öffnen'. Um ein neues\n"
-"Abbild zu erstellen wählen Sie 'Abbild' und 'Neu'.\n"
+"Per a obrir un fitxer ISO ja existent, cliqueu a 'Imatge' i 'Obre'. Per a "
+"crear\n"
+"un nou fitxer ISO, feu clic a 'Imatge' i 'Nou'.\n"
 "\n"
-"Um eine oder mehrere Dateien oder Verzeichnisse zum Abbild\n"
-"hinzuzufügen, wählen Sie diese in dem oberen Fenster und fügen sie mit\n"
-"der Option 'Hinzufügen zum Abbild' hinzu.\n"
+"Per a afegir un o més fitxers o directoris a la ISO, seleccioneu-los a la\n"
+"finestra superior i feu clic damunt la icona 'Afegeix a ISO' de la barra\n"
+"d'eines del mig.\n"
 "\n"
-"Um ein oder mehrere Dateien aus dem Abbild zu extrahieren, wählen Sie\n"
-"diese im oberen Fenster und mit der Auswahl 'Extrahiere vom Abbild'\n"
+"Per a extreure un o més fitxers o directoris de la ISO, seleccioneu-los\n"
+"des de la finestra inferior i feu clic damunt la icona 'Extreure de la ISO' "
+"de\n"
+"la barra d'eines del mig.\n"
 "\n"
-"Sie können auch Verzeichnisse und Dateien auf dem Abbild löschen und\n"
-"neue Verzeichnisse und Dateien sowohl auf dem Abbild als auch im\n"
-"Dateisystem erstellen.\n"
+"També podeu esborrar fitxers o directoris de la imatge ISO i crear nous\n"
+"directoris tant a la ISO com al vostre sistema de fitxers local.\n"
 "\n"
-"Wenn alle Änderungen an dem neuen Abbild durchgeführt sind, bestätigen\n"
-"Sie das mit der Auswahl 'Abbild' und 'Speichern unter'. Sie können das\n"
-"ursprüngliche Abbild nicht überschreiben.\n"
+"Un cop heu efectuat tots els canvis a la nova imatge ISO, feu clic a "
+"'Imatge'\n"
+"i 'Anomena i desa'. No podeu sobreescriure la imatge ISO original.\n"
 
 #: ../window.c:244
 msgid "Use selected file on image (no emulation)"
-msgstr "Benutze ausgewählte Datei auf Abbild (keine Emulation)"
+msgstr "Utilitzeu el fitxer seleccionat a la imatge (sense emulació)"
 
 #: ../settings.c:92
 msgid "Volume name:"
-msgstr "Datenträgername:"
+msgstr "Nom del volum:"
 
 #: ../settings.c:458
 msgid ""
 "You will have to close and reopen the ISO for this change to take effect"
 msgstr ""
-"Das Abbild muss geschlossen und erneut geöffnet werden, um die Änderung "
-"wirksam werden zu lassen"
+"Heu de tancar i tornar a obrir la ISO per tal que el canvi tingui efecte"
 
 #: ../window.c:212
 msgid "_BootRecord"
-msgstr "_BootRecord"
+msgstr "_RegistreD'arrencada"
 
 #: ../window.c:305
 msgid "_Help"
-msgstr "_Hilfe"
+msgstr "A_juda"
 
 #: ../window.c:119
 msgid "_Image"
-msgstr "A_bbild"
+msgstr "_Imatge"
 
 #: ../window.c:314
 msgid "_Overview"
-msgstr "_Übersicht"
+msgstr "Visi_ó general"
 
 #: ../window.c:276
 msgid "_Settings"
-msgstr "_Einstellungen"
+msgstr "_Preferències"
 
 #: ../window.c:200
 msgid "_Sort directories first"
-msgstr "V_erzeichnisse vor Dateien anordnen"
+msgstr "Ordena directori_s primer"
 
 #: ../window.c:177
 msgid "_View"
-msgstr "_Ansicht"
-
-#~ msgid "Failed to delete directory %s: '%s'"
-#~ msgstr "konnte Verzeichnis %s nicht löschen: %s"
-
-#~ msgid "Failed to extract directory %s: '%s'"
-#~ msgstr "Konnte Verzeichnis %s nicht extrahieren: %s"
+msgstr "_Veure"

@@ -1,3 +1,11 @@
+isomaster (1.0-1) unstable; urgency=low
+
+  * New upstream release
+  * Update watch file to handle upstream [-]rc naming inconsistency
+  * Update to standards version 3.7.2.2
+
+ -- David Johnson <dj@david-web.co.uk>  Sat, 09 Jun 2007 23:40:58 +0100
+
 isomaster (0.8.1-1) unstable; urgency=low
 
   * New upstream release

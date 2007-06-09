@@ -1,22 +1,23 @@
-# Chinese (Traditional) translation of ISO Master
+# Czech translation of ISO Master
 # This file is distributed under the same license as the ISO Master package.
-# Sun Minchao <sunminchao@gmx.d>, 2007.
 #
+# Schmaki <smallsmaky@seznam.cz>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: zh_CN\n"
+"Project-Id-Version: isomaster\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-07 14:21-0400\n"
-"PO-Revision-Date: 2007-05-25 11:37+0100\n"
-"Last-Translator: Sun Minchao <sunminchao@gmx.de>\n"
-"Language-Team:  <zh@li.org>\n"
+"POT-Creation-Date: 2007-06-05 18:01-0400\n"
+"PO-Revision-Date: 2007-06-09 15:46-0500\n"
+"Last-Translator: Schmaki <smallsmaky@seznam.cz>\n"
+"Language-Team:  <cs@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../window.c:368
 msgid "      Estimated ISO Size: "
-msgstr "估计的 ISO 文件大小："
+msgstr " Předpokládaná velikost ISO obrazu: "
 
 #: ../isobrowser.c:1103
 #, c-format
@@ -27,346 +28,356 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"是否继续？"
+"Přejete si pokračovat?"
 
-#: ../isobrowser.c:138 ../isobrowser.c:949
+#: ../isobrowser.c:138
+#: ../isobrowser.c:949
 msgid "(scanning for duplicate files)"
-msgstr "（正在扫描重复文件）"
+msgstr "(vyhledávám duplicitní soubory)"
 
 #: ../window.c:354
 msgid "Add"
-msgstr "添加"
+msgstr "Přidat"
 
 #: ../isobrowser.c:1336
 msgid "Add extension automatically"
-msgstr "自动添加扩展"
+msgstr "Přidat příponu automaticky"
 
 #: ../window.c:354
 msgid "Add to the ISO"
-msgstr "添加到 ISO"
+msgstr "Přidat do ISO obrazu"
 
-#: ../isobrowser.c:1049 ../isobrowser.c:1333
+#: ../isobrowser.c:1049
+#: ../isobrowser.c:1333
 msgid "All files"
-msgstr "所有文件"
+msgstr "Všechny soubory"
 
 #: ../boot.c:334
 msgid "Boot Record Information"
-msgstr "引导记录信息"
+msgstr "Informace o zaváděcím záznamu"
 
 #: ../boot.c:122
 msgid "Boot record deleted"
-msgstr "引导记录已删除"
+msgstr "Zaváděcí záznam smazán"
 
 #: ../boot.c:350
 #, c-format
 msgid "Boot record type: 1200KiB Floppy"
-msgstr "引导记录类型：1200KB 软盘"
+msgstr "Typ zaváděcího záznamu: 1200KiB Disketa"
 
 #: ../boot.c:352
 #, c-format
 msgid "Boot record type: 1440KiB Floppy"
-msgstr "引导记录类型：1440KB 软盘"
+msgstr "Typ zaváděcího záznamu: 1440KiB Disketa"
 
 #: ../boot.c:354
 #, c-format
 msgid "Boot record type: 2880KiB Floppy"
-msgstr "引导记录类型：2880KB 软盘"
+msgstr "Typ zaváděcího záznamu: 2880KiB Disketa"
 
 #: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
-msgstr "引导记录类型：不模拟"
+msgstr "Typ zaváděcího záznamu: Bez emulace"
 
 #: ../boot.c:40
 msgid "Chose Boot Record File"
-msgstr "选择引导记录文件"
+msgstr "Vyberte soubor zaváděcího záznamu"
 
 #: ../window.c:350
 msgid "Create new directory on the ISO"
-msgstr "在 ISO 中创建新目录"
+msgstr "Vytvořit nový adresář na ISO obrazu"
 
 #: ../window.c:60
 msgid "Create new directory on the filesystem"
-msgstr "在文件系统中创建新目录"
+msgstr "Vytvořit nový adresář na systému souborů"
 
 #: ../settings.c:76
 msgid "Creation time:"
-msgstr "创建时间"
+msgstr "Čas vytváření:"
 
 #: ../window.c:364
 msgid "Delete from the ISO"
-msgstr "从 ISO 中删除"
+msgstr "Smazat z ISO obrazu"
 
 #: ../isobrowser.c:1190
 msgid "Enter a new name:"
-msgstr "输入一个新名称："
+msgstr "Vložte nový název:"
 
 #: ../browser.c:71
 msgid "Enter name for new directory"
-msgstr "输入新目录名"
+msgstr "Vložte název pro nový adresář"
 
 #: ../window.c:359
 msgid "Extract"
-msgstr "提取"
+msgstr "Extrahovat"
 
 #: ../window.c:359
 msgid "Extract from the ISO"
-msgstr "从 ISO 中提取"
+msgstr "Extrahovat z ISO obrazu"
 
 #: ../isobrowser.c:206
 #, c-format
 msgid "Failed to add '%s': '%s'"
-msgstr "无法添加 '%s'：'%s'"
+msgstr "Nepodařilo se přidat '%s': '%s'"
 
 #: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
-msgstr "无法添加引导记录：'%s' "
+msgstr "Nepodařilo se přidat zaváděcí záznam: '%s'"
 
 #: ../isobrowser.c:349
 #, c-format
 msgid "Failed to change directory: '%s'"
-msgstr "无法改变目录：'%s'"
+msgstr "Nepodařilo se změnit adresář: '%s'"
 
 #: ../browser.c:112
 #, c-format
 msgid "Failed to create directory %s"
-msgstr "无法创建目录：'%s'"
+msgstr "Nepodařilo se vytvořit adresář '%s'"
 
 #: ../browser.c:135
 #, c-format
 msgid "Failed to create directory %s: '%s'"
-msgstr "无法创建目录 %s：'%s'"
+msgstr "Nepodařilo se vytvořit adresář %s: '%s'"
 
 #: ../isobrowser.c:531
 #, c-format
 msgid "Failed to delete '%s': '%s'"
-msgstr "无法删除 '%s'：'%s'"
+msgstr "Nepodařilo se smazat %s: '%s'"
 
 #: ../isobrowser.c:639
 #, c-format
 msgid "Failed to extract '%s': '%s'"
-msgstr "无法提取 '%s'：'%s'"
+msgstr "Nepodařilo se extrahovat %s: '%s'"
 
 #: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
-msgstr "无法提取引导记录：'%s'"
+msgstr "Nepodařilo se extrahovat zaváděcí záznam: '%s'"
 
-#: ../isobrowser.c:837 ../isobrowser.c:885
+#: ../isobrowser.c:837
+#: ../isobrowser.c:885
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
-msgstr "无法初始化 bkisofs：'%s'"
+msgstr "Nepodařilo se inicializovat bkisofs: '%s'"
 
 #: ../fsbrowser.c:215
 #, c-format
 msgid "Failed to open directory '%s', error %d"
-msgstr "无法打开目录 '%s'：错误 %d"
+msgstr "Nepodařilo se otevřít adresář '%s', chyba %d"
 
 #: ../isobrowser.c:904
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
-msgstr "无法打开 ISO 文件：'%s'"
+msgstr "Nepodařilo se otevřít ISO obraz pro čtení: '%s'"
 
 #: ../isobrowser.c:979
 #, c-format
 msgid "Failed to read directory tree: '%s'"
-msgstr "无法读取目录树：'%s'"
+msgstr ""
 
 #: ../isobrowser.c:919
 #, c-format
 msgid "Failed to read volume info: '%s'"
-msgstr "无法读取卷信息：'%s'"
+msgstr "Nepodařilo se načíst informace o svazku: '%s'"
 
 #: ../isobrowser.c:1213
 #, c-format
 msgid "Failed to rename '%s': %s"
-msgstr "无法重命名 '%s'：'%s'"
+msgstr "Nepodařilo se přejmenovat %s: '%s'"
 
 #: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
-msgstr "无法设置 %s 为引导记录：'%s'"
+msgstr "Nepodařilo se nastavit%s jako zaváděcí záznam: '%s'"
 
 #: ../isobrowser.c:1279
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
-msgstr "无法写入映像到 '%s'：'%s'"
+msgstr "Nepodařilo se zapsat obraz do %s: '%s'"
 
 #: ../settings.c:120
 msgid "Filename types (both recommended):"
-msgstr "文件名类型（两者皆推荐）："
+msgstr ""
 
 #: ../window.c:293
 msgid "Follow symbolic links"
-msgstr "跟随符号链接"
+msgstr "Sledovat symbolické odkazy"
 
 #: ../window.c:256
 msgid "From file: 1200KiB floppy"
-msgstr "从文件：1200KB 软盘"
+msgstr "Ze souboru: 1200KiB Disketa"
 
 #: ../window.c:262
 msgid "From file: 1440KiB floppy"
-msgstr "从文件：1440KB 软盘"
+msgstr "Ze souboru: 1440KiB Disketa"
 
 #: ../window.c:268
 msgid "From file: 2880KiB floppy"
-msgstr "从文件：2880KB 软盘"
+msgstr "Ze souboru: 2880KiB Disketa"
 
 #: ../window.c:250
 msgid "From file: no emulation"
-msgstr "从文件：不模拟"
+msgstr "Ze souboru: Bez emulace"
 
 #: ../isobrowser.c:549
-msgid ""
-"GUI error, deleting anything other then files and directories doesn't work"
-msgstr "GUI 错误，正在删除错误的文件与目录"
+msgid "GUI error, deleting anything other then files and directories doesn't work"
+msgstr "Chyba GUI: Mazání čehokoli jiného než souborů a adresářů nefunguje"
 
-#: ../window.c:53 ../window.c:343
+#: ../window.c:53
+#: ../window.c:343
 msgid "Go back"
-msgstr "返回"
+msgstr "Jít zpět"
 
 #: ../window.c:344
 msgid "Go back up one directory on the ISO"
-msgstr "在 ISO 中返回上一级目录"
+msgstr "Jít zpět o jeden adresář na ISO obrazu"
 
 #: ../window.c:54
 msgid "Go back up one directory on the filesystem"
-msgstr "在文件系统中返回上一级目录"
+msgstr "Jít zpět o jeden adresář na systému souborů"
 
-#: ../isobrowser.c:1039 ../isobrowser.c:1328
+#: ../isobrowser.c:1039
+#: ../isobrowser.c:1328
 msgid "ISO Images"
-msgstr "ISO 映像文件"
+msgstr "ISO obrazy"
 
 #: ../about.c:260
 msgid "ISO Master Help"
-msgstr "ISO Master 帮助"
+msgstr "Nápověda ISO Masteru"
 
-#: ../isobrowser.c:1180 ../settings.c:60
+#: ../isobrowser.c:1180
+#: ../settings.c:60
 msgid "Image Information"
-msgstr "映像文件信息"
+msgstr "Informace o obrazu"
 
 #: ../boot.c:391
 #, c-format
 msgid "Is not visible on image"
-msgstr "在映像文件中不显示"
+msgstr "Není viditelný na obrazu"
 
 #: ../boot.c:389
 #, c-format
 msgid "Is visible on image as '%s'"
-msgstr "在映像文件中显示为 '%s'"
+msgstr "Je viditelný na obrazu jako '%s'"
 
 #: ../isobrowser.c:460
-msgid ""
-"It seems that you have made changes to the ISO but haven't saved them. Are "
-"you sure you want to close it?"
-msgstr "您似乎更改了 ISO 文件但没有保存，您确定要关闭它？"
+msgid "It seems that you have made changes to the ISO but haven't saved them. Are you sure you want to close it?"
+msgstr "Vypadá to, že byly provedeny změny na ISO obraze, ale nebyly uloženy. Opravdu si přejete ho zavřít?"
 
 #: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
-msgstr "所选项非常规文件且不能被用作引导记录"
+msgstr "Vybraná položka není regulérní soubor a nelze ji použít jako zaváděcí záznam"
 
-#: ../boot.c:373 ../boot.c:380
+#: ../boot.c:373
+#: ../boot.c:380
 #, c-format
 msgid "Location: on original image at 0x%llX"
-msgstr "位置：于原始映像文件的 0x%llX"
+msgstr "Umístění: na původním obrazu v 0x%llX"
 
-#: ../boot.c:375 ../boot.c:382
+#: ../boot.c:375
+#: ../boot.c:382
 #, c-format
 msgid "Location: to be added from '%s'"
-msgstr "位置：添加自 '%s'"
+msgstr ""
 
 #: ../isobrowser.c:1044
 msgid "NRG Images"
-msgstr "NGR 映像文件"
+msgstr "Obrazy NRG"
 
-#: ../fsbrowser.c:110 ../isobrowser.c:281
+#: ../fsbrowser.c:110
+#: ../isobrowser.c:281
 msgid "Name"
-msgstr "名称"
+msgstr "Název"
 
-#: ../window.c:59 ../window.c:349
+#: ../window.c:59
+#: ../window.c:349
 msgid "New Directory"
-msgstr "新目录"
+msgstr "Nový adresář"
 
-#: ../boot.c:149 ../boot.c:327
+#: ../boot.c:149
+#: ../boot.c:327
 msgid "No boot record read from original or set on image"
-msgstr "未读取原始引导记录或在映像文件中指定"
+msgstr ""
 
 #: ../boot.c:108
 msgid "No boot to delete"
-msgstr "没有引导记录可删除"
+msgstr ""
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
-msgstr "请在 ISO 浏览器中指定一个文件作为引导记录"
+msgstr "Prosím vyberte soubor v prohlížeči ISO obrazu pro použití jako zaváděcí záznam"
 
 #: ../boot.c:243
 msgid "Please select no more then one file in the ISO browser"
-msgstr "请在 ISO 浏览器中至多选择一个文件"
+msgstr "Prosím nevybírejte více než jeden soubor v prohlížeči ISO obrazu"
 
 #: ../isobrowser.c:132
 msgid "Please wait while I'm adding the selected items..."
-msgstr "正在添加所选项，请稍候..."
+msgstr "Prosím čekejte, přidávám vybrané položky..."
 
 #: ../isobrowser.c:586
 msgid "Please wait while I'm extracting the selected files..."
-msgstr "正在提取所选文件，请稍候..."
+msgstr "Prosím čekejte, extrahuji vybrané položky..."
 
 #: ../isobrowser.c:943
 msgid "Please wait while I'm reading the image..."
-msgstr "正在读取映像，请稍候..."
+msgstr "Prosím řekejte, načítám obraz..."
 
 #: ../isobrowser.c:1251
 msgid "Please wait while I'm saving the new image to disk..."
-msgstr "正在保存新映像至磁盘，请稍候..."
+msgstr "Prosím čekejte, ukládám nový obraz na disk..."
 
-#: ../isobrowser.c:125 ../isobrowser.c:578 ../isobrowser.c:936
+#: ../isobrowser.c:125
+#: ../isobrowser.c:578
+#: ../isobrowser.c:936
 #: ../isobrowser.c:1241
 msgid "Progress"
-msgstr "进度"
+msgstr "Průběh"
 
 #: ../settings.c:104
 msgid "Publisher:"
-msgstr "发布者："
+msgstr ""
 
 #: ../window.c:364
 msgid "Remove"
-msgstr "移除"
+msgstr "Odstranit"
 
 #: ../isobrowser.c:1317
 msgid "Save File"
-msgstr "保存文件"
+msgstr "Uložit soubor"
 
 #: ../boot.c:156
 msgid "Save a copy of the boot record"
-msgstr "保存引导记录的拷贝"
+msgstr "Uložit kopii zaváděcího záznamu"
 
 #: ../window.c:283
 msgid "Scan for duplicate files (slow)"
-msgstr "扫描重复文件（慢）"
+msgstr "Vyhledat duplicitní soubory (pomalé)"
 
 #: ../window.c:190
 msgid "Show _hidden files"
-msgstr "显示隐藏文件(_h)"
+msgstr "Ukázat _skryté soubory"
 
-#: ../fsbrowser.c:131 ../isobrowser.c:304
+#: ../fsbrowser.c:131
+#: ../isobrowser.c:304
 msgid "Size"
-msgstr "大小"
+msgstr "Velikost"
 
 #: ../boot.c:363
 #, c-format
 msgid "Size: %d bytes"
-msgstr "大小：%d bytes"
+msgstr "Velikost: %d bajtů"
 
 #: ../fsbrowser.c:260
-msgid ""
-"Skiping directory entry because cannot handle filename longer than 256 chars"
-msgstr "无法处理超过 256 个字符的长文件名，略过目录项"
+msgid "Skiping directory entry because cannot handle filename longer than 256 chars"
+msgstr "Přeskakuji adresář, protože neumím pracovat se soubory, které mají název delší, než 256 znaků"
 
 #: ../fsbrowser.c:278
 #, c-format
 msgid "Skiping directory entry because stat(%s) failed with %d"
-msgstr "状态（%s）错误：%d，略过目录项"
+msgstr ""
 
 #: ../about.c:204
 msgid ""
@@ -390,61 +401,57 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'Image' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
-"ISO Master 窗口分为两部分：\n"
-" - 上部文件浏览器显示你电脑上的文件与目录；\n"
-" - 下部文件浏览器显示 ISO 映像上的文件与目录。\n"
+"Okno ISO Masteru je rozděleno na dvě části:\n"
+" - Horní prohlížeč souborů ukazuje soubory a adresáře ve Vašem počítači.\n"
+" - Spodní prohlížeč souborů ukazuje soubory a adresáře v ISO obrazu\n"
 "\n"
-"要打开已存在的 ISO 文件请选菜单“映像”及“打开”，创建新的 ISO\n"
-"文件选“映像”及“创建”。\n"
+"Pro otevření existujícího ISO souboru klikněte na 'Obraz' a 'Otevřít'. Pro vytvoření nového\n"
+"ISO souboru klikněte na 'Obraz' a 'Nový'\n"
 "\n"
-"要向 ISO 中添加一个或多个文件或目录先在上部文件浏览器\n"
-"中将其选中再点击中部工具条上的“添加到 ISO”按钮。\n"
+"Pro přidání jednoho nebo více souborů nebo adresářů do ISO obrazu je vyberte v horním prohlížeči a potom klikněte na tlačítko 'Přidat do ISO obrazu' v prostřední nástrojové liště.\n"
 "\n"
-"要从 ISO 中提取一个或多个文件或目录先在下部文件浏览器\n"
-"中将其选中再点击中部工具条上的“从 ISO 中提取”按钮。\n"
+"Můžete také mazat soubory nebo adresáře z ISO obrazu a vytvářet\n"
+"nové. Obojí na ISO i na systému.\n"
 "\n"
-"你还可以从 ISO 中删除文件或目录以及在本地目录或 ISO 中创建目录。\n"
-"\n"
-"一旦你完成了对 ISO 映像的所有修改，请选菜单“映像”及“另存为”。\n"
-"你不能覆盖原始 ISO 文件。\n"
+"Po provedení všech změn na novém ISO obraze klikněte na 'Obraz' a 'Uložit jako'. Nemůžete přepsat originální ISO obraz.\n"
 
 #: ../window.c:244
 msgid "Use selected file on image (no emulation)"
-msgstr "在映像文件中使用所选文件（不模拟）"
+msgstr "Použít vybrané soubory na obraz (bez emulace)"
 
 #: ../settings.c:92
 msgid "Volume name:"
-msgstr "卷名称："
+msgstr "Název svazku:"
 
 #: ../settings.c:458
-msgid ""
-"You will have to close and reopen the ISO for this change to take effect"
-msgstr "必须重启 ISO Master 以使改变生效"
+msgid "You will have to close and reopen the ISO for this change to take effect"
+msgstr "Měl byste zavřít a znovu otevřít ISO obraz, aby se provedené změny uložily"
 
 #: ../window.c:212
 msgid "_BootRecord"
-msgstr "引导记录(_B)"
+msgstr "_ZaváděcíZáznam"
 
 #: ../window.c:305
 msgid "_Help"
-msgstr "帮助(_H)"
+msgstr "_Nápověda"
 
 #: ../window.c:119
 msgid "_Image"
-msgstr "映像(_I)"
+msgstr "_Obraz"
 
 #: ../window.c:314
 msgid "_Overview"
-msgstr "概况(_O)"
+msgstr "_Přehled"
 
 #: ../window.c:276
 msgid "_Settings"
-msgstr "设置(_S)"
+msgstr "N_astavení"
 
 #: ../window.c:200
 msgid "_Sort directories first"
-msgstr "排序目录(_S)"
+msgstr "_Řadit nejdřív adresáře"
 
 #: ../window.c:177
 msgid "_View"
-msgstr "查看(_V)"
+msgstr "_Pohled"
+

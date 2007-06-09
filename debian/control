@@ -3,7 +3,7 @@ Section: otherosfs
 Priority: optional
 Maintainer: David Johnson <dj@david-web.co.uk>
 Build-Depends: debhelper (>= 5), libgtk2.0-dev, gettext
-Standards-Version: 3.7.2
+Standards-Version: 3.7.2.2
 
 Package: isomaster
 Architecture: any

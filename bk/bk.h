@@ -48,10 +48,12 @@
 /* options for VolInfo.bootMediaType */
 #define BOOT_MEDIA_NONE 0
 #define BOOT_MEDIA_NO_EMULATION 1
-#define BOOT_MEDIA_1_2_FLOPPY 2
-#define BOOT_MEDIA_1_44_FLOPPY 3
-#define BOOT_MEDIA_2_88_FLOPPY 4
+#define BOOT_MEDIA_1_2_FLOPPY 2 /* 1228800 byte floppy disk image */
+#define BOOT_MEDIA_1_44_FLOPPY 3 /* 1474560 byte floppy disk image */
+#define BOOT_MEDIA_2_88_FLOPPY 4 /* 2949120 byte floppy disk image */
 #define BOOT_MEDIA_HARD_DISK 5
+
+#define READ_WRITE_BUFFER_SIZE 102400
 
 /* warning message string lengths in VolInfo */
 #define BK_WARNING_MAX_LEN 512
@@ -71,8 +73,8 @@
 * All files, directories, links need this. */
 typedef struct BkFileBase
 {
-    char name[NCHARS_FILE_ID_MAX_STORE]; /* '\0' terminated */
     char original9660name[15]; /* 8.3 + ";1" max */
+    char name[NCHARS_FILE_ID_MAX_STORE]; /* '\0' terminated */
     unsigned posixFileMode; /* file type and permissions */
     
     struct BkFileBase* next;
@@ -95,7 +97,8 @@ typedef struct BkDir
 * BkHardLink
 * Linked list node.
 * Information about a hard link (where to find a certain file).
-* This is for internal use but is here because BkFile references it. */
+* This is for internal use but is defined here because BkFile references it.
+* You don't need to use this structure, please ignore it. */
 typedef struct BkHardLink
 {
     bool onImage;
@@ -168,6 +171,8 @@ typedef struct VolInfo
     time_t lastTimeCalledProgress;
     off_t estimatedIsoSize;
     BkHardLink* fileLocations; /* list of where to find regular files */
+    char readWriteBuffer[READ_WRITE_BUFFER_SIZE];
+    char readWriteBuffer2[READ_WRITE_BUFFER_SIZE];
     
     /* public use, read only */
     time_t creationTime;
@@ -209,7 +214,7 @@ void bk_delete_boot_record(VolInfo* volInfo);
 int bk_delete(VolInfo* volInfo, const char* pathAndName);
 
 /* extracting */
-int bk_extract_boot_record(const VolInfo* volInfo, const char* destPathAndName,
+int bk_extract_boot_record(VolInfo* volInfo, const char* destPathAndName,
                            unsigned destFilePerms);
 int bk_extract(VolInfo* volInfo, const char* srcPathAndName, 
                const char* destDir, bool keepPermissions, 
@@ -222,12 +227,14 @@ int bk_get_dir_from_string(const VolInfo* volInfo, const char* pathStr,
                            BkDir** dirFoundPtr);
 const char* bk_get_publisher(const VolInfo* volInfo);
 const char* bk_get_volume_name(const VolInfo* volInfo);
-char* bk_get_error_string(int errorId);
+const char* bk_get_error_string(int errorId);
 
 /* setters */
 void bk_cancel_operation(VolInfo* volInfo);
 void bk_destroy_vol_info(VolInfo* volInfo);
 int bk_init_vol_info(VolInfo* volInfo, bool scanForDuplicateFiles);
+int bk_rename(VolInfo* volInfo, const char* srcPathAndName, 
+              const char* newName);
 int bk_set_boot_file(VolInfo* volInfo, const char* srcPathAndName);
 void bk_set_follow_symlinks(VolInfo* volInfo, bool doFollow);
 void bk_set_publisher(VolInfo* volInfo, const char* publisher);
