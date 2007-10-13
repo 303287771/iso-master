@@ -17,6 +17,7 @@
 #include <gtk/gtk.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "isomaster.h"
 
@@ -44,7 +45,7 @@ int main(int argc, char** argv)
             return 0;
         }
     }
-
+    
 #ifdef ENABLE_NLS
     /* initialize gettext */
     bindtextdomain("isomaster", LOCALEDIR);
@@ -116,6 +117,8 @@ int main(int argc, char** argv)
 
     if(argv[1] != NULL)
       openIso(argv[1]);
+    
+    srandom((int)time(NULL));
     
     gtk_main();
     

@@ -23,6 +23,7 @@
 #include <time.h>
 #include <libintl.h>
 #include <regex.h>
+#include <errno.h>
 
 #include "isomaster.h"
 
@@ -58,6 +59,8 @@ GtkWidget* GBLwritingProgressWindow;
 #ifdef ENABLE_SAVE_OVERWRITE
 static char* openIsoPathAndName = NULL;
 #endif
+/* to really stop an operation, not just for one row */
+static bool GBLoperationCanceled;
 
 void activityProgressUpdaterCbk(VolInfo* volInfo)
 {
@@ -152,6 +155,8 @@ void addToIsoCbk(GtkButton *button, gpointer data)
     gtk_widget_show(progressWindow);
     /* END CREATE and show progress bar */
     
+    GBLoperationCanceled = false;
+    
     gtk_tree_selection_selected_foreach(selection, addToIsoEachRowCbk, NULL);
     
     gtk_widget_destroy(progressWindow);
@@ -181,6 +186,9 @@ void addToIsoEachRowCbk(GtkTreeModel* model, GtkTreePath* path,
     char* fullItemName; /* with full path */
     int rc;
     GtkWidget* warningDialog;
+    
+    if(GBLoperationCanceled)
+        return;
     
     gtk_tree_model_get(model, iterator, COLUMN_HIDDEN_TYPE, &fileType, 
                                         COLUMN_FILENAME, &itemName, -1);
@@ -221,7 +229,7 @@ void addToIsoEachRowCbk(GtkTreeModel* model, GtkTreePath* path,
                                                GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_ERROR,
                                                GTK_BUTTONS_CLOSE,
-                                               "GUI error, adding anything other then "
+                                               "GUI error, adding anything other than "
                                                "files and directories doesn't work");
         gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
         gtk_dialog_run(GTK_DIALOG(warningDialog));
@@ -262,7 +270,8 @@ void buildIsoBrowser(GtkWidget* boxToPackInto)
     g_signal_connect(GBLisoTreeView, "key-press-event", (GCallback)isoKeyPressedCbk, NULL);
     /* The problem with this is that i get a popup menu before the row is selected.
     * if i do a connect_after the handler never gets called. So no right-click menu. */
-    //~ g_signal_connect(GBLisoTreeView, "button-press-event", (GCallback)isoButtonPressedCbk, NULL);
+    g_signal_connect(GBLisoTreeView, "button-press-event", (GCallback)isoButtonPressedCbk, NULL);
+    g_signal_connect(GBLisoTreeView, "button-release-event", (GCallback)isoButtonReleasedCbk, NULL);
     gtk_widget_show(GBLisoTreeView);
     
     /* this won't be enabled until gtk allows me to drag a multiple selection */
@@ -308,9 +317,13 @@ void buildIsoBrowser(GtkWidget* boxToPackInto)
     gtk_tree_view_column_set_sort_column_id(column, COLUMN_SIZE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(GBLisoTreeView), column);
     
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(GBLisoListStore), COLUMN_SIZE, 
+                                    sortBySize, NULL, NULL);
+    
     /* set default sort */
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(GBLisoListStore),
-                                         COLUMN_FILENAME, GTK_SORT_ASCENDING);
+                                         GBLappSettings.isoSortColumnId, 
+                                         GBLappSettings.isoSortDirection);
 
     gtk_widget_set_sensitive(GBLisoCurrentDirField, FALSE);
     gtk_widget_set_sensitive(GBLisoTreeView, FALSE);
@@ -328,9 +341,10 @@ void buildIsoLocator(GtkWidget* boxToPackInto)
 void cancelOperation(GtkDialog* dialog, gint arg1, gpointer user_data)
 {
     bk_cancel_operation(&GBLvolInfo);
+    GBLoperationCanceled = true;
 }
 
-void changeIsoDirectory(char* newDirStr)
+void changeIsoDirectory(const char* newDirStr)
 {
     int rc;
     BkDir* newDir;
@@ -358,6 +372,12 @@ void changeIsoDirectory(char* newDirStr)
     model = gtk_tree_view_get_model(GTK_TREE_VIEW(GBLisoTreeView));
     g_object_ref(model);
     gtk_tree_view_set_model(GTK_TREE_VIEW(GBLisoTreeView), NULL);
+    
+    /* this is the only way to disable sorting (for a huge performance boost) */
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(GBLfsListStore), COLUMN_FILENAME, 
+                                    sortVoid, NULL, NULL);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(GBLfsListStore), COLUMN_SIZE, 
+                                    sortVoid, NULL, NULL);
     
     gtk_list_store_clear(GBLisoListStore);
     
@@ -409,6 +429,12 @@ void changeIsoDirectory(char* newDirStr)
     gtk_tree_view_set_model(GTK_TREE_VIEW(GBLisoTreeView), model);
     g_object_unref(model);
     
+    /* reenable sorting */
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(GBLfsListStore), COLUMN_FILENAME, 
+                                    sortByName, NULL, NULL);
+    gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(GBLfsListStore), COLUMN_SIZE, 
+                                    sortBySize, NULL, NULL);
+    
     /* set current directory string */
     if(GBLisoCurrentDir != NULL)
         free(GBLisoCurrentDir);
@@ -420,6 +446,224 @@ void changeIsoDirectory(char* newDirStr)
     /* update the field with the path and name */
     gtk_entry_set_text(GTK_ENTRY(GBLisoCurrentDirField), GBLisoCurrentDir);
 }
+
+void changePermissionsBtnCbk(GtkMenuItem *menuitem, gpointer data)
+{
+    GtkTreeSelection* selection;
+    
+    /* do nothing if no image open */
+    if(!GBLisoPaneActive)
+        return;
+    
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLisoTreeView));
+    
+    gtk_tree_selection_selected_foreach(selection, changePermissionsRowCbk, NULL);
+}
+
+void changePermissionsRowCbk(GtkTreeModel* model, GtkTreePath* path,
+                             GtkTreeIter* iterator, gpointer data)
+{
+    GtkWidget* dialog;
+    GtkWidget* table;
+    GtkWidget* label;
+    int rc;
+    int count;
+    char* itemName;
+    char* fullItemName;
+    mode_t permissions;
+    
+    gtk_tree_model_get(model, iterator, COLUMN_FILENAME, &itemName, -1);
+    
+    fullItemName = malloc(strlen(GBLisoCurrentDir) + strlen(itemName) + 1);
+    if(fullItemName == NULL)
+        fatalError("changePermissionsRowCbk(): malloc("
+                   "strlen(GBLisoCurrentDir) + strlen(itemName) + 1) failed (out of memory?)");
+    
+    strcpy(fullItemName, GBLisoCurrentDir);
+    strcat(fullItemName, itemName);
+    
+    rc = bk_get_permissions(&GBLvolInfo, fullItemName, &permissions);
+    if(rc <= 0)
+    {
+        dialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
+                                        GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        GTK_MESSAGE_ERROR,
+                                        GTK_BUTTONS_CLOSE,
+                                        "bk_get_permissions() failed (%s), please report bug",
+                                        bk_get_error_string(rc));
+        gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
+        gtk_dialog_run(GTK_DIALOG(dialog));
+        gtk_widget_destroy(dialog);
+        return;
+    }
+    
+    dialog = gtk_dialog_new_with_buttons(_("Change permissions"),
+                                         GTK_WINDOW(GBLmainWindow),
+                                         GTK_DIALOG_DESTROY_WITH_PARENT,
+                                         GTK_STOCK_OK,
+                                         GTK_RESPONSE_ACCEPT,
+                                         GTK_STOCK_CANCEL,
+                                         GTK_RESPONSE_REJECT,
+                                         NULL);
+    g_signal_connect(dialog, "close", G_CALLBACK(rejectDialogCbk), NULL);
+    gtk_dialog_set_default_response(GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
+    
+    table = gtk_table_new(3, 11, FALSE);
+    //~ gtk_table_set_row_spacings(GTK_TABLE(table), 5);
+    //~ gtk_table_set_col_spacings(GTK_TABLE(table), 5);
+    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), table, TRUE, TRUE, 0);
+    gtk_widget_show(table);
+    
+    label = gtk_label_new("User");
+    gtk_table_attach_defaults(GTK_TABLE(table), label, 0, 3, 0, 1);
+    gtk_widget_show(label);
+    
+    label = gtk_label_new("Group");
+    gtk_table_attach_defaults(GTK_TABLE(table), label, 4, 7, 0, 1);
+    gtk_widget_show(label);
+    
+    label = gtk_label_new("Others");
+    gtk_table_attach_defaults(GTK_TABLE(table), label, 8, 11, 0, 1);
+    gtk_widget_show(label);
+    
+    for(count = 0; count < 11; count++)
+    {
+        if(count == 0 || count == 4 || count == 8)
+        {
+            label = gtk_label_new("r");
+            gtk_table_attach_defaults(GTK_TABLE(table), label, count, count + 1, 1, 2);
+            gtk_widget_show(label);
+        }
+        else if(count == 1 || count == 5 || count == 9)
+        {
+            label = gtk_label_new("w");
+            gtk_table_attach_defaults(GTK_TABLE(table), label, count, count + 1, 1, 2);
+            gtk_widget_show(label);
+        }
+        else if(count == 2 || count == 6 || count == 10)
+        {
+            label = gtk_label_new("x");
+            gtk_table_attach_defaults(GTK_TABLE(table), label, count, count + 1, 1, 2);
+            gtk_widget_show(label);
+        }
+        else
+        {
+            label = gtk_label_new("-");
+            gtk_table_attach_defaults(GTK_TABLE(table), label, count, count + 1, 1, 2);
+            gtk_widget_show(label);
+        }
+    }
+    
+    /* CREATE checkboxes for permissions */
+    GtkWidget* urCbk; /* user read */
+    GtkWidget* uwCbk;
+    GtkWidget* uxCbk;
+    GtkWidget* grCbk; /* group read */
+    GtkWidget* gwCbk;
+    GtkWidget* gxCbk;
+    GtkWidget* orCbk; /* others readd */
+    GtkWidget* owCbk;
+    GtkWidget* oxCbk;
+    
+    urCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), urCbk, 0, 1, 2, 3);
+    if(permissions & 0400)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(urCbk), TRUE);
+    gtk_widget_show(urCbk);
+    
+    uwCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), uwCbk, 1, 2, 2, 3);
+    if(permissions & 0200)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(uwCbk), TRUE);
+    gtk_widget_show(uwCbk);
+    
+    uxCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), uxCbk, 2, 3, 2, 3);
+    if(permissions & 0100)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(uxCbk), TRUE);
+    gtk_widget_show(uxCbk);
+    
+    label = gtk_label_new("-");
+    gtk_table_attach_defaults(GTK_TABLE(table), label, 3, 4, 2, 3);
+    gtk_widget_show(label);
+    
+    grCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), grCbk, 4, 5, 2, 3);
+    if(permissions & 0040)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(grCbk), TRUE);
+    gtk_widget_show(grCbk);
+    
+    gwCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), gwCbk, 5, 6, 2, 3);
+    if(permissions & 0020)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gwCbk), TRUE);
+    gtk_widget_show(gwCbk);
+    
+    gxCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), gxCbk, 6, 7, 2, 3);
+    if(permissions & 0010)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gxCbk), TRUE);
+    gtk_widget_show(gxCbk);
+    
+    label = gtk_label_new("-");
+    gtk_table_attach_defaults(GTK_TABLE(table), label, 7, 8, 2, 3);
+    gtk_widget_show(label);
+    
+    orCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), orCbk, 8, 9, 2, 3);
+    if(permissions & 0004)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(orCbk), TRUE);
+    gtk_widget_show(orCbk);
+    
+    owCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), owCbk, 9, 10, 2, 3);
+    if(permissions & 0002)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(owCbk), TRUE);
+    gtk_widget_show(owCbk);
+    
+    oxCbk = gtk_check_button_new();
+    gtk_table_attach_defaults(GTK_TABLE(table), oxCbk, 10, 11, 2, 3);
+    if(permissions & 0001)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(oxCbk), TRUE);
+    gtk_widget_show(oxCbk);
+    /* END CREATE checkboxes for permissions */
+    
+    gtk_widget_show(dialog);
+    
+    rc = gtk_dialog_run(GTK_DIALOG(dialog));
+    if(rc == GTK_RESPONSE_ACCEPT)
+    {
+        permissions = 0;
+        
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(urCbk)))
+            permissions |= 0400;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(uwCbk)))
+            permissions |= 0200;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(uxCbk)))
+            permissions |= 0100;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(grCbk)))
+            permissions |= 0040;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gwCbk)))
+            permissions |= 0020;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gxCbk)))
+            permissions |= 0010;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(orCbk)))
+            permissions |= 0004;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(owCbk)))
+            permissions |= 0002;
+        if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(oxCbk)))
+            permissions |= 0001;
+        
+        bk_set_permissions(&GBLvolInfo, fullItemName, permissions);
+        
+        GBLisoChangesProbable = true;
+    }
+    
+    gtk_widget_destroy(dialog);
+    
+    g_free(itemName);
+}
+
 
 void closeIso(void)
 {
@@ -456,21 +700,25 @@ bool confirmCloseIso(void)
     warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
                                            GTK_DIALOG_DESTROY_WITH_PARENT,
                                            GTK_MESSAGE_QUESTION,
-                                           GTK_BUTTONS_YES_NO,
+                                           GTK_BUTTONS_NONE,
                                            _("It seems that you have made changes to the ISO but "
                                            "haven't saved them. Are you sure you want to close it?"));
+    gtk_dialog_add_buttons(GTK_DIALOG(warningDialog),
+                           GTK_STOCK_GO_BACK, GTK_RESPONSE_CANCEL,
+                           GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                           NULL);
     gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
-    gtk_dialog_set_default_response(GTK_DIALOG(warningDialog), GTK_RESPONSE_YES);
+    gtk_dialog_set_default_response(GTK_DIALOG(warningDialog), GTK_RESPONSE_CLOSE);
     response = gtk_dialog_run(GTK_DIALOG(warningDialog));
     gtk_widget_destroy(warningDialog);
     
-    if(response == GTK_RESPONSE_YES)
+    if(response == GTK_RESPONSE_CLOSE)
         return true;
     else
         return false;
 }
 
-void deleteFromIsoCbk(GtkButton *button, gpointer data)
+void deleteSelectedFromIso(void)
 {
     GtkTreeSelection* selection;
     
@@ -496,6 +744,11 @@ void deleteFromIsoCbk(GtkButton *button, gpointer data)
     GBLisoSize += bk_estimate_iso_size(&GBLvolInfo, FNTYPE_9660 | FNTYPE_JOLIET | FNTYPE_ROCKRIDGE);
     formatSize(GBLisoSize, sizeStr, sizeof(sizeStr));
     gtk_label_set_text(GTK_LABEL(GBLisoSizeLbl), sizeStr);
+}
+
+void deleteFromIsoCbk(GtkButton *button, gpointer data)
+{
+    deleteSelectedFromIso();
 }
 
 void deleteFromIsoEachRowCbk(GtkTreeModel* model, GtkTreePath* path,
@@ -546,7 +799,7 @@ void deleteFromIsoEachRowCbk(GtkTreeModel* model, GtkTreePath* path,
                                                GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_ERROR,
                                                GTK_BUTTONS_CLOSE,
-                                               _("GUI error, deleting anything other then "
+                                               _("GUI error, deleting anything other than "
                                                "files and directories doesn't work"));
         gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
         gtk_dialog_run(GTK_DIALOG(warningDialog));
@@ -598,6 +851,8 @@ void extractFromIsoCbk(GtkButton *button, gpointer data)
         /* if i show it before i add the children, the window ends up being not centered */
         gtk_widget_show(progressWindow);
         
+        GBLoperationCanceled = false;
+        
         gtk_tree_selection_selected_foreach(selection, extractFromIsoEachRowCbk, NULL);
         
         refreshFsView();
@@ -616,6 +871,9 @@ void extractFromIsoEachRowCbk(GtkTreeModel* model, GtkTreePath* path,
     char* fullItemName; /* with full path */
     int rc;
     GtkWidget* warningDialog;
+    
+    if(GBLoperationCanceled)
+        return;
     
     gtk_tree_model_get(model, iterator, COLUMN_HIDDEN_TYPE, &fileType, 
                                         COLUMN_FILENAME, &itemName, -1);
@@ -649,53 +907,44 @@ void extractFromIsoEachRowCbk(GtkTreeModel* model, GtkTreePath* path,
     g_free(itemName);
 }
 
-//~ gboolean isoButtonPressedCbk(GtkWidget* widget, GdkEventButton* event, gpointer user_data)
-//~ {
-    //~ if(!GBLisoPaneActive)
-    //~ /* no iso open */
-        //~ return FALSE;
+/******************************************************************************
+* isoButtonPressedCbk()
+* Make sure that a right-click on the view doesn't send the signal to the
+* widget. If it did, a selection of multiple rows would be lost.
+* I have a feeling someone did this shit in GTK just to piss on users */
+gboolean isoButtonPressedCbk(GtkWidget* isoView, GdkEventButton* event, gpointer user_data)
+{
+    if(!GBLisoPaneActive)
+    /* no iso open */
+        return FALSE;
     
-    //~ if(event->type == GDK_BUTTON_PRESS  &&  event->button == 3)
-    //~ {
-        //~ showIsoContextMenu(widget, event);
-    //~ }
+    if(event->type == GDK_BUTTON_PRESS  &&  event->button == 3)
+    {
+        /* Stop event propagation */
+        /* Would be nice if I could only stop event propagation if click was on
+        * the selection, I have to look into how that may be done, if at all */
+        return TRUE;
+    }
     
-    //~ return FALSE;
-//~ }
+    return FALSE;
+}
 
-//~ void showIsoContextMenu(GtkWidget* isoView, GdkEventButton* event)
-//~ {
-    //~ GtkWidget* menu;
-    //~ GtkWidget* menuItem;
-    //~ GtkTreeSelection* selection;
-    //~ gint numSelectedRows;
+/******************************************************************************
+* isoButtonReleasedCbk()
+* Show context menu if releasing the right mouse button */
+gboolean isoButtonReleasedCbk(GtkWidget* isoView, GdkEventButton* event, gpointer user_data)
+{
+    if(!GBLisoPaneActive)
+    /* no iso open */
+        return FALSE;
     
-    //~ selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLisoTreeView));
+    if(event->type == GDK_BUTTON_RELEASE &&  event->button == 3)
+    {
+        showIsoContextMenu(isoView, event);
+    }
     
-    //~ numSelectedRows = gtk_tree_selection_count_selected_rows(selection);
-    //~ if(numSelectedRows == 0)
-        //~ return;
-    
-    //~ menu = gtk_menu_new();
-    
-    //~ if(numSelectedRows == 1)
-    //~ {
-        //~ menuItem = gtk_image_menu_item_new_with_label(_("Rename"));
-        //~ g_signal_connect(menuItem, "activate", 
-                         //~ (GCallback)NULL, NULL);
-        //~ gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
-        //~ gtk_widget_show_all(menu);
-    //~ }
-    
-    //~ menuItem = gtk_image_menu_item_new_with_label(_("Change permissions"));
-    //~ g_signal_connect(menuItem, "activate", 
-                     //~ (GCallback)NULL, NULL);
-    //~ gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
-    //~ gtk_widget_show_all(menu);
-    
-    //~ gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-                   //~ event->button, gdk_event_get_time((GdkEvent*)event));
-//~ }
+    return FALSE;
+}
 
 /* this is called from a button and via a treeview event so don't use the parameters */
 void isoGoUpDirTreeCbk(GtkButton *button, gpointer data)
@@ -754,12 +1003,6 @@ gboolean isoKeyPressedCbk(GtkWidget* widget, GdkEventKey* event, gpointer user_d
     if(event->keyval == GDK_Delete)
     {
         deleteFromIsoCbk(NULL, NULL);
-        
-        return TRUE;
-    }
-    else if(event->keyval == GDK_F2)
-    {
-        renameSelected();
         
         return TRUE;
     }
@@ -1045,6 +1288,11 @@ gboolean openIsoCbk(GtkMenuItem* menuItem, gpointer data)
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), GTK_FILE_FILTER(nameFilter));
     
     nameFilter = gtk_file_filter_new();
+    gtk_file_filter_add_pattern(GTK_FILE_FILTER(nameFilter), "*.[mM][dD][fF]");
+    gtk_file_filter_set_name(GTK_FILE_FILTER(nameFilter), _("MDF Images"));
+    gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), GTK_FILE_FILTER(nameFilter));
+    
+    nameFilter = gtk_file_filter_new();
     gtk_file_filter_add_pattern(GTK_FILE_FILTER(nameFilter), "*");
     gtk_file_filter_set_name(GTK_FILE_FILTER(nameFilter), _("All files"));
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), GTK_FILE_FILTER(nameFilter));
@@ -1110,7 +1358,10 @@ bool operationFailed(const char* msg)
     if(response == GTK_RESPONSE_YES)
         return true;
     else
+    {
+        GBLoperationCanceled = true;
         return false;
+    }
 }
 
 void refreshIsoView(void)
@@ -1150,17 +1401,16 @@ void renameSelected(void)
         return;
     
     /* there's just one row selected but this is the easiest way to do it */
-    gtk_tree_selection_selected_foreach(selection, renameSelectedCbk, NULL);
+    gtk_tree_selection_selected_foreach(selection, renameSelectedRowCbk, NULL);
     
     /* can't put this in the callback because gtk complains */
     refreshIsoView();
 }
 
-void renameSelectedCbk(GtkTreeModel* model, GtkTreePath* path,
-                           GtkTreeIter* iterator, gpointer data)
+void renameSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
+                          GtkTreeIter* iterator, gpointer data)
 {
     GtkWidget* dialog;
-    GtkWidget* label;
     GtkWidget* nameField;
     int rc;
     char* itemName;
@@ -1177,7 +1427,7 @@ void renameSelectedCbk(GtkTreeModel* model, GtkTreePath* path,
     strcpy(fullItemName, GBLisoCurrentDir);
     strcat(fullItemName, itemName);
     
-    dialog = gtk_dialog_new_with_buttons(_("Image Information"),
+    dialog = gtk_dialog_new_with_buttons(_("Enter a new name:"),
                                          GTK_WINDOW(GBLmainWindow),
                                          GTK_DIALOG_DESTROY_WITH_PARENT,
                                          GTK_STOCK_OK,
@@ -1187,17 +1437,13 @@ void renameSelectedCbk(GtkTreeModel* model, GtkTreePath* path,
                                          NULL);
     g_signal_connect(dialog, "close", G_CALLBACK(rejectDialogCbk), NULL);
     
-    label = gtk_label_new(_("Enter a new name:"));
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), label, TRUE, TRUE, 0);
-    gtk_widget_show(label);
-    
     nameField = gtk_entry_new_with_max_length(NCHARS_FILE_ID_MAX_STORE);
     gtk_entry_set_text(GTK_ENTRY(nameField), itemName);
     gtk_entry_set_width_chars(GTK_ENTRY(nameField), 32);
     g_signal_connect(nameField, "activate", (GCallback)acceptDialogCbk, dialog);
-    
     gtk_widget_show(nameField);
     gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox), nameField, TRUE, TRUE, 0);
+    
     gtk_widget_show(dialog);
     
     rc = gtk_dialog_run(GTK_DIALOG(dialog));
@@ -1224,6 +1470,12 @@ void renameSelectedCbk(GtkTreeModel* model, GtkTreePath* path,
     gtk_widget_destroy(dialog);
     
     g_free(itemName);
+}
+
+void renameSelectedBtnCbk(GtkMenuItem *menuitem, gpointer data)
+{
+    /* because I'm lazy just call this one, it will work */
+    renameSelected();
 }
 
 void saveIso(char* filename)
@@ -1391,13 +1643,7 @@ gboolean saveIsoCbk(GtkWidget *widget, GdkEvent *event)
             
             if(regexec(&extensionRegex, nameWithExtension, 0, NULL, 0) != 0)
             /* doesn't already end with .iso */
-            {
-                printf("no match\n");
                 strcat(nameWithExtension, ".iso");
-            }
-            else
-                printf("match\n");
-            
             
             GBLappSettings.appendExtension = true;
         }
@@ -1470,6 +1716,62 @@ gboolean saveOverwriteIsoCbk(GtkWidget *widget, GdkEvent *event)
     return FALSE;
 }
 #endif
+
+void showIsoContextMenu(GtkWidget* isoView, GdkEventButton* event)
+{
+    GtkWidget* menu;
+    GtkWidget* menuItem;
+    GtkTreeSelection* selection;
+    gint numSelectedRows;
+    GtkAccelGroup* accelGroup;
+    
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLisoTreeView));
+    
+    numSelectedRows = gtk_tree_selection_count_selected_rows(selection);
+    if(numSelectedRows == 0)
+        return;
+    
+    /* have this here just so that the shortcut keys show in the context menu */
+    accelGroup = gtk_accel_group_new();
+    gtk_window_add_accel_group(GTK_WINDOW(GBLmainWindow), accelGroup);
+    
+    menu = gtk_menu_new();
+    gtk_menu_set_accel_group(GTK_MENU(menu), accelGroup);
+    
+    menuItem = gtk_image_menu_item_new_with_label(_("Rename"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)renameSelectedBtnCbk, NULL);
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Contextmenu/Rename");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    if(numSelectedRows > 1)
+        gtk_widget_set_sensitive(menuItem, FALSE);
+    
+    menuItem = gtk_image_menu_item_new_with_label(_("View"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)viewSelectedBtnCbk, NULL);
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Contextmenu/View");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    
+    menuItem = gtk_image_menu_item_new_with_label(_("Edit"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)editSelectedBtnCbk, NULL);
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Contextmenu/Edit");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    
+    menuItem = gtk_image_menu_item_new_with_label(_("Change permissions"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)changePermissionsBtnCbk, NULL);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    if(numSelectedRows > 1)
+        gtk_widget_set_sensitive(menuItem, FALSE);
+    
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+                   event->button, gdk_event_get_time((GdkEvent*)event));
+}
 
 /* this handles the ok and cancel buttons in the progress window */
 void writingProgressResponse(GtkDialog* dialog, gint arg1, gpointer user_data)

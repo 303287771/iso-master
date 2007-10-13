@@ -1,22 +1,21 @@
-# Serbian translation of ISO Master
+# Turkish translation of ISO Master
 # This file is distributed under the same license as the ISO Master package.
-# Danijel Muharemovic <majstor_dane@inbox.com>, 2007.
-# To test try sr_CS@Latn or sr_CS@latin
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: ISO Master\n"
+"Project-Id-Version: ISO Master 0.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-27 04:17-0400\n"
-"PO-Revision-Date: 2007-06-03 02:13-0500\n"
-"Last-Translator: Danijel Muharemovic <majstor_dane@inbox.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2007-06-24 00:53-0500\n"
+"Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
+"Language-Team: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../window.c:474
 msgid "      Estimated ISO Size: "
-msgstr "Proračunata veličina ISO fajla: "
+msgstr "      Tahmini Kalıp Boyutu: "
 
 #: ../isobrowser.c:1338
 #, c-format
@@ -27,392 +26,396 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Da li želite da nastavite?"
+"Devam etmek istiyor musunuz?"
 
 #: ../editfile.c:115 ../editfile.c:317
 #, c-format
 msgid "'%s' is not a regular file"
-msgstr "'%s' nije propisan fajl"
+msgstr ""
 
 #: ../isobrowser.c:139 ../isobrowser.c:1179
 msgid "(scanning for duplicate files)"
-msgstr "(pretraga za dupliranim datotekama)"
+msgstr "(benzer dosyalar taranıyor)"
 
 #: ../window.c:460
 msgid "Add"
-msgstr "Dodaj"
+msgstr "Ekle"
 
 #: ../isobrowser.c:1572
 msgid "Add extension automatically"
-msgstr "Automatski dodaj ekstenziju"
+msgstr "Otomatik olarak uzantıyı ekle"
 
 #: ../window.c:460
 msgid "Add to the ISO"
-msgstr "Dodaj u ISO"
+msgstr "ISO'ya Ekle"
 
 #: ../isobrowser.c:1284 ../isobrowser.c:1569
 msgid "All files"
-msgstr "Sve datoteke"
+msgstr "Tüm dosyalar"
 
 #: ../boot.c:334
 msgid "Boot Record Information"
-msgstr "Informacije o BOOT fajlu"
+msgstr "Önyükleyici Kayıt Bilgisi"
 
 #: ../boot.c:122
 msgid "Boot record deleted"
-msgstr "BOOT fajl izbrisan"
+msgstr "Önyükleyici kaydı silindi"
 
 #: ../boot.c:350
 #, c-format
 msgid "Boot record type: 1200KiB Floppy"
-msgstr "Vrsta BOOT fajla: 1200KiB Flopi"
+msgstr "Önyükleyici kayıt tipi: 1200KiB Floppy"
 
 #: ../boot.c:352
 #, c-format
 msgid "Boot record type: 1440KiB Floppy"
-msgstr "Vrsta BOOT fajla: 1440KiB Flopi"
+msgstr "Önyükleyici kayıt tipi: 1440 KiB Floppy"
 
 #: ../boot.c:354
 #, c-format
 msgid "Boot record type: 2880KiB Floppy"
-msgstr "Vrsta BOOT fajla: 2880KiB Flopi"
+msgstr "Önyükleyici kayıt tipi: 2880KiB Floppy"
 
 #: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
-msgstr "Vrsta BOOT fajla: Bez emulacije"
+msgstr "Önyükleyici kayıt tipi: Benzeme Yok"
 
 #: ../isobrowser.c:492 ../isobrowser.c:1754
 msgid "Change permissions"
-msgstr "Izmeni dozvole za pristup"
+msgstr ""
 
 #: ../boot.c:40
 msgid "Choose Boot Record File"
-msgstr "Izaberi BOOT fajl"
+msgstr "Önyükleyici Kayıt Dosyasını Seçin"
 
 #: ../window.c:456
 msgid "Create new directory on the ISO"
-msgstr "Kreiraj novi direktorijum u ISO-u"
+msgstr "ISO üzerinde yeni dizin oluştur"
 
 #: ../window.c:66
 msgid "Create new directory on the filesystem"
-msgstr "Kreiraj novi direktorijum u fajlsistemu"
+msgstr "Dosya sistemi üzerinde yeni dizin oluştur"
 
 #: ../settings.c:81
 msgid "Creation time:"
-msgstr "Vreme kreiranja:"
+msgstr "Oluşturma zamanı:"
 
 #: ../window.c:470
 msgid "Delete from the ISO"
-msgstr "Izbriši iz ISO-a"
+msgstr "ISO'dan sil"
 
 #: ../isobrowser.c:1747
 msgid "Edit"
-msgstr "Izmeni"
+msgstr ""
 
 #: ../settings.c:206 ../window.c:333 ../window.c:336
 msgid "Editor"
-msgstr "Uređivač"
+msgstr ""
 
 #: ../isobrowser.c:1414
 msgid "Enter a new name:"
-msgstr "Unesi novo ime:"
+msgstr "Yeni bir isim girin:"
 
 #: ../browser.c:71
 msgid "Enter name for new directory"
-msgstr "Unesi ime novog direktorijuma"
+msgstr "Yeni dizin için isim girin:"
 
 #: ../window.c:465
 msgid "Extract"
-msgstr "Ekstrakcija"
+msgstr "Çıkart"
 
 #: ../window.c:465
 msgid "Extract from the ISO"
-msgstr "Ekstraktuj iz ISO-a"
+msgstr "ISO'dan çıkart"
 
 #: ../editfile.c:219 ../isobrowser.c:207
 #, c-format
 msgid "Failed to add '%s': '%s'"
-msgstr "Neuspešno dodavanje '%s': '%s' "
+msgstr "'%s' eklenmesi başarısız oldu: '%s'"
 
 #: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
-msgstr "Neuspešno dodavanje BOOT fajla: '%s'"
+msgstr "Önyükleyici kaydının eklenmesi başarısız oldu: '%s'"
 
 #: ../isobrowser.c:355
 #, c-format
 msgid "Failed to change directory: '%s'"
-msgstr "Neuspešno menjanje direktorijuma: '%s'"
+msgstr "Dizinin değiştirilmesi başarısız oldu: '%s'"
 
 #: ../browser.c:112
 #, c-format
 msgid "Failed to create directory %s"
-msgstr "Neuspešno kreiranje direktorijuma %s"
+msgstr "Dizinin oluşturulması başarısız oldu %s"
 
 #: ../browser.c:135
 #, c-format
 msgid "Failed to create directory %s: '%s'"
-msgstr "Neuspešno kreiranje direktorijuma %s: '%s'"
+msgstr "%s dizininin oluşturulması başarısız oldu: '%s'"
 
 #: ../editfile.c:193 ../isobrowser.c:776
 #, c-format
 msgid "Failed to delete '%s': '%s'"
-msgstr "Neuspešno brisanje '%s': '%s'"
+msgstr "'%'s' in silinmesi başarısız oldu: '%s'"
 
 #: ../editfile.c:157 ../editfile.c:359 ../isobrowser.c:884
 #, c-format
 msgid "Failed to extract '%s': '%s'"
-msgstr "Neuspešna ekstrakcija '%s': '%s'"
+msgstr "'%s' in çıkartılması başarısız oldu: '%s'"
 
 #: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
-msgstr "Neuspešna ekstrakcija BOOT fajla: '%s'"
+msgstr "Önyükleyici kaydının çıkartılması başarısız oldu: '%s'"
 
 #: ../isobrowser.c:1067 ../isobrowser.c:1115
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
-msgstr "Neuspešno pokretanje bkisofs: '%s'"
+msgstr "bkisofs'nin başlatılması başarısız oldu: '%s'"
 
 #: ../fsbrowser.c:219
 #, c-format
 msgid "Failed to open directory '%s', error %d"
-msgstr "Neuspešno otvaranje direktorijuma '%s', greška %d"
+msgstr "'%s' dizininin açılması başarısız oldu, hata %d"
 
 #: ../isobrowser.c:1134
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
-msgstr "Neuspešno otvaranje ISO fajla za čitanje: '%s'"
+msgstr "ISO dosyasının okumak için açılması başarısız oldu: '%s'"
 
 #: ../isobrowser.c:1209
 #, c-format
 msgid "Failed to read directory tree: '%s'"
-msgstr "Neuspešno čitanje stabla direktorijuma: '%s'"
+msgstr "Dizin ağacının okunması başarısız oldu: '%s'"
 
 #: ../isobrowser.c:1149
 #, c-format
 msgid "Failed to read volume info: '%s'"
-msgstr "Neuspešno očitavanje informacija o veličini: '%s' "
+msgstr "Bölüm bilgisinin okunması başarısız oldu: '%s'"
 
 #: ../isobrowser.c:1443
 #, c-format
 msgid "Failed to rename '%s': %s"
-msgstr "Neupešno preimenovanje '%s': %s"
+msgstr "'%s' in yeniden adlandırılması başarısız oldu: %s"
 
 #: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
-msgstr "Neuspešna postavka %s kao BOOT fajla: '%s'"
+msgstr "%s in önyükleyici kaydı olarak ayarlanması başarısız oldu: '%s'"
 
 #: ../isobrowser.c:1515
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
-msgstr "Neuspešna zabeleška imidža u '%s': '%s'"
+msgstr "Kalıba '%s' in yazdırılması başarısız oldu: '%s'"
 
 #: ../settings.c:125
 msgid "Filename types (both recommended):"
-msgstr "Tipovi datoteka (oba preporučena)"
+msgstr "Dosya ismi tipleri (hepsi önerilir):"
 
 #: ../window.c:321
 msgid "Follow symbolic links"
-msgstr "Sledi simbolični link"
+msgstr "Sembolik bağlantıları takip edin"
 
 #: ../window.c:284
 msgid "From file: 1200KiB floppy"
-msgstr "Iz fajla: 1200KiB flopi"
+msgstr "Kaynak dosya: 1200KiB floppy"
 
 #: ../window.c:290
 msgid "From file: 1440KiB floppy"
-msgstr "Iz fajla: 1440KiB flopi"
+msgstr "Kaynak dosya: 1440KiB floppy"
 
 #: ../window.c:296
 msgid "From file: 2880KiB floppy"
-msgstr "Iz fajla: 2880KiB flopi"
+msgstr "Kaynak dosya: 2880KiB floppy"
 
 #: ../window.c:278
 msgid "From file: no emulation"
-msgstr "Iz fajla: bez emulacije"
+msgstr "Kaynak dosya: benzeme yok"
 
 #: ../isobrowser.c:794
 msgid ""
 "GUI error, deleting anything other than files and directories doesn't work"
 msgstr ""
-"GUI greška, brisanje bilo čega osim fajlova i direktorijuma nije moguće"
+"GUI hatası, hiçbirşey silinmedi aksi halde dosyalar ve dizinler çalışmaz"
 
 #: ../window.c:59 ../window.c:449
 msgid "Go back"
-msgstr "Nazad"
+msgstr "Geri git"
 
 #: ../window.c:450
 msgid "Go back up one directory on the ISO"
-msgstr "Povratak u nadređeni direktorijum u ISO-u"
+msgstr "ISO içerisinde bir üst dizine git"
 
 #: ../window.c:60
 msgid "Go back up one directory on the filesystem"
-msgstr "Povratak u nadređeni direktorijum u fajlsistemu"
+msgstr "Dosya sistemi içerisinde bir üst dizine git"
 
 #: ../isobrowser.c:1269 ../isobrowser.c:1564
 msgid "ISO Images"
-msgstr "ISO imidži"
+msgstr "ISO kalıpları"
 
 #: ../about.c:290
 msgid "ISO Master Help"
-msgstr "ISO Master Pomoć"
+msgstr "ISO Master Yardım"
 
 #: ../settings.c:65
 msgid "Image Information"
-msgstr "Informacije o imidžu"
+msgstr "Kalıp Bilgisi"
 
 #: ../settings.c:160
-#, c-format
+#, fuzzy, c-format
 msgid "Invalid publisher '%s': '%s'"
-msgstr "Pogrešan izdavač '%s': '%s'"
+msgstr "'%'s' in silinmesi başarısız oldu: '%s'"
 
 #: ../settings.c:176
-#, c-format
+#, fuzzy, c-format
 msgid "Invalid volume name '%s': '%s'"
-msgstr "Pogrešan naziv volumena '%s': %s"
+msgstr "'%s' in yeniden adlandırılması başarısız oldu: %s"
 
 #: ../boot.c:391
 #, c-format
 msgid "Is not visible on image"
-msgstr "Nije vidljivo u imidžu"
+msgstr "Kalıp üzerinde görünür değil"
 
 #: ../boot.c:389
 #, c-format
 msgid "Is visible on image as '%s'"
-msgstr "Je vidljivo u imidžu kao '%s'"
+msgstr "KAlıp üzerinde '%s' olarak görünür"
 
 #: ../isobrowser.c:696
 msgid ""
 "It seems that you have made changes to the ISO but haven't saved them. Are "
 "you sure you want to close it?"
 msgstr ""
-"Napravili ste izmene u ISO-u ali ih niste sačuvali.Da li ste sigurni da "
-"želite da zatvorite?"
+"ISO üzerinde değişiklik yapmış gibi görünüyorsunuz fakat değişiklikler "
+"kaydedilmemiş. Kapatmak istediğinizden emin misiniz?"
 
 #: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
 msgstr ""
-"Stavka koju ste izabrali nije propisna i ne moze biti uzeta kao BOOT fajl"
+"Seçili öğe düzenli bir dosya değil ve önyükleyici kaydı olarak kullanılamaz"
 
 #: ../boot.c:373 ../boot.c:380
 #, c-format
 msgid "Location: on original image at 0x%llX"
-msgstr "Lokacija: u originalnom imidžu na 0x%llX"
+msgstr "Konum: özgün kalıp üzerinde 0x%llX"
 
 #: ../boot.c:375 ../boot.c:382
 #, c-format
 msgid "Location: to be added from '%s'"
-msgstr "Lokacija: za dodavanje iz '%s'"
+msgstr "Konum: '%s' den eklenecek"
 
 #: ../isobrowser.c:1279
+#, fuzzy
 msgid "MDF Images"
-msgstr "MDF imidži"
+msgstr "ISO kalıpları"
 
 #: ../isobrowser.c:1274
 msgid "NRG Images"
-msgstr "NRG imidži"
+msgstr "NRG Kalıpları"
 
 #: ../fsbrowser.c:110 ../isobrowser.c:283
 msgid "Name"
-msgstr "Ime"
+msgstr "İsim"
 
 #: ../window.c:65 ../window.c:455
 msgid "New Directory"
-msgstr "Novi direktorijum"
+msgstr "Yeni Dizin"
 
 #: ../boot.c:149 ../boot.c:327
 msgid "No boot record read from original or set on image"
-msgstr "Ne postoji BOOT fajl u originalu niti je postavljen u imidž"
+msgstr ""
 
 #: ../boot.c:108
 msgid "No boot to delete"
-msgstr "Bez BOOT fajla za brisanje"
+msgstr "Silinecek önyükleyici yok"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
-msgstr "Molim izaberite BOOT fajl u ISO pregledniku"
+msgstr ""
+"Lütfen ISO tarayıcısından önyükleyici kaydı olarak kullnılacak dosyayı seçin"
 
 #: ../boot.c:243
 msgid "Please select no more than one file in the ISO browser"
-msgstr "Molim izaberite samo jedan BOOT fajl u ISO pregledniku"
+msgstr "Lütfen ISO tarayıcısında birden fazla dosya seçmeyin"
 
 #: ../isobrowser.c:133
 msgid "Please wait while I'm adding the selected items..."
-msgstr "Molim pričekajte dok se izabrane stavke dodaju"
+msgstr "Ben seçili öğeleri eklerken lütfen bekleyiniz..."
 
 #: ../isobrowser.c:831
 msgid "Please wait while I'm extracting the selected files..."
-msgstr "Molim pričekajte dok se odabrane stavke ekstraktuju"
+msgstr "Ben seçili öğeleri çıkarırken lütfen bekleyiniz..."
 
 #: ../isobrowser.c:1173
 msgid "Please wait while I'm reading the image..."
-msgstr "Molim pričekajte dok se imidž učitava"
+msgstr "Ben kalıbı okurken lütfen bekleyiniz..."
 
 #: ../isobrowser.c:1487
 msgid "Please wait while I'm saving the new image to disk..."
-msgstr "Molim pričekajte dok se novi imidž zapisuje na disk"
+msgstr "Ben yeni kalıbı diske kaydederken lütfen bekleyiniz..."
 
 #: ../isobrowser.c:126 ../isobrowser.c:823 ../isobrowser.c:1166
 #: ../isobrowser.c:1477
 msgid "Progress"
-msgstr "Napredak"
+msgstr "İlerleme"
 
 #: ../settings.c:109
 msgid "Publisher:"
-msgstr "Izdavač:"
+msgstr "Yayıncı:"
 
 #: ../window.c:470
 msgid "Remove"
-msgstr "Ukloni"
+msgstr "Kaldır"
 
 #: ../isobrowser.c:1731
+#, fuzzy
 msgid "Rename"
-msgstr "Preimenuj"
+msgstr "Kaldır"
 
 #: ../isobrowser.c:1553
 msgid "Save File"
-msgstr "Sačuvaj fajl"
+msgstr "Dosyayı Kaydet"
 
 #: ../boot.c:156
 msgid "Save a copy of the boot record"
-msgstr "Sačuvaj kopiju BOOT fajla"
+msgstr "Önyükleyici kaydının bir kopyasını kaydet"
 
 #: ../window.c:311
 msgid "Scan for duplicate files (slow)"
-msgstr "Pretraživanje duplih datoteka (sporo)"
+msgstr "Benzer dosyaları tara (yavaş)"
 
 #: ../window.c:218
 msgid "Show _hidden files"
-msgstr "Prikaži skrivene fajlove"
+msgstr "_Gizli dosyaları göster"
 
 #: ../fsbrowser.c:131 ../isobrowser.c:306
 msgid "Size"
-msgstr "Veličina"
+msgstr "Boyut"
 
 #: ../boot.c:363
 #, c-format
 msgid "Size: %d bytes"
-msgstr "Veličina: %d bajtova "
+msgstr "Boyut: %d byte"
 
 #: ../fsbrowser.c:270
 msgid ""
 "Skiping directory entry because cannot handle filename longer than 256 chars"
 msgstr ""
-"Poništavam unos direktorijuma jer nije moguć unos imena fajlova dužih od 256 "
-"karaktera"
+"Dizin girişi atlanıyor çünkü 256 karakterden fazla dosya ismi kullanılamaz"
 
 #: ../fsbrowser.c:288
 #, c-format
 msgid "Skiping directory entry because stat(%s) failed with %d"
-msgstr "Poništavam unos direktorijuma zbog statusa(%s) neuspelo sa %d"
+msgstr "Dizin girişi atlanıyor çünkü durum(%s) başarısız oldu %d"
 
 #: ../settings.c:244 ../window.c:385 ../window.c:388
+#, fuzzy
 msgid "Temporary directory"
-msgstr "Privremeni direktorijum"
+msgstr "Yeni Dizin"
 
+# !! this translation is incomplete
 #: ../about.c:231
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
@@ -438,78 +441,79 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'Image' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
-"ISO Master prozor je podeljen u 2 dela:\n"
-" - Gornji preglednik fajlova pokazuje fajlove i direktorijume u vašem\n"
-"računaru.\n"
-" - Donji preglednik pokazuje fajlove i direktorijume u ISO imidžu.\n"
+"ISO Master penceresi iki kısma ayrılır:\n"
+" - En üstteki dosya tarayıcı sizin makinanızdaki dosyaları ve dizinleri "
+"gösterir.\n"
+" - En alttaki dosya tarayıcı ISO kalıbındaki dosya ve dizinleri gösterir.\n"
 "\n"
-"Da bi otvorili postojeći ISO fajl kliknite na 'Imidž' a zatim na 'Otvori'.\n"
-"Za kreiranje novog ISO fajla kliknite na 'Imidž' i na 'Novi'.\n"
+"Var olan ISO dosyasını açmak için 'Kalıp' ve 'Aç' menüsünü tıklayın. Yeni "
+"bir\n"
+"ISO dosyası oluşturmak için 'Kalıp' ve 'Yeni' menüsünü tıklayın.\n"
 "\n"
-"Za dodavanje jednog ili više fajlova ili direktorijuma u ISO imidž "
-"izaberite\n"
-"ih u gornjem pregledniku i kliknite na 'Dodaj u ISO' dugme na sredini "
-"tulbara.\n"
+"Bir veya daha fazla dosya ya da dizini ISO içerisine eklemek için üst "
+"taraftaki\n"
+"dosya tarayıcıdan bunları seçin ve araç çubuğunun ortasındaki 'ISOya Ekle'\n"
+"düğmesine tıklayın.\n"
 "\n"
-"Za ekstrakciju jednog ili više fajlova ili direktorijuma iz ISO imidža "
-"izaberite\n"
-"ih u donjem pregledniku fajlova i kliknite na 'Ekstraktuj iz ISO-a' dugme u\n"
-"srednjem tulbaru.\n"
+"Bir veya daha fazla dosya ya da dizini ISO içerisinden çıkartmak için alt\n"
+"taraftaki dosya tarayıcıdan bunları seçin ve araç çubuğunun ortasındaki\n"
+"'ISO dan Çıkar' düğmesine tıklayın.\n"
 "\n"
-"Takođe možete brisati fajlove ili direktorijume iz ISO-a i kreirati nove\n"
-"direktorijume i u ISO-u i u fajlsistemu.\n"
+"Ayrıca ISO içerisindeki dosya ve dizinleri silebilir ve hem yerel dosya\n"
+"sisteminizde hem de ISO içerisinde yeni dizinler oluşturabilirsiniz .\n"
 "\n"
-"Ako izaberete neki fajl u donjem pregledniku fajlova i napravite desni klik\n"
-"mišem na njega - pojaviće vam se nove opcije.\n"
-"\n"
-"Kada napravite željene izmene u ISO imidžu, kliknite na 'Imidž' i\n"
-"'Sačuvaj kao'. Ne možete prebrisati originalni ISO.\n"
+"Yeni ISO üzerinde tüm değişiklikleri yaptıktan sonra 'Kalıp' ve 'Farklı "
+"Kaydet'\n"
+"menülerine tıklayın. Özgün ISO üzerine değişiklikleri kaydedemezsiniz.\n"
 
 #: ../window.c:272
 msgid "Use selected file on image (no emulation)"
-msgstr "Koristi odabrani fajl u imidžu (bez emulacije)"
+msgstr "Seçili dosyaları kalıpta kullan (benzeme yok)"
 
 #: ../isobrowser.c:1740
+#, fuzzy
 msgid "View"
-msgstr "Prikaži"
+msgstr "_Görünüm"
 
 #: ../settings.c:282 ../window.c:359 ../window.c:362
+#, fuzzy
 msgid "Viewer"
-msgstr "Preglednik"
+msgstr "_Görünüm"
 
 #: ../settings.c:97
 msgid "Volume name:"
-msgstr "Naziv volumena:"
+msgstr "Bölüm ismi:"
 
 #: ../settings.c:734
 msgid ""
 "You will have to close and reopen the ISO for this change to take effect"
-msgstr "Morate zatvoriti ISO i ponovo ga otvoriti da bi izmene bile vidjive"
+msgstr ""
+"Değişiklikletin etkin hale gelmesi için ISO'yu kapatıp yeniden açmanız gerek"
 
 #: ../window.c:240
 msgid "_BootRecord"
-msgstr "_BOOTfajl"
+msgstr "_Önyükleyici Kaydı"
 
 #: ../window.c:411
 msgid "_Help"
-msgstr "Po_moć"
+msgstr "_Yardım"
 
 #: ../window.c:145
 msgid "_Image"
-msgstr "_Imidž"
+msgstr "_Kalıp"
 
 #: ../window.c:420
 msgid "_Overview"
-msgstr "Kratko _uputstvo"
+msgstr "_Tanıtma"
 
 #: ../window.c:304
 msgid "_Settings"
-msgstr "_Podešavanja"
+msgstr "_Ayarlar"
 
 #: ../window.c:228
 msgid "_Sort directories first"
-msgstr "_Prvo sortiraj direktorijume"
+msgstr "_İlk olarak dizinleri sırala"
 
 #: ../window.c:203
 msgid "_View"
-msgstr "_Prikaži"
+msgstr "_Görünüm"

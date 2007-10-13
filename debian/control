@@ -8,6 +8,7 @@ Standards-Version: 3.7.2.2
 Package: isomaster
 Architecture: any
 Depends: ${shlibs:Depends}
+Suggests: mousepad
 Description: A graphical CD image editor
  You can use isomaster to:
   - add files to an image

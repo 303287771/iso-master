@@ -2,13 +2,13 @@ ISO Master
 ==========
 http://littlesvr.ca/isomaster/
 
-ISO Master is an open-source, easy to use, GUI CD image editor for Linux and BSD. Basically you can use this program to extract files from an ISO, add files to an ISO, and create bootable ISOs - all in a graphical user interface. It can open both ISO and NRG files but can only save as ISO.
+ISO Master is an open-source, easy to use, graphical CD image editor for Linux and BSD. Basically you can use this program to extract files from an ISO, add files to an ISO, and create bootable ISOs - all in a graphical user interface. It can open ISO, NRG, and some MDF files but can only save as ISO.
 
 ISO Master is based on bkisofs - a library for reading, modifying and writing ISO images.
 
 Prerequisites for Compiling from Source
 ---------------------------------------
-You need a C compiler, make and whatever packages required for compiling GTK2 applications. On ubuntu I had to install (using Synaptic): build-essential, libgtk2.0-dev and pkg-config. On Slackware I didn't have to install anything.
+You need a C compiler, make and whatever packages required for compiling GTK2 applications. On ubuntu I had to install (using Synaptic): build-essential, libgtk2.0-dev, pkg-config and gettext. On Slackware I didn't have to install anything.
 
 Compiling
 ---------

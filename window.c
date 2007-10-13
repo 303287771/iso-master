@@ -34,6 +34,12 @@ GtkWidget* GBLaddIcon;
 GtkWidget* GBLextractIcon;
 /* icon for 'delete' for iso browser */
 GtkWidget* GBLdeleteIcon2;
+/* text field for the editor setting */
+GtkWidget* GBLeditorFld;
+/* text field for the viewer setting */
+GtkWidget* GBLviewerFld;
+/* text field for the temp directory setting */
+GtkWidget* GBLtempDirFld;
 
 extern GtkWidget* GBLmainWindow;
 extern AppSettings GBLappSettings;
@@ -105,10 +111,30 @@ void buildMenu(GtkWidget* boxToPackInto)
     gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
     gtk_accel_map_add_entry("<ISOMaster>/Image/Quit", accelKey, accelModifier);
     
+    gtk_accelerator_parse("F5", &accelKey, &accelModifier);
+    closure = g_cclosure_new(G_CALLBACK(refreshBothViewsCbk), NULL, NULL);
+    gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
+    gtk_accel_map_add_entry("<ISOMaster>/View/Refresh", accelKey, accelModifier);
+    
     gtk_accelerator_parse("F1", &accelKey, &accelModifier);
     closure = g_cclosure_new(G_CALLBACK(showHelpOverviewCbk), NULL, NULL);
     gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
     gtk_accel_map_add_entry("<ISOMaster>/Help/Overview", accelKey, accelModifier);
+    
+    gtk_accelerator_parse("F2", &accelKey, &accelModifier);
+    closure = g_cclosure_new(G_CALLBACK(renameSelectedBtnCbk), NULL, NULL);
+    gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
+    gtk_accel_map_add_entry("<ISOMaster>/Contextmenu/Rename", accelKey, accelModifier);
+    
+    gtk_accelerator_parse("F3", &accelKey, &accelModifier);
+    closure = g_cclosure_new(G_CALLBACK(viewSelectedBtnCbk), NULL, NULL);
+    gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
+    gtk_accel_map_add_entry("<ISOMaster>/Contextmenu/View", accelKey, accelModifier);
+    
+    gtk_accelerator_parse("F4", &accelKey, &accelModifier);
+    closure = g_cclosure_new(G_CALLBACK(editSelectedBtnCbk), NULL, NULL);
+    gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
+    gtk_accel_map_add_entry("<ISOMaster>/Contextmenu/Edit", accelKey, accelModifier);
     /* END KEYBOARD accelerators */
     
     menuBar = gtk_menu_bar_new();
@@ -180,12 +206,14 @@ void buildMenu(GtkWidget* boxToPackInto)
     
     menu = gtk_menu_new();
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(rootMenu), menu);
+    gtk_menu_set_accel_group(GTK_MENU(menu), accelGroup);
     
     menuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_REFRESH, NULL);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
     gtk_widget_show(menuItem);
     g_signal_connect(G_OBJECT(menuItem), "activate",
                      G_CALLBACK(refreshBothViewsCbk), NULL);
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/View/Refresh");
     
     checkbox = gtk_check_menu_item_new_with_mnemonic(_("Show _hidden files"));
     if(GBLappSettings.showHiddenFilesFs)
@@ -299,6 +327,84 @@ void buildMenu(GtkWidget* boxToPackInto)
     gtk_widget_show(checkbox);
     g_signal_connect(G_OBJECT(checkbox), "activate",
                      G_CALLBACK(followSymLinksCbk), NULL);
+    
+#if GTK_MINOR_VERSION >= 6
+    icon = gtk_image_new_from_stock(GTK_STOCK_EDIT, GTK_ICON_SIZE_MENU);
+    rootSubmenu = gtk_image_menu_item_new_with_label(_("Editor"));
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(rootSubmenu), icon);
+#else
+    rootSubmenu = gtk_menu_item_new_with_label(_("Editor"));
+#endif
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), rootSubmenu);
+    gtk_widget_show(rootSubmenu);
+    
+    submenu = gtk_menu_new();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(rootSubmenu), submenu);
+    
+    menuItem = gtk_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(submenu), menuItem);
+    gtk_widget_show(menuItem);
+    g_signal_connect(G_OBJECT(menuItem), "activate",
+                     G_CALLBACK(changeEditorCbk), NULL);
+    
+    GBLeditorFld = gtk_entry_new();
+    gtk_entry_set_text(GTK_ENTRY(GBLeditorFld), GBLappSettings.editor);
+    gtk_editable_set_editable(GTK_EDITABLE(GBLeditorFld), FALSE);
+    gtk_entry_set_width_chars(GTK_ENTRY(GBLeditorFld), 30);
+    gtk_container_add(GTK_CONTAINER(menuItem), GBLeditorFld);
+    gtk_widget_show(GBLeditorFld);
+    
+#if GTK_MINOR_VERSION >= 6
+    icon = gtk_image_new_from_stock(GTK_STOCK_EDIT, GTK_ICON_SIZE_MENU);
+    rootSubmenu = gtk_image_menu_item_new_with_label(_("Viewer"));
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(rootSubmenu), icon);
+#else
+    rootSubmenu = gtk_menu_item_new_with_label(_("Viewer"));
+#endif
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), rootSubmenu);
+    gtk_widget_show(rootSubmenu);
+    
+    submenu = gtk_menu_new();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(rootSubmenu), submenu);
+    
+    menuItem = gtk_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(submenu), menuItem);
+    gtk_widget_show(menuItem);
+    g_signal_connect(G_OBJECT(menuItem), "activate",
+                     G_CALLBACK(changeViewerCbk), NULL);
+    
+    GBLviewerFld = gtk_entry_new();
+    gtk_entry_set_text(GTK_ENTRY(GBLviewerFld), GBLappSettings.viewer);
+    gtk_editable_set_editable(GTK_EDITABLE(GBLviewerFld), FALSE);
+    gtk_entry_set_width_chars(GTK_ENTRY(GBLviewerFld), 30);
+    gtk_container_add(GTK_CONTAINER(menuItem), GBLviewerFld);
+    gtk_widget_show(GBLviewerFld);
+    
+#if GTK_MINOR_VERSION >= 6
+    icon = gtk_image_new_from_stock(GTK_STOCK_DIRECTORY, GTK_ICON_SIZE_MENU);
+    rootSubmenu = gtk_image_menu_item_new_with_label(_("Temporary directory"));
+    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(rootSubmenu), icon);
+#else
+    rootSubmenu = gtk_menu_item_new_with_label(_("Temporary directory"));
+#endif
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), rootSubmenu);
+    gtk_widget_show(rootSubmenu);
+    
+    submenu = gtk_menu_new();
+    gtk_menu_item_set_submenu(GTK_MENU_ITEM(rootSubmenu), submenu);
+    
+    menuItem = gtk_menu_item_new();
+    gtk_menu_shell_append(GTK_MENU_SHELL(submenu), menuItem);
+    gtk_widget_show(menuItem);
+    g_signal_connect(G_OBJECT(menuItem), "activate",
+                     G_CALLBACK(changeTempDirCbk), NULL);
+    
+    GBLtempDirFld = gtk_entry_new();
+    gtk_entry_set_text(GTK_ENTRY(GBLtempDirFld), GBLappSettings.tempDir);
+    gtk_editable_set_editable(GTK_EDITABLE(GBLtempDirFld), FALSE);
+    gtk_entry_set_width_chars(GTK_ENTRY(GBLtempDirFld), 30);
+    gtk_container_add(GTK_CONTAINER(menuItem), GBLtempDirFld);
+    gtk_widget_show(GBLtempDirFld);
     /* END SETTINGS menu */
     
     /* HELP menu */
@@ -383,8 +489,9 @@ gboolean closeMainWindowCbk(GtkWidget *widget, GdkEvent *event)
     
     writeSettings();
     
-    printf("Quitting\n");
+    deleteTempFiles();
     
+    printf("Quitting\n");
     gtk_main_quit();
     
     /* the accelerator callback must return true */

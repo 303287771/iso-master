@@ -37,7 +37,7 @@ void addBootRecordFromFileCbk(GtkButton *button, gpointer bootRecordType)
     /* no iso open */
         return;
     
-    dialog = gtk_file_chooser_dialog_new(_("Chose Boot Record File"),
+    dialog = gtk_file_chooser_dialog_new(_("Choose Boot Record File"),
                                          NULL,
                                          GTK_FILE_CHOOSER_ACTION_OPEN,
                                          GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -240,7 +240,7 @@ void setFileAsBootRecordCbk(GtkButton *button, gpointer data)
                                         GTK_DIALOG_DESTROY_WITH_PARENT,
                                         GTK_MESSAGE_ERROR,
                                         GTK_BUTTONS_CLOSE,
-                                        _("Please select no more then one file in the ISO browser"));
+                                        _("Please select no more than one file in the ISO browser"));
         gtk_window_set_modal(GTK_WINDOW(dialog), TRUE);
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);

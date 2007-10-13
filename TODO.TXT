@@ -1,20 +1,24 @@
 ui:
--alt shortcut keys need attention (bulgarian)
--change file/dir properties (especialy creation date)
- -change permission, change permission for all selected
- -rename
- -make sure 'properties' doesn't come up when nothing selected
--edit file
--the enter key doesn't work in the save dialog
--some dialog boxes could stay up after failure for a second try (e.g. rename)
--isobrowser.c:1213 add filename tried to rename to
--add F2 rename to help window
+-drop-down list to select track - can do multitrack
+-show exec failed warnings from editor.c
+-checkboxes and lables not aligned in change permissions window
+-log bug 'file size not updated after editing a file'
+-send mail to Croatian <lokalizacija@linux.hr> for translation update
+-make progress bars smoother
 
 
 bk:
 -dos doesn't like names to start with underscores
 -add path tables, boot record to size estimate
--change created/modified dates
+-need a bk_set_warning_foo()
+-using access() to check whether a file exists is no good, target of a dead symlink will get overwritten
+-fedora7 takes forever to remangle. try either fix the algorithm or allow longer 9660 names.
+
+
+manual:
+-add_as() and extract_as()
+-get_ and set_permissions()
+-bk_set_publisher() and bk_set_vol_name() now return int
 
 
 c99 compatibility issues:
@@ -35,10 +39,12 @@ tests to run before a release:
  - starting with an existing no emulation bootable disk
 - delete config file, make sure it still works
 - add a bunch of files to an iso, delete all the files, add some more, save
+- edit some text and binary files, make sure they extract and write properly
 
 
 to package a release:
 - update the version number in the about box
+- update version in man page
 - remove -g and -DDEBUG from Makefile and bk/Makefile
 - update changelog.txt
 - update credits and credits.txt

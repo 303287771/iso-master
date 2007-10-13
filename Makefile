@@ -19,6 +19,15 @@ MYMANPATH ?= $(PREFIX)/share/man/man1
 # Where to install the .desktop file
 DESKTOPPATH ?= $(PREFIX)/share/applications
 
+# The default editor for files from the image. Users can change this. I
+# recommend you set it to a graphical text editor that is likely to be 
+# installed by default on your distribution.
+DEFAULT_EDITOR = mousepad
+
+# The default viewer for files from the image. I recommend you make it 
+# a web browser because it can display the widest range of files.
+DEFAULT_VIEWER = firefox
+
 # To disable i18n completely, uncomment the following line 
 # or define WITHOUT_NLS somewhere else.
 # This option is desired in the FreeBSD ports guidelines.
@@ -37,30 +46,34 @@ export CP      = cp
 export ECHO    = echo
 
 # -DDEBUG and -g only used during development
-CFLAGS += -Wall -pedantic -std=gnu99 `pkg-config --cflags gtk+-2.0` -DICONPATH=\"$(ICONPATH)\" -DLOCALEDIR=\"$(LOCALEDIR)\"
+CFLAGS += -Wall -pedantic -std=gnu99 -Wundef -Wcast-align -W -Wpointer-arith -Wwrite-strings -Wno-unused-parameter `pkg-config --cflags gtk+-2.0`
 ifndef WITHOUT_NLS
 	CFLAGS += -DENABLE_NLS
 endif
 
+CPPFLAGS +=  -DICONPATH=\"$(ICONPATH)\" -DLOCALEDIR=\"$(LOCALEDIR)\" -DDEFAULT_EDITOR=\"$(DEFAULT_EDITOR)\" -DDEFAULT_VIEWER=\"$(DEFAULT_VIEWER)\"
+
 # the _FILE_OFFSET_BITS=64 is to enable stat() for large files
-CPPFLAGS = -D_FILE_OFFSET_BITS=64
+CPPFLAGS += -D_FILE_OFFSET_BITS=64
 
-OBJECTS = isomaster.o window.o browser.o fsbrowser.o isobrowser.o error.o about.o settings.o boot.o
+OBJECTS = isomaster.o window.o browser.o fsbrowser.o isobrowser.o error.o about.o settings.o boot.o editfile.o
 
-all: isomaster translations isomaster.desktop
+all: translations isomaster.desktop isomaster
 
 isomaster: $(OBJECTS) lib iniparser
-	$(CC) $(OBJECTS) bk/bk.a iniparser-2.15/libiniparser.a $(CFLAGS) $(CPPFLAGS) `pkg-config --libs gtk+-2.0`-o isomaster
+	@echo 'Linking isomaster'
+	@$(CC) $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a $(CFLAGS) $(CPPFLAGS) `pkg-config --libs gtk+-2.0` -o isomaster
 
 # static pattern rule
 $(OBJECTS): %.o: %.c bk/bk.h Makefile
-	$(CC) $< $(CFLAGS) $(CPPFLAGS) -c -o $@
+	@echo 'Compiling' $<
+	@$(CC) $< $(CFLAGS) $(CPPFLAGS) -c -o $@
 
 lib:
 	cd bk && $(MAKE)
 
 iniparser:
-	cd iniparser-2.15 && $(MAKE)
+	cd iniparser-2.17 && $(MAKE)
 
 translations:
 ifndef WITHOUT_NLS
@@ -73,7 +86,7 @@ isomaster.desktop: isomaster.desktop.src
 
 clean: 
 	cd bk && $(MAKE) clean
-	cd iniparser-2.15 && $(MAKE) clean
+	cd iniparser-2.17 && $(MAKE) clean
 ifndef WITHOUT_NLS
 	cd po && $(MAKE) clean
 endif

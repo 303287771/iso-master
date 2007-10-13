@@ -1,3 +1,12 @@
+isomaster (1.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Now suggest 'mousepad' package
+  * Update menu file for section changes
+  * Fix rules file to not ignore errors from 'make clean'
+
+ -- David Johnson <dj@david-web.co.uk>  Sat, 13 Oct 2007 22:25:46 +0100
+
 isomaster (1.0-1) unstable; urgency=low
 
   * New upstream release

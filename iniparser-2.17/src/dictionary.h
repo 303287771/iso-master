@@ -72,7 +72,7 @@ typedef struct _dictionary_ {
   by comparing the key itself in last resort.
  */
 /*--------------------------------------------------------------------------*/
-unsigned dictionary_hash(char * key);
+unsigned dictionary_hash(const char * key);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -183,7 +183,7 @@ double dictionary_getdouble(dictionary * d, char * key, double def);
   the dictionary without value.
  */
 /*--------------------------------------------------------------------------*/
-void dictionary_set(dictionary * vd, char * key, char * val);
+void dictionary_set(dictionary * vd, const char * key, const char * val);
 
 /*-------------------------------------------------------------------------*/
 /**
@@ -240,8 +240,5 @@ void dictionary_setdouble(dictionary * d, char * key, double val);
  */
 /*--------------------------------------------------------------------------*/
 void dictionary_dump(dictionary * d, FILE * out);
-
-/* this one's not declared when compiled with -pedantic -std=c99: */
-//char *strdup(const char *s);
 
 #endif

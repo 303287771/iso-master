@@ -9,7 +9,8 @@
 * Andrew Smith, http://littlesvr.ca/misc/contactandrew.php
 *
 * Contributors:
-* 
+* Henrique Pinto
+* - fixed bug that caused crash in makeNewPathFromString()
 ******************************************************************************/
 
 #include <stdio.h>
@@ -24,10 +25,59 @@
 #include "bkPath.h"
 #include "bkMangle.h"
 
+/******************************************************************************
+* nameIsValid9660()
+* Checks each character in name to see whether it's allowed in the more strict
+* ISO9660 fields.
+* */
+bool nameIsValid9660(const char* name)
+{
+    int count;
+    int nameLen;
+    
+    nameLen = strlen(name);
+    
+    for(count = 0; count < nameLen; count++)
+    {
+        if(!charIsValid9660(name[count]))
+            return false;
+    }
+    
+    return true;
+}
+
+bool findBaseByNewPath(NewPath* path, BkDir* tree, BkFileBase** base)
+{
+    BkDir* parentDir;
+    bool dirFound;
+    BkFileBase* child;
+    
+    /* parent directory */
+    path->numChildren--;
+    dirFound = findDirByNewPath(path, tree, &parentDir);
+    path->numChildren++;
+    if(!dirFound)
+        return false;
+    
+    child = parentDir->children;
+    while(child != NULL)
+    {
+        if(strcmp(child->name, path->children[path->numChildren - 1]) == 0)
+        {
+            *base = child;
+            return true;
+        }
+        
+        child = child->next;
+    }
+    
+    return false;
+}
+
 bool findDirByNewPath(const NewPath* path, BkDir* tree, BkDir** dir)
 {
     bool dirFound;
-    int count;
+    unsigned count;
     BkFileBase* child;
     
     *dir = tree;
@@ -53,7 +103,6 @@ bool findDirByNewPath(const NewPath* path, BkDir* tree, BkDir** dir)
         if(!dirFound)
             return false;
     }
-    /* END FIND dir to add to */
     
     return true;
 }
@@ -90,7 +139,7 @@ void freeDirToWriteContents(DirToWrite* dir)
 
 void freePathContents(NewPath* path)
 {
-    int count;
+    unsigned count;
     
     for(count = 0; count < path->numChildren; count++)
     {
@@ -165,12 +214,13 @@ int makeNewPathFromString(const char* strPath, NewPath* pathPath)
     int pathStrLen;
     
     pathStrLen = strlen(strPath);
+    pathPath->numChildren = 0;
+    pathPath->children = NULL;
     
     if(strPath[0] != '/')
         return BKERROR_MISFORMED_PATH;
     
     /* count number of children */
-    pathPath->numChildren = 0;
     for(count = 1; count < pathStrLen; count++)
     {
         if(strPath[count] != '/' && strPath[count - 1] == '/')
@@ -187,7 +237,7 @@ int makeNewPathFromString(const char* strPath, NewPath* pathPath)
     if(pathPath->children == NULL)
         return BKERROR_OUT_OF_MEMORY;
     
-    int numChildrenDone = 0;
+    unsigned numChildrenDone = 0;
     int nextChildLen = 0;
     const char* nextChild = &(strPath[1]);
     for(count = 1; count <= pathStrLen; count++)
