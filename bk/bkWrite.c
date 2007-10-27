@@ -17,13 +17,16 @@
 * unsutable for anything else.
 ******************************************************************************/
 
-#include <unistd.h>
+#ifndef WIN32
+    #include <strings.h>
+#else
+    #define _CRT_SECURE_NO_WARNINGS 1
+#endif
 #include <string.h>
 #include <time.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#include <strings.h>
 
 #include "bk.h"
 #include "bkInternal.h"
@@ -76,7 +79,7 @@ int bk_write_image(const char* newImagePathAndName, VolInfo* volInfo,
     
     /* because mangleDir works on dir's children i need to 
     * copy the root manually */
-    bzero(&newTree, sizeof(DirToWrite));
+    memset(&newTree, 0, sizeof(DirToWrite));
     newTree.base.posixFileMode = volInfo->dirTree.base.posixFileMode;
     
     printf("mangling\n");fflush(NULL);
@@ -187,7 +190,7 @@ int bk_write_image(const char* newImagePathAndName, VolInfo* volInfo,
         }
         else
         {
-            srcFile = open(volInfo->bootRecordPathAndName, O_RDONLY);
+            srcFile = open(volInfo->bootRecordPathAndName, O_RDONLY, 0);
             if(srcFile == -1)
             {
                 freeDirToWriteContents(&newTree);
@@ -404,18 +407,21 @@ int bk_write_image(const char* newImagePathAndName, VolInfo* volInfo,
 * */
 int bootInfoTableChecksum(int oldImage, FileToWrite* file, unsigned* checksum)
 {
+    int numTrailingBytes; /* to make sure the file size is divisible by 4 */
     ssize_t rc;
     int rc2;
     int srcFile;
     unsigned char* contents;
     unsigned count;
     
-    if(file->size % 4 != 0)
-        return BKERROR_WRITE_BOOT_FILE_4;
+    numTrailingBytes = file->size % 4;
     
-    contents = malloc(file->size);
+    contents = malloc(file->size + numTrailingBytes);
     if(contents == NULL)
         return BKERROR_OUT_OF_MEMORY;
+    
+    /* make sure the extra bytes i added are 0s */
+    memset(contents + file->size, 0, numTrailingBytes);
     
     if(file->onImage)
     /* read file from original image */
@@ -432,7 +438,7 @@ int bootInfoTableChecksum(int oldImage, FileToWrite* file, unsigned* checksum)
     else
     /* read file from fs */
     {
-        srcFile = open(file->pathAndName, O_RDONLY);
+        srcFile = open(file->pathAndName, O_RDONLY, 0);
         if(srcFile == -1)
         {
             free(contents);
@@ -1138,7 +1144,7 @@ int writeElToritoBootCatalog(VolInfo* volInfo,
     unsigned char buffer[NBYTES_LOGICAL_BLOCK];
     int rc;
     
-    bzero(buffer, NBYTES_LOGICAL_BLOCK);
+    memset(buffer, 0, NBYTES_LOGICAL_BLOCK);
     
     if(wcSeekTell(volInfo) % NBYTES_LOGICAL_BLOCK != 0)
     /* file pointer not at sector boundary */
@@ -1204,7 +1210,7 @@ int writeElToritoVd(VolInfo* volInfo, off_t* bootCatalogSectorNumberOffset)
     char buffer[NBYTES_LOGICAL_BLOCK];
     int rc;
     
-    bzero(buffer, NBYTES_LOGICAL_BLOCK);
+    memset(buffer, 0, NBYTES_LOGICAL_BLOCK);
     
     if(wcSeekTell(volInfo) % NBYTES_LOGICAL_BLOCK != 0)
     /* file pointer not at sector boundary */
@@ -1321,7 +1327,7 @@ int writeFileContents(VolInfo* volInfo, DirToWrite* dir, int filenameTypes)
                     FILETW_PTR(child)->size = statStruct.st_size;
                     /* UPDATE the file's size, in case it's changed since we added it */
                     
-                    srcFile = open(FILETW_PTR(child)->pathAndName, O_RDONLY);
+                    srcFile = open(FILETW_PTR(child)->pathAndName, O_RDONLY, 0);
                     if(srcFile == -1)
                         return BKERROR_OPEN_READ_FAILED;
                     
@@ -1357,7 +1363,7 @@ int writeFileContents(VolInfo* volInfo, DirToWrite* dir, int filenameTypes)
                 unsigned char bootInfoTable[56];
                 unsigned checksum;
                 
-                bzero(bootInfoTable, 56);
+                memset(bootInfoTable, 0, 56);
                 
                 /* go to the offset in the file where the boot info table is */
                 wcSeekSet(volInfo, child->extentNumber * 
@@ -1457,12 +1463,12 @@ int writeFileContents(VolInfo* volInfo, DirToWrite* dir, int filenameTypes)
 }
 
 /* field size must be even. !!check all calls to make sure */
-int writeJolietStringField(VolInfo* volInfo, const char* name, int fieldSize)
+int writeJolietStringField(VolInfo* volInfo, const char* name, size_t fieldSize)
 {
     char jolietName[512]; /* don't see why would ever want 
                           * to write a longer one */
     int srcCount;
-    int destCount;
+    size_t destCount;
     int rc;
     
     srcCount = 0;
@@ -1498,10 +1504,10 @@ int writeJolietStringField(VolInfo* volInfo, const char* name, int fieldSize)
 int writeLongNM(VolInfo* volInfo, BaseToWrite* node)
 {
     off_t startPos;
-    int fullNameLen;
+    size_t fullNameLen;
     unsigned char CErecord[28];
     bool fitsInOneNM;
-    int firstNMlen;
+    size_t firstNMlen;
     off_t endPos;
     int rc;
     int lenOfCE;
@@ -1855,7 +1861,7 @@ int writeRockER(VolInfo* volInfo)
     return 1;
 }
 
-int writeRockNM(VolInfo* volInfo, char* name, int nameLen, bool doesContinue)
+int writeRockNM(VolInfo* volInfo, char* name, size_t nameLen, bool doesContinue)
 {
     int rc;
     char recordStart[5];
@@ -1925,7 +1931,7 @@ int writeRockPX(VolInfo* volInfo, unsigned posixFileMode, bool isADir)
     /* END POSIX file links */
     
     /* posix file user id, posix file group id */
-    bzero(&(record[20]), 16);
+    memset(&(record[20]), 0, 16);
     
     rc = wcWrite(volInfo, (char*)record, 36);
     if(rc <= 0)
@@ -1936,12 +1942,12 @@ int writeRockPX(VolInfo* volInfo, unsigned posixFileMode, bool isADir)
 
 int writeRockSL(VolInfo* volInfo, SymLinkToWrite* symlink, bool doWrite)
 {
-    int stringCount;
-    int targetLen;
-    int numBytesNeeded;
-    int numBytesToSkip;
+    size_t stringCount;
+    size_t targetLen;
+    size_t numBytesNeeded;
+    size_t numBytesToSkip;
     unsigned char* record;
-    int recordCount;
+    size_t recordCount;
     int rc;
     
     targetLen = strlen(symlink->target);
@@ -1952,7 +1958,6 @@ int writeRockSL(VolInfo* volInfo, SymLinkToWrite* symlink, bool doWrite)
     stringCount = 0;
     while(stringCount < targetLen)
     {
-        int numBytesToSkip;
         char* nextSlash;
         
         if(symlink->target[stringCount] == '/')
@@ -1993,7 +1998,7 @@ int writeRockSL(VolInfo* volInfo, SymLinkToWrite* symlink, bool doWrite)
     }
     
     if(!doWrite)
-        return 5 + numBytesNeeded;
+        return (int)(5 + numBytesNeeded);
     
     if(numBytesNeeded > NCHARS_SYMLINK_TARGET_MAX - 1)
         return BKERROR_SYMLINK_TARGET_TOO_LONG;
@@ -2014,7 +2019,6 @@ int writeRockSL(VolInfo* volInfo, SymLinkToWrite* symlink, bool doWrite)
     recordCount = 5;
     while(stringCount < targetLen)
     {
-        int numBytesToSkip;
         char* nextSlash;
         
         if(symlink->target[stringCount] == '/')
@@ -2079,7 +2083,7 @@ int writeRockSL(VolInfo* volInfo, SymLinkToWrite* symlink, bool doWrite)
     
     free(record);
 
-    return 5 + numBytesNeeded;
+    return (int)(5 + numBytesNeeded);
 }
 
 /* This doesn't need support for CE because it's only written in one place,
@@ -2156,13 +2160,13 @@ int writeVolDescriptor(VolInfo* volInfo, off_t rootDrLocation,
                        time_t creationTime, bool isPrimary)
 {
     int rc;
-    int count;
+    size_t count;
     
     unsigned char byte;
     unsigned char aString[129];
     unsigned anUnsigned;
     unsigned short anUnsignedShort;
-    size_t currPos;
+    off_t currPos;
     
     /* VOLUME descriptor type */
     if(isPrimary)

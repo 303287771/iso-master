@@ -12,10 +12,11 @@
 * 
 ******************************************************************************/
 
-#include <stdbool.h>
+#ifdef WIN32
+    #define _CRT_SECURE_NO_WARNINGS 1
+#endif
 #include <stdlib.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <stdio.h>
@@ -63,7 +64,7 @@ int bk_extract_boot_record(VolInfo* volInfo, const char* destPathAndName,
         }
         else
         {
-            srcFile = open(volInfo->bootRecordOnImage->pathAndName, O_RDONLY);
+            srcFile = open(volInfo->bootRecordOnImage->pathAndName, O_RDONLY, 0);
             if(srcFile == -1)
                 return BKERROR_OPEN_READ_FAILED;
             srcFileWasOpened = true;
@@ -80,7 +81,7 @@ int bk_extract_boot_record(VolInfo* volInfo, const char* destPathAndName,
         }
         else
         {
-            srcFile = open(volInfo->bootRecordPathAndName, O_RDONLY);
+            srcFile = open(volInfo->bootRecordPathAndName, O_RDONLY, 0);
             if(srcFile == -1)
                 return BKERROR_OPEN_READ_FAILED;
             srcFileWasOpened = true;
@@ -355,7 +356,8 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     unsigned destFilePerms;
     int destFile; /* returned by open() */
     int rc;
-    
+    struct stat statStruct;
+
     if(srcFileInTree->onImage)
     {
         srcFile = volInfo->imageForReading;
@@ -364,14 +366,12 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     }
     else
     {
-        srcFile = open(srcFileInTree->pathAndName, O_RDONLY);
+        srcFile = open(srcFileInTree->pathAndName, O_RDONLY, 0);
         if(srcFile == -1)
             return BKERROR_OPEN_READ_FAILED;
         srcFileWasOpened = true;
         
         /* UPDATE the file's size, in case it's changed since we added it */
-        struct stat statStruct;
-        
         rc = stat(srcFileInTree->pathAndName, &statStruct);
         if(rc != 0)
             return BKERROR_STAT_FAILED;
@@ -449,6 +449,7 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     return 1;
 }
 
+// !!WIN32 windows doesn't have symlimks
 int extractSymlink(BkSymLink* srcLink, const char* destDir, 
                    const char* nameToUse)
 {

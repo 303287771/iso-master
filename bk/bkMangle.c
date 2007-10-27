@@ -13,11 +13,15 @@
 * - most of the filename mangling code
 ******************************************************************************/
 
+#ifndef WIN32
+    #include <strings.h>
+#else
+    #define _CRT_SECURE_NO_WARNINGS 1
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <sys/types.h>
-#include <strings.h>
 
 #include "bk.h"
 #include "bkInternal.h"
@@ -105,7 +109,8 @@ int mangleDir(const BkDir* origDir, DirToWrite* newDir, int filenameTypes)
     bool haveCollisions;
     int numTimesTried;
     int num9660Collisions;
-    char newName9660[13]; /* for remangling */
+    const int name9660len = 13;
+    char newName9660[name9660len]; /* for remangling */
     int numJolietCollisions;
     char newNameJoliet[NCHARS_FILE_ID_MAX_JOLIET]; /* for remangling */
     
@@ -127,7 +132,7 @@ int mangleDir(const BkDir* origDir, DirToWrite* newDir, int filenameTypes)
             if(*currentNewChild == NULL)
                 return BKERROR_OUT_OF_MEMORY;
             
-            bzero(*currentNewChild, sizeof(DirToWrite));
+            memset(*currentNewChild, 0, sizeof(DirToWrite));
         }
         else if( IS_REG_FILE(currentOrigChild->posixFileMode) )
         {
@@ -135,7 +140,7 @@ int mangleDir(const BkDir* origDir, DirToWrite* newDir, int filenameTypes)
             if(*currentNewChild == NULL)
                 return BKERROR_OUT_OF_MEMORY;
             
-            bzero(*currentNewChild, sizeof(FileToWrite));
+            memset(*currentNewChild, 0, sizeof(FileToWrite));
         }
         else if( IS_SYMLINK(currentOrigChild->posixFileMode) )
         {
@@ -143,18 +148,18 @@ int mangleDir(const BkDir* origDir, DirToWrite* newDir, int filenameTypes)
             if(*currentNewChild == NULL)
                 return BKERROR_OUT_OF_MEMORY;
             
-            bzero(*currentNewChild, sizeof(SymLinkToWrite));
+            memset(*currentNewChild, 0, sizeof(SymLinkToWrite));
         }
         else
             return BKERROR_NO_SPECIAL_FILES;
         
         if(currentOrigChild->original9660name[0] != '\0')
-            strcpy((*currentNewChild)->name9660, currentOrigChild->original9660name);
+            strncpy((*currentNewChild)->name9660, currentOrigChild->original9660name, NBYTES_FILE_ID_MAX_9660);
         else
             shortenNameFor9660(currentOrigChild->name, (*currentNewChild)->name9660);
         
         if(filenameTypes | FNTYPE_ROCKRIDGE)
-            strcpy((*currentNewChild)->nameRock, currentOrigChild->name);
+            strncpy((*currentNewChild)->nameRock, currentOrigChild->name, NCHARS_FILE_ID_MAX_STORE);
         else
             (*currentNewChild)->nameRock[0] = '\0';
         

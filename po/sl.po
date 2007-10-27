@@ -1,25 +1,23 @@
-# Albanian translation of ISO Master
+# Slovenian translation of ISO Master
 # This file is distributed under the same license as the ISO Master package.
 #
-# Besnik Bleta <besnik@spymac.com>, 2006.
+# Uros Golob <na1pir@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: isomaster\n"
+"Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-26 23:45-0400\n"
-"PO-Revision-Date: 2007-08-14 14:01+0200\n"
-"Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
-"Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2007-09-09 15:59+0200\n"
+"Last-Translator: Uros Golob <na1pir@gmail.com>\n"
+"Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Albanian\n"
-"X-Poedit-Country: ALBANIA\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../window.c:474
 msgid "      Estimated ISO Size: "
-msgstr "      Madhësi e Parashikuar për ISO-n: "
+msgstr "      Ocenjena velikost ISO slike: "
 
 #: ../isobrowser.c:1379
 #, c-format
@@ -30,88 +28,88 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Dëshironi të vazhdohet?"
+"Želiš nadaljevati?"
 
 #: ../editfile.c:182 ../editfile.c:394
 #, c-format
 msgid "'%s' is not a regular file"
-msgstr "'%s' nuk është kartelë e rregullt"
+msgstr "'%s' datoteka ni pravilna"
 
 #: ../isobrowser.c:141 ../isobrowser.c:1194
 msgid "(scanning for duplicate files)"
-msgstr "(po kontrolloj për kartela që gjenden dy herë)"
+msgstr "(iščem podvojene datoteke)"
 
 #: ../window.c:460
 msgid "Add"
-msgstr "Shto"
+msgstr "Dodaj"
 
 #: ../isobrowser.c:1616
 msgid "Add extension automatically"
-msgstr "Shtoji prapashtesë vetvetiu"
+msgstr "Samodejno dodaj končnico"
 
 #: ../window.c:460
 msgid "Add to the ISO"
-msgstr "Shtoje te ISO"
+msgstr "Dodaj datoteki ISO"
 
 #: ../isobrowser.c:1325 ../isobrowser.c:1613
 msgid "All files"
-msgstr "Tërë kartelat "
+msgstr "Vse datoteke"
 
 #: ../boot.c:334
 msgid "Boot Record Information"
-msgstr "Të dhëna Regjistrimi Nisjeje"
+msgstr "Informacije o zagonskem zapisu"
 
 #: ../boot.c:122
 msgid "Boot record deleted"
-msgstr "Regjistrimi i nisjes u fshi"
+msgstr "Zagonski zapis odstranjen"
 
 #: ../boot.c:350
 #, c-format
 msgid "Boot record type: 1200KiB Floppy"
-msgstr "Tip regjistrimi nisjeje: Disketë 1200KiB"
+msgstr "Tip zagonskega zapisa: 1200KiB Floppy"
 
 #: ../boot.c:352
 #, c-format
 msgid "Boot record type: 1440KiB Floppy"
-msgstr "Tip regjistrimi nisjeje: Disketë 1440KiB"
+msgstr "Tip zagonskega zapisa: 1440KiB Floppy"
 
 #: ../boot.c:354
 #, c-format
 msgid "Boot record type: 2880KiB Floppy"
-msgstr "Tip regjistrimi nisjeje: Disketë 2880KiB"
+msgstr "Tip zagonskega zapisa: 2880KiB Floppy"
 
 #: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
-msgstr "Tip regjistrimi nisjeje: Pa Emulim"
+msgstr "Tip zagonskega zapisa: Brez Emuliranja"
 
 #: ../isobrowser.c:500 ../isobrowser.c:1792
 msgid "Change permissions"
-msgstr "Ndryshoni lejet"
+msgstr "Spremni dovoljenja"
 
 #: ../boot.c:40
 msgid "Choose Boot Record File"
-msgstr "Zgjidhni Kartelë Regjistrimi Nisjeje"
+msgstr "Izberi zagonski zapis"
 
 #: ../window.c:456
 msgid "Create new directory on the ISO"
-msgstr "Krijo drejtori të re në ISO-n"
+msgstr "Ustvari novo kazalo na ISO sliki"
 
 #: ../window.c:66
 msgid "Create new directory on the filesystem"
-msgstr "Krijo drejtori të re në sistem kartelash"
+msgstr "Ustvari novo kazalo na datotečnem sistemu"
 
 #: ../settings.c:81
 msgid "Creation time:"
-msgstr "Koha e krijimit:"
+msgstr "Čas izdelave:"
 
 #: ../window.c:470
 msgid "Delete from the ISO"
-msgstr "Fshij prej ISO-s"
+msgstr "Odstrani iz ISO slike"
 
 #: ../isobrowser.c:1785
 msgid "Edit"
-msgstr "Përpunim"
+msgstr "Uredi"
 
 #: ../editfile.c:83
 msgid "Edit failed, please check Settings/Editor"
@@ -119,312 +117,305 @@ msgstr ""
 
 #: ../settings.c:206 ../window.c:333 ../window.c:336
 msgid "Editor"
-msgstr "Përpunues"
+msgstr "Urejevalnik"
 
 #: ../isobrowser.c:1458
 msgid "Enter a new name:"
-msgstr "Jepni një emër të ri:"
+msgstr "Vnesi novo ime"
 
 #: ../browser.c:71
 msgid "Enter name for new directory"
-msgstr "Jepni emër për drejtorinë tuaj të re"
+msgstr "Vnesi ime za novo kazalo"
 
 #: ../window.c:465
 msgid "Extract"
-msgstr "Përfto"
+msgstr "Izvleči"
 
 #: ../window.c:465
 msgid "Extract from the ISO"
-msgstr "Përfto prej CD-së"
+msgstr "Izvleči iz ISO slike"
 
 #: ../editfile.c:285 ../isobrowser.c:214
 #, c-format
 msgid "Failed to add '%s': '%s'"
-msgstr "Dështova në shtimin e '%s': '%s'"
+msgstr "Neuspečno dodajanje '%s': '%s'"
 
 #: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
-msgstr "Dështova në shtim regjistrimi nisjeje: '%s'"
+msgstr "Neuspešno dodan zagonski zapis '%s'"
 
 #: ../isobrowser.c:363
 #, c-format
 msgid "Failed to change directory: '%s'"
-msgstr "Dështova në ndryshimin e drejtorisë: '%s'"
+msgstr "Neuspešno spremenjeno kazalo: '%s'"
 
 #: ../browser.c:112
 #, c-format
 msgid "Failed to create directory %s"
-msgstr "Dështova në krijimin e drejtorisë %s"
+msgstr "Neuspešno ustvarjeno kazalo %s"
 
 #: ../browser.c:135
 #, c-format
 msgid "Failed to create directory %s: '%s'"
-msgstr "Dështova në krijimin e drejtorisë %s: '%s'"
+msgstr "Neuspešno ustvarjeno kazalo %s: '%s'"
 
 #: ../editfile.c:259 ../isobrowser.c:786
 #, c-format
 msgid "Failed to delete '%s': '%s'"
-msgstr "Dështova në fshirjen e '%s': '%s'"
+msgstr "Neuspešno odstranjevanje '%s': '%s'"
 
 #: ../editfile.c:224 ../editfile.c:436 ../isobrowser.c:899
 #, c-format
 msgid "Failed to extract '%s': '%s'"
-msgstr "Dështova në përftimin e '%s': '%s'"
+msgstr "Neuspešno izvlečen '%s': '%s'"
 
 #: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
-msgstr "Dështova në përftimin e regjistrimit të nisjes: '%s'"
+msgstr "Neuspešen pri izvlečevanju zagonskega zapisa: '%s'"
 
 #: ../isobrowser.c:1082 ../isobrowser.c:1130
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
-msgstr "Dështova në gatitjen e bkisofs-it: '%s'"
+msgstr "Neuspešno zagnan bkisofs: '%s'"
 
 #: ../fsbrowser.c:219
 #, c-format
 msgid "Failed to open directory '%s', error %d"
-msgstr "Dështova në hapjen e drejtorisë '%s', gabim %d"
+msgstr "Neuspešno odpiranje kazala '%s', napaka %d"
 
 #: ../isobrowser.c:1149
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
-msgstr "Dështova në hapjen e kartelës iso për lexim: '%s'"
+msgstr "Neuspešen pri odpiranju Iso slike za branje: '%s'"
 
 #: ../isobrowser.c:1224
 #, c-format
 msgid "Failed to read directory tree: '%s'"
-msgstr "Dështova në leximin e pemës së drejtorisë: '%s'"
+msgstr "Neuspešno branje kazalčnega drevesa: '%s'"
 
 #: ../isobrowser.c:1164
 #, c-format
 msgid "Failed to read volume info: '%s'"
-msgstr "Dështova në leximin e të dhënave të vëllimit: '%s'"
+msgstr "Neuspešno branje informacij zbirčne naprave: '%s'"
 
 #: ../isobrowser.c:1487
 #, c-format
 msgid "Failed to rename '%s': %s"
-msgstr "Dështova në riemërtimin e '%s': %s"
+msgstr "Neuspešno preimenovanje '%s': %s"
 
 #: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
-msgstr "Dështova në caktimin e %s si regjistrim nisjeje: '%s'"
+msgstr "Nastavljanje %s za zagonski zapis: '%s' neuspešno!"
 
 #: ../isobrowser.c:1559
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
-msgstr "Dështova në shkrimin e pamjes te '%s': '%s'"
+msgstr "Neuspešen zapis slike na '%s': '%s'"
 
 #: ../settings.c:125
 msgid "Filename types (both recommended):"
-msgstr "Tipe emërkartelash (të këshilluara, që të dyja ):"
+msgstr "Tipi datotek (priporočljiva):"
 
 #: ../window.c:321
 msgid "Follow symbolic links"
-msgstr "Ndiq lidhje simbolike"
+msgstr "Sledi bližnicam"
 
 #: ../window.c:284
 msgid "From file: 1200KiB floppy"
-msgstr "Prej kartele: disketë 1200KiB"
+msgstr "Iz datoteke: 1200KiB floppy"
 
 #: ../window.c:290
 msgid "From file: 1440KiB floppy"
-msgstr "Prej kartele: disketë 1440KiB"
+msgstr "Iz datoteke: 1440KiB floppy"
 
 #: ../window.c:296
 msgid "From file: 2880KiB floppy"
-msgstr "Prej kartele: disketë 2880KiB"
+msgstr "Iz datoteke: 2880KiB floppy"
 
 #: ../window.c:278
 msgid "From file: no emulation"
-msgstr "Prej kartele: pa emulim"
+msgstr "Iz datoteke: brez emuliranja"
 
 #: ../isobrowser.c:804
 msgid ""
 "GUI error, deleting anything other than files and directories doesn't work"
 msgstr ""
-"Gabim GUI, fshirja e çfarëdo gjëje tjetër, hiq kartela dhe drejtori, "
-"s'funksionon"
+"Napaka uporabniškega vmesnika, odstranjevanje vsega razen datotek in kazal "
+"ne deluje"
 
 #: ../window.c:59 ../window.c:449
 msgid "Go back"
-msgstr "Shko prapa"
+msgstr "Nazaj"
 
 #: ../window.c:450
 msgid "Go back up one directory on the ISO"
-msgstr "Shko sipër te ISO një drejtori"
+msgstr "Nazaj za eno kazalo v sliki ISO"
 
 #: ../window.c:60
 msgid "Go back up one directory on the filesystem"
-msgstr "Shko sipër te sistem kartelash një drejtori"
+msgstr "Nazaj za eno kaazalo v datotečnem sistemu"
 
 #: ../isobrowser.c:1310 ../isobrowser.c:1608
 msgid "ISO Images"
-msgstr "Pamje ISO"
+msgstr "ISO slike"
 
 #: ../about.c:327
 msgid "ISO Master Help"
-msgstr "Ndihmë për ISO Master"
+msgstr "ISO Master Pomoč"
 
 #: ../settings.c:65
 msgid "Image Information"
-msgstr "Të dhëna Pamjeje "
+msgstr "Informacije o sliki"
 
 #: ../settings.c:160
 #, c-format
 msgid "Invalid publisher '%s': '%s'"
-msgstr "Botues i pavlefshëm '%s': '%s'"
+msgstr "Neveljaven založnik '%s': '%s'"
 
 #: ../settings.c:176
 #, c-format
 msgid "Invalid volume name '%s': '%s'"
-msgstr "Emër vëllimi i pavlefshëm '%s': '%s'"
+msgstr "Neveljavno ime datotečne naprave '%s': '%s'"
 
 #: ../boot.c:391
 #, c-format
 msgid "Is not visible on image"
-msgstr "Nuk është i dukshëm në pamje"
+msgstr "Ni vidno na sliki"
 
 #: ../boot.c:389
 #, c-format
 msgid "Is visible on image as '%s'"
-msgstr "Është e dukshme si '%s' te pamja"
+msgstr "Vidno na sliki kot '%s'"
 
 #: ../isobrowser.c:706
 msgid ""
 "It seems that you have made changes to the ISO but haven't saved them. Are "
 "you sure you want to close it?"
 msgstr ""
-"Duket se keni bërë ndryshime te ISO por nuk i keni ruajtur ato. Jeni i "
-"sigurtë se doni ta mbyllni?"
+"ISO sliko ste urejali ampak niste shranili sprememb. Ste prepričani, da "
+"želite zapreti."
 
 #: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
-msgstr ""
-"Objekti i përzgjedhur nuk është kartelë e rregullt dhe nuk përdoret dot si "
-"regjistrim nisjeje"
+msgstr "Datoteka ni pravega tipa in ne more biti uporabljena za zagonski zapis"
 
 #: ../boot.c:373 ../boot.c:380
 #, c-format
 msgid "Location: on original image at 0x%llX"
-msgstr "Vendi: te pamja origjinale 0x%llX"
+msgstr "Lokacija: na izvirni sliki na 0x%llX"
 
 #: ../boot.c:375 ../boot.c:382
 #, c-format
 msgid "Location: to be added from '%s'"
-msgstr "Vend: për shtesë prej '%s'"
+msgstr "Lokacija: bo dodano iz '%s'"
 
 #: ../isobrowser.c:1320
 msgid "MDF Images"
-msgstr "Pamje MDF"
+msgstr "MDF slike"
 
 #: ../isobrowser.c:1315
 msgid "NRG Images"
-msgstr "Pamje NRG"
+msgstr "NRG slike"
 
 #: ../fsbrowser.c:110 ../isobrowser.c:290
 msgid "Name"
-msgstr "Emër"
+msgstr "Ime"
 
 #: ../window.c:65 ../window.c:455
 msgid "New Directory"
-msgstr "Drejtori e Re"
+msgstr "Novo kazalo"
 
 #: ../boot.c:149 ../boot.c:327
 msgid "No boot record read from original or set on image"
-msgstr ""
-"Nuk u lexua prej origjinalit, e as u caktua në pamje, regjistrim nisjeje"
+msgstr "Na sliki ali orginalu ni zagonskega zapisa"
 
 #: ../boot.c:108
 msgid "No boot to delete"
-msgstr "S'ka nisje për fshirje"
+msgstr "Ni zagonskega zapisa za odstranitev"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
-msgstr ""
-"Ju lutem përzgjidhni një kartelë prej shfletuesit ISO për ta përdorur si "
-"regjistrimin nisës"
+msgstr "V brskalniku ISO slik izberite datoteko za zagonski zapis"
 
 #: ../boot.c:243
 msgid "Please select no more than one file in the ISO browser"
-msgstr "Ju lutem mos përzgjidhni më shumë se një kartelë prej shfletuesit ISO"
+msgstr "V brskalinku ISO slik izberite le eno datoteko"
 
 #: ../isobrowser.c:135
 msgid "Please wait while I'm adding the selected items..."
-msgstr "Ju lutem prisni ndërkohë që jam duke shtuar objektet e përzgjedhura..."
+msgstr "Počakajte dodajam izbrane datoteke..."
 
 #: ../isobrowser.c:841
 msgid "Please wait while I'm extracting the selected files..."
-msgstr ""
-"Ju lutem prisni ndërkohë që jam duke përftuar kartelat e përzgjedhura..."
+msgstr "Počakajte vlačujem izbrane datoteke..."
 
 #: ../isobrowser.c:1188
 msgid "Please wait while I'm reading the image..."
-msgstr "Ju lutem prisni ndërkohë që po lexoj pamjen..."
+msgstr "Počakajte berem sliko..."
 
 #: ../isobrowser.c:1531
 msgid "Please wait while I'm saving the new image to disk..."
-msgstr "Ju lutem prisni ndërkohë që jam duke ruajtur pamjen e re në disk..."
+msgstr "Počakajte shranjujem sliko na disk..."
 
 #: ../isobrowser.c:128 ../isobrowser.c:833 ../isobrowser.c:1181
 #: ../isobrowser.c:1521
 msgid "Progress"
-msgstr " Përparim"
+msgstr "Napredek"
 
 #: ../settings.c:109
 msgid "Publisher:"
-msgstr "Botues:"
+msgstr "Založnik:"
 
 #: ../window.c:470
 msgid "Remove"
-msgstr "Hiq"
+msgstr "Odstrani"
 
 #: ../isobrowser.c:1769
 msgid "Rename"
-msgstr "Riemërto"
+msgstr "Preimenuj"
 
 #: ../isobrowser.c:1597
 msgid "Save File"
-msgstr "Ruaj Kartelën"
+msgstr "Shrani datoteko"
 
 #: ../boot.c:156
 msgid "Save a copy of the boot record"
-msgstr "Ruaj një kopje të regjistrimit të nisjes"
+msgstr "Shrani kopijo zagonskega zapisa"
 
 #: ../window.c:311
 msgid "Scan for duplicate files (slow)"
-msgstr "Kontrollo për kartela që gjenden dy herë (e ngadaltë)"
+msgstr "Išči podvojene datoteke (počasno)"
 
 #: ../window.c:218
 msgid "Show _hidden files"
-msgstr "Shfaq kartela të _fshehura"
+msgstr "Prikaži _skrite datoteke"
 
 #: ../fsbrowser.c:131 ../isobrowser.c:313
 msgid "Size"
-msgstr "Madhësi"
+msgstr "Velikost"
 
 #: ../boot.c:363
 #, c-format
 msgid "Size: %d bytes"
-msgstr "Madhësi: %d bajte"
+msgstr "Velikost: %d bytes"
 
 #: ../fsbrowser.c:270
 msgid ""
 "Skiping directory entry because cannot handle filename longer than 256 chars"
 msgstr ""
-"Po e anashkaloj këtë zë drejtorie pasi nuk mund të trajtoj emra kartelash më "
-"të gjatë se 256 shenja"
+"Ker ne morem brati imen datotek večjih od 256 znakov preskakujem kazalo"
 
 #: ../fsbrowser.c:288
 #, c-format
 msgid "Skiping directory entry because stat(%s) failed with %d"
-msgstr "Po e anashkaloj këtë zë drejtorie pasi stat(%s) dështoi me %d"
+msgstr "Preskakujem kazalo ker (%s) neuspešen z %d"
 
 #: ../settings.c:244 ../window.c:385 ../window.c:388
 msgid "Temporary directory"
-msgstr "Drejtori e përkohshme"
+msgstr "Kazalo začasnih datotek"
 
 #: ../about.c:268
 msgid ""
@@ -451,38 +442,29 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'Image' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
-"Dritarja e ISO Master-it është e ndarë në 2 pjesë:\n"
-" - Shfletuesi i kartelave sipër tregon drejtoritë dhe kartelat në makinën "
-"tuaj.\n"
-" - Shfletuesi i kartelave poshtë tregon drejtoritë dhe kartelat në pamjen "
-"ISO.\n"
-"\n"
-"Për të hapur një kartelë ISO ekzistuese klikoni mbi 'Pamje' dhe 'Hape'. Për\n"
-"të krijuar një kartelë të re ISO klikoni mbi 'Pamje' dhe 'e Re'.\n"
-"\n"
-"Për të shtuar te ISO-ja një ose më tepër kartela apo drejtori përzgjidhini "
-"te\n"
-"shfletuesi i sipërm i kartelave dhe klikoni mbi butonin 'Shto te ISO-ja' te\n"
-"paneli i mesit.\n"
-"\n"
-"Për përftimin e një ose më tepër kartelave apo drejtorive prej ISO-s,\n"
-"përzgjidhini prej shfletuesit të poshtëm të kartelave dhe klikoni butonin\n"
-"'Përfto prej ISO-s' te paneli i mesit.\n"
-"\n"
-"Mundeni gjithashtu të fshini prej ISO-s kartela apo drejtori dhe të krijoni\n"
-"drejtori të reja si në ISO-n, ashtu edhe në sistemin tuaj vendor të "
-"kartelave.\n"
-"\n"
-"Pasi të keni bërë tërë ndryshimet te pamja e re ISO, klikoni mbi 'Pamje'\n"
-"dhe 'Ruaj Si'. Nuk mund të mbishkruani ISO-n origjinale.\n"
+"Okno ISO Masterja je razdeljeno na dva dela: \n"
+" - zagornji je raziskovalec ki prikazuje datotekein kazala  na vašem trdem "
+"disku \n"
+" - spodnji raziskovalec prikazuje datoteke in kazala na ISO sliki \n"
+"Da odprete obstoječo ISO datoteko, klikni na 'Slika' in 'Odpri'. \n"
+"Da ustvarite novo ISO datoteko klikni na 'Slika' in 'Nova'. \n"
+"Za dodajanje ene ali več datotek ali kazal iz ISO izberi objekt v \n"
+"spodnjem brskalniku in klikni gumb Izvzemi iz ISO v srednji orodjarni. \n"
+"Lahko tudi odstranite datoteke ali kazala iz ISO slike in ustvarjate nova \n"
+"kazala na ISO sliki in na lokalnem zbirčnem sistemu. \n"
+" \n"
+"Če kaj izberete v spodnjem brskalniku in nanj kliknete z desno \n"
+"se pojavi več dodatnih opcij. \n"
+"Ko enkrat opravite vse spremembe v novi ISO sliki, kliknite na 'Slika' in \n"
+"'Shrani kot'. Ne morete prepisati originalne slike ISO. \n"
 
 #: ../window.c:272
 msgid "Use selected file on image (no emulation)"
-msgstr "Përdor në pamjen kartelën e përzgjedhur (pa emulim)"
+msgstr "Uporabi izbrano datoteko na sliki (brez emulacije)"
 
 #: ../isobrowser.c:1778
 msgid "View"
-msgstr "Parje"
+msgstr "Pogled"
 
 #: ../editfile.c:106
 msgid "View failed, please check Settings/Viewer"
@@ -490,41 +472,42 @@ msgstr ""
 
 #: ../settings.c:282 ../window.c:359 ../window.c:362
 msgid "Viewer"
-msgstr "Parës"
+msgstr "Pregledovalnik"
 
 #: ../settings.c:97
 msgid "Volume name:"
-msgstr "Emër volumi:"
+msgstr "Ime naprave:"
 
 #: ../settings.c:734
 msgid ""
 "You will have to close and reopen the ISO for this change to take effect"
-msgstr "Duhet të mbyllni dhe rihapni ISO-n që të ketë efekt ky ndryshim"
+msgstr ""
+"Potrebno je zapreti in ponovno odpreti ISO sliko, da bodo spremembe delovale"
 
 #: ../window.c:240
 msgid "_BootRecord"
-msgstr "_Regjistrim Nisjeje"
+msgstr "_ZagonskiZapis"
 
 #: ../window.c:411
 msgid "_Help"
-msgstr "_Ndihmë"
+msgstr "_Pomoč"
 
 #: ../window.c:145
 msgid "_Image"
-msgstr "_Pamje"
+msgstr "_Slika"
 
 #: ../window.c:420
 msgid "_Overview"
-msgstr "_Përmbledhje"
+msgstr "_Pregled"
 
 #: ../window.c:304
 msgid "_Settings"
-msgstr "_Rregullime"
+msgstr "_Nastavitve"
 
 #: ../window.c:228
 msgid "_Sort directories first"
-msgstr "_Rendit drejtoritë së pari"
+msgstr "_Najprej razvrsti kazala"
 
 #: ../window.c:203
 msgid "_View"
-msgstr "P_arje"
+msgstr "_Pogled"

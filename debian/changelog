@@ -1,3 +1,11 @@
+isomaster (1.2-1) unstable; urgency=low
+
+  * New upstream release
+  * Fix watch file to handle RCs properly
+  * Update upstream's e-mail address
+
+ -- David Johnson <dj@david-web.co.uk>  Sat, 27 Oct 2007 22:26:45 +0100
+
 isomaster (1.1-1) unstable; urgency=low
 
   * New upstream release

@@ -12,11 +12,13 @@
 * 
 ******************************************************************************/
 
-#include <stdbool.h>
-#include <dirent.h>
+#ifndef WIN32
+    #include <dirent.h>
+#else
+    #define _CRT_SECURE_NO_WARNINGS 1
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -65,10 +67,15 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
     
     oldHead = destDir->children;
     
+#ifndef WIN32
     if(volInfo->followSymLinks)
+#endif
         rc = stat(srcPathAndName, &statStruct);
+#ifndef WIN32 //!!WIN32
+    /* windows doesn't have symbolic links anyway */
     else
         rc = lstat(srcPathAndName, &statStruct);
+#endif
     if(rc == -1)
         return BKERROR_STAT_FAILED;
     
@@ -80,7 +87,7 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
         if(newDir == NULL)
             return BKERROR_OUT_OF_MEMORY;
         
-        bzero(newDir, sizeof(BkDir));
+        memset(newDir, 0, sizeof(BkDir));
         
         strcpy(BK_BASE_PTR(newDir)->name, lastName);
         
@@ -113,7 +120,7 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
         if(newFile == NULL)
             return BKERROR_OUT_OF_MEMORY;
         
-        bzero(newFile, sizeof(BkFile));
+        memset(newFile, 0, sizeof(BkFile));
         
         strcpy(BK_BASE_PTR(newFile)->name, lastName);
         
@@ -159,6 +166,7 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
         
         destDir->children = BK_BASE_PTR(newFile);
     }
+#ifndef WIN32
     else if( IS_SYMLINK(statStruct.st_mode) )
     {
         BkSymLink* newSymLink;
@@ -168,7 +176,7 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
         if(newSymLink == NULL)
             return BKERROR_OUT_OF_MEMORY;
         
-        bzero(newSymLink, sizeof(BkSymLink));
+        memset(newSymLink, 0, sizeof(BkSymLink));
         
         strcpy(BK_BASE_PTR(newSymLink)->name, lastName);
         
@@ -187,12 +195,14 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
         
         destDir->children = BK_BASE_PTR(newSymLink);
     }
+#endif
     else
         return BKERROR_NO_SPECIAL_FILES;
     
     return 1;
 }
 
+//needs a rewrite for windows //!!WIN32
 int addDirContents(VolInfo* volInfo, const char* srcPath, BkDir* destDir)
 {
     int rc;
@@ -401,7 +411,7 @@ int bk_add_boot_record(VolInfo* volInfo, const char* srcPathAndName,
 int bk_create_dir(VolInfo* volInfo, const char* destPathStr, 
                   const char* newDirName)
 {
-    int nameLen;
+    size_t nameLen;
     BkDir* destDir;
     int rc;
     BkFileBase* oldHead;

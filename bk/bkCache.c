@@ -21,10 +21,9 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <time.h>
+#include <sys/timeb.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 #include "bkInternal.h"
 #include "bkCache.h"
@@ -48,19 +47,20 @@ off_t wcSeekTell(VolInfo* volInfo)
     return lseek(volInfo->imageForWriting, 0, SEEK_CUR);
 }
 
-int wcWrite(VolInfo* volInfo, const char* block, off_t numBytes)
+int wcWrite(VolInfo* volInfo, const char* block, size_t numBytes)
 {
-    int rc;
+    ssize_t rc;
     rc = write(volInfo->imageForWriting, block, numBytes);
-    if(rc != numBytes)
+    if(rc == -1)
         return BKERROR_WRITE_GENERIC;
     
     if(volInfo->writeProgressFunction != NULL)
     {
-        time_t timeNow;
-        time(&timeNow);
+        struct timeb timeNow;
+        ftime(&timeNow);
         
-        if(timeNow - volInfo->lastTimeCalledProgress >= 1)
+        if(timeNow.time - volInfo->lastTimeCalledProgress.time >= 1 ||
+           timeNow.millitm - volInfo->lastTimeCalledProgress.millitm >= 100)
         {
             struct stat statStruct;
             double percentComplete;
