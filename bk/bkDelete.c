@@ -12,9 +12,7 @@
 * 
 ******************************************************************************/
 
-#ifndef WIN32
-    #include <strings.h>
-#endif
+#include <strings.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -48,17 +46,17 @@ int bk_delete(VolInfo* volInfo, const char* pathAndName)
     bool dirFound;
     BkDir* parentDir;
     
-    if(path.numChildren == 0)
-    {
-        freePathContents(&path);
-        return BKERROR_DELETE_ROOT;
-    }
-    
     rc = makeNewPathFromString(pathAndName, &path);
     if(rc <= 0)
     {
         freePathContents(&path);
         return rc;
+    }
+    
+    if(path.numChildren == 0)
+    {
+        freePathContents(&path);
+        return BKERROR_DELETE_ROOT;
     }
     
     /* i want the parent directory */

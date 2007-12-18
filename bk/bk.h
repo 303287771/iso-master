@@ -25,23 +25,26 @@ extern "C"
 {
 #endif
 
-#ifndef WIN32
-    #include <stdbool.h>
-    #include <unistd.h>
-#else
-    typedef int bool;
-    #define true 1
-    #define false 0
-    typedef unsigned int mode_t;
-    typedef long ssize_t;
-    #define snprintf _snprintf
-#endif
+#include <stdbool.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <limits.h>
 #include <sys/timeb.h>
+#include <stdio.h>
 
 #include "bkError.h"
+
+#ifdef WINDOWS_BUILD
+    /* on windows i can't get an off_t to be 64 bits */
+    typedef long long bk_off_t;
+    #define bk_lseek _lseeki64
+    typedef struct _stati64 BkStatStruct;
+#else
+    typedef off_t bk_off_t;
+    #define bk_lseek lseek
+    typedef struct stat BkStatStruct;
+#endif
 
 /* can be |ed */
 #define FNTYPE_9660 1
@@ -117,7 +120,7 @@ typedef struct BkDir
 typedef struct BkHardLink
 {
     bool onImage;
-    off_t position; /* if on image */
+    bk_off_t position; /* if on image */
     char* pathAndName; /* if on filesystem, full path + filename
                        * is to be freed whenever the BkHardLink is freed */
     unsigned size; /* size of the file being pointed to */
@@ -139,11 +142,11 @@ typedef struct BkFile
 {
     BkFileBase base; /* intended to be accessed using a cast */
     
-    unsigned size; /* in bytes, don't need off_t because it's stored 
+    unsigned size; /* in bytes, don't need bk_off_t because it's stored 
                    * in a 32bit unsigned int on the iso */
     BkHardLink* location; /* basically a copy of the following variables */
     bool onImage;
-    off_t position; /* if on image, in bytes */
+    bk_off_t position; /* if on image, in bytes */
     char* pathAndName; /* if on filesystem, full path + filename
                        * is to be freed whenever the File is freed */
     
@@ -169,9 +172,9 @@ typedef struct VolInfo
 {
     /* private bk use  */
     unsigned filenameTypes;
-    off_t pRootDrOffset; /* primary (9660 and maybe rockridge) */
-    off_t sRootDrOffset; /* secondary (joliet), 0 if does not exist */
-    off_t bootRecordSectorNumberOffset;
+    bk_off_t pRootDrOffset; /* primary (9660 and maybe rockridge) */
+    bk_off_t sRootDrOffset; /* secondary (joliet), 0 if does not exist */
+    bk_off_t bootRecordSectorNumberOffset;
     int imageForReading;
     ino_t imageForReadingInode; /* to know which file was open for reading
                                 * (filename is not reliable) */
@@ -184,7 +187,7 @@ typedef struct VolInfo
     void(*progressFunction)(struct VolInfo*);
     void(*writeProgressFunction)(struct VolInfo*, double);
     struct timeb lastTimeCalledProgress;
-    off_t estimatedIsoSize;
+    bk_off_t estimatedIsoSize;
     BkHardLink* fileLocations; /* list of where to find regular files */
     char readWriteBuffer[READ_WRITE_BUFFER_SIZE];
     char readWriteBuffer2[READ_WRITE_BUFFER_SIZE];
@@ -195,7 +198,7 @@ typedef struct VolInfo
     unsigned char bootMediaType;
     unsigned bootRecordSize;       /* in bytes */
     bool bootRecordIsOnImage;      /* unused if visible (flag below) */
-    off_t bootRecordOffset;     /* if on image */
+    bk_off_t bootRecordOffset;     /* if on image */
     char* bootRecordPathAndName;   /* if on filesystem */
     bool bootRecordIsVisible;      /* whether boot record is a visible file 
                                    *  on the image */
@@ -242,7 +245,7 @@ int bk_extract_as(VolInfo* volInfo, const char* srcPathAndName,
                   bool keepPermissions, void(*progressFunction)(VolInfo*));
 
 /* getters */
-off_t bk_estimate_iso_size(const VolInfo* volInfo, int filenameTypes);
+bk_off_t bk_estimate_iso_size(const VolInfo* volInfo, int filenameTypes);
 time_t bk_get_creation_time(const VolInfo* volInfo);
 int bk_get_dir_from_string(const VolInfo* volInfo, const char* pathStr, 
                            BkDir** dirFoundPtr);
@@ -276,25 +279,6 @@ int bk_read_vol_info(VolInfo* volInfo);
 int bk_write_image(const char* newImagePathAndName, VolInfo* volInfo, 
                    time_t creationTime, int filenameTypes, 
                    void(*progressFunction)(VolInfo*, double));
-
-#ifdef WIN32 //!!WIN32
-    off_t lseek(int filedes, off_t offset, int whence);
-    int open(const char* pathname, int flags, mode_t mode);
-    int close(int fd);
-    ssize_t read(int fd, void* buf, size_t const);
-    ssize_t write(int fd, const void* buf, size_t const);
-    int access(const char* pathname, int mode);
-    #define F_OK 1
-    int mkdir(const char* pathname, mode_t mode);
-    #define _S_IRWXU    (_S_IREAD | _S_IWRITE | _S_IEXEC)
-    #define _S_IXUSR    _S_IEXEC
-    #define _S_IWUSR    _S_IWRITE
-    #define _S_IRUSR    _S_IREAD
-    #define S_IRUSR     _S_IRUSR
-    #define S_IWUSR     _S_IWUSR
-    #define S_IXUSR     _S_IXUSR
-    #define unlink _unlink
-#endif
 
 #ifdef __cplusplus
 }

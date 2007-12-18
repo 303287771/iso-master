@@ -27,30 +27,31 @@
 
 #include "bkInternal.h"
 #include "bkCache.h"
+#include "bkIoWrappers.h"
 
-int wcSeekForward(VolInfo* volInfo, off_t numBytes)
+int wcSeekForward(VolInfo* volInfo, bk_off_t numBytes)
 {
-    lseek(volInfo->imageForWriting, numBytes, SEEK_CUR);
+    bkSeekSet(volInfo->imageForWriting, numBytes, SEEK_CUR);
     
     return 1;
 }
 
-int wcSeekSet(VolInfo* volInfo, off_t position)
+int wcSeekSet(VolInfo* volInfo, bk_off_t position)
 {
-    lseek(volInfo->imageForWriting, position, SEEK_SET);
+    bkSeekSet(volInfo->imageForWriting, position, SEEK_SET);
     
     return 1;
 }
 
-off_t wcSeekTell(VolInfo* volInfo)
+bk_off_t wcSeekTell(VolInfo* volInfo)
 {
-    return lseek(volInfo->imageForWriting, 0, SEEK_CUR);
+    return bkSeekTell(volInfo->imageForWriting);
 }
 
 int wcWrite(VolInfo* volInfo, const char* block, size_t numBytes)
 {
     ssize_t rc;
-    rc = write(volInfo->imageForWriting, block, numBytes);
+    rc = bkWrite(volInfo->imageForWriting, block, numBytes);
     if(rc == -1)
         return BKERROR_WRITE_GENERIC;
     
@@ -62,9 +63,10 @@ int wcWrite(VolInfo* volInfo, const char* block, size_t numBytes)
         if(timeNow.time - volInfo->lastTimeCalledProgress.time >= 1 ||
            timeNow.millitm - volInfo->lastTimeCalledProgress.millitm >= 100)
         {
-            struct stat statStruct;
+            BkStatStruct statStruct;
             double percentComplete;
-            fstat(volInfo->imageForWriting, &statStruct);
+            
+            bkFstat(volInfo->imageForWriting, &statStruct);
             percentComplete = (double)statStruct.st_size * 100 / 
                               volInfo->estimatedIsoSize + 1;
             

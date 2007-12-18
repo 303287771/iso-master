@@ -12,9 +12,6 @@
 * 
 ******************************************************************************/
 
-#ifdef WIN32
-    #define _CRT_SECURE_NO_WARNINGS 1
-#endif
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
@@ -27,6 +24,7 @@
 #include "bkPath.h"
 #include "bkError.h"
 #include "bkMisc.h"
+#include "bkIoWrappers.h"
 
 /*******************************************************************************
 * bk_extract_boot_record()
@@ -59,7 +57,7 @@ int bk_extract_boot_record(VolInfo* volInfo, const char* destPathAndName,
         if(volInfo->bootRecordOnImage->onImage)
         {
             srcFile = volInfo->imageForReading;
-            lseek(volInfo->imageForReading, volInfo->bootRecordOnImage->position, SEEK_SET);
+            readSeekSet(volInfo, volInfo->bootRecordOnImage->position, SEEK_SET);
             srcFileWasOpened = false;
         }
         else
@@ -76,7 +74,7 @@ int bk_extract_boot_record(VolInfo* volInfo, const char* destPathAndName,
         if(volInfo->bootRecordIsOnImage)
         {
             srcFile = volInfo->imageForReading;
-            lseek(volInfo->imageForReading, volInfo->bootRecordOffset, SEEK_SET);
+            readSeekSet(volInfo, volInfo->bootRecordOffset, SEEK_SET);
             srcFileWasOpened = false;
         }
         else
@@ -94,22 +92,18 @@ int bk_extract_boot_record(VolInfo* volInfo, const char* destPathAndName,
     if(destFile == -1)
     {
         if(srcFileWasOpened)
-            close(srcFile);
+            bkClose(srcFile);
         return BKERROR_OPEN_WRITE_FAILED;
     }
     
     rc = copyByteBlock(volInfo, srcFile, destFile, volInfo->bootRecordSize);
-    if(rc <= 0)
-    {
-        if(srcFileWasOpened)
-            close(srcFile);
-        return rc;
-    }
     
-    close(destFile);
-    
+    bkClose(destFile);
     if(srcFileWasOpened)
-        close(srcFile);
+        bkClose(srcFile);
+    
+    if(rc <= 0)
+        return rc;
     
     return 1;
 }
@@ -190,20 +184,20 @@ int copyByteBlock(VolInfo* volInfo, int src, int dest, unsigned numBytes)
         if(volInfo->stopOperation)
             return BKERROR_OPER_CANCELED_BY_USER;
         
-        rc = read(src, volInfo->readWriteBuffer, READ_WRITE_BUFFER_SIZE);
+        rc = bkRead(src, volInfo->readWriteBuffer, READ_WRITE_BUFFER_SIZE);
         if(rc != READ_WRITE_BUFFER_SIZE)
             return BKERROR_READ_GENERIC;
-        rc = write(dest, volInfo->readWriteBuffer, READ_WRITE_BUFFER_SIZE);
+        rc = bkWrite(dest, volInfo->readWriteBuffer, READ_WRITE_BUFFER_SIZE);
         if(rc <= 0)
             return rc;
     }
     
     if(sizeLastBlock > 0)
     {
-        rc = read(src, volInfo->readWriteBuffer, sizeLastBlock);
+        rc = bkRead(src, volInfo->readWriteBuffer, sizeLastBlock);
         if(rc != sizeLastBlock)
             return BKERROR_READ_GENERIC;
-        rc = write(dest, volInfo->readWriteBuffer, sizeLastBlock);
+        rc = bkWrite(dest, volInfo->readWriteBuffer, sizeLastBlock);
         if(rc <= 0)
             return rc;
     }
@@ -242,6 +236,7 @@ int extract(VolInfo* volInfo, BkDir* parentDir, char* nameToExtract,
             }
             else
             {
+                rc = 1;
                 printf("trying to extract something that's not a file, "
                        "symlink or directory, ignored\n");fflush(NULL);
             }
@@ -299,6 +294,7 @@ int extractDir(VolInfo* volInfo, BkDir* srcDir, const char* destDir,
     strcpy(newDestDir, destDir);
     if(destDir[strlen(destDir) - 1] != '/')
         strcat(newDestDir, "/");
+    
     if(nameToUse == NULL)
         strcat(newDestDir, BK_BASE_PTR(srcDir)->name);
     else
@@ -356,12 +352,12 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     unsigned destFilePerms;
     int destFile; /* returned by open() */
     int rc;
-    struct stat statStruct;
+    BkStatStruct statStruct;
 
     if(srcFileInTree->onImage)
     {
         srcFile = volInfo->imageForReading;
-        lseek(volInfo->imageForReading, srcFileInTree->position, SEEK_SET);
+        bkSeekSet(volInfo->imageForReading, srcFileInTree->position, SEEK_SET);
         srcFileWasOpened = false;
     }
     else
@@ -372,9 +368,13 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
         srcFileWasOpened = true;
         
         /* UPDATE the file's size, in case it's changed since we added it */
-        rc = stat(srcFileInTree->pathAndName, &statStruct);
+        rc = bkStat(srcFileInTree->pathAndName, &statStruct);
         if(rc != 0)
             return BKERROR_STAT_FAILED;
+        
+        if(statStruct.st_size > 0xFFFFFFFF)
+        /* size won't fit in a 32bit variable on the iso */
+            return BKERROR_EDITED_EXTRACT_TOO_BIG;
         
         srcFileInTree->size = statStruct.st_size;
         /* UPDATE the file's size, in case it's changed since we added it */
@@ -388,7 +388,7 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     if(destPathAndName == NULL)
     {
         if(srcFileWasOpened)
-            close(srcFile);
+            bkClose(srcFile);
         return BKERROR_OUT_OF_MEMORY;
     }
     
@@ -403,7 +403,7 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     if(access(destPathAndName, F_OK) == 0)
     {
         if(srcFileWasOpened)
-            close(srcFile);
+            bkClose(srcFile);
         free(destPathAndName);
         return BKERROR_DUPLICATE_EXTRACT;
     }
@@ -418,7 +418,7 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     if(destFile == -1)
     {
         if(srcFileWasOpened)
-            close(srcFile);
+            bkClose(srcFile);
         free(destPathAndName);
         return BKERROR_OPEN_WRITE_FAILED;
     }
@@ -428,28 +428,27 @@ int extractFile(VolInfo* volInfo, BkFile* srcFileInTree, const char* destDir,
     rc = copyByteBlock(volInfo, srcFile, destFile, srcFileInTree->size);
     if(rc < 0)
     {
-        close(destFile);
+        bkClose(destFile);
         if(srcFileWasOpened)
-            close(srcFile);
+            bkClose(srcFile);
         return rc;
     }
     
-    close(destFile);
+    bkClose(destFile);
     if(destFile == -1)
     {
         if(srcFileWasOpened)
-            close(srcFile);
+            bkClose(srcFile);
         return BKERROR_EXOTIC;
     }
     /* END WRITE file */
     
     if(srcFileWasOpened)
-        close(srcFile);
+        bkClose(srcFile);
     
     return 1;
 }
 
-// !!WIN32 windows doesn't have symlimks
 int extractSymlink(BkSymLink* srcLink, const char* destDir, 
                    const char* nameToUse)
 {

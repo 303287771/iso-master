@@ -60,9 +60,7 @@ int main(int argc, char** argv)
     
     loadSettings();
     
-    /* the path ICONPATH is defined in the makefile
-    * if this fails i get NULL which is ok */
-    appIcon = gdk_pixbuf_new_from_file(ICONPATH"/isomaster.png", NULL);
+    loadAppIcon(&appIcon);
     
     loadIcons();
     
@@ -122,9 +120,9 @@ int main(int argc, char** argv)
     statusBar = gtk_statusbar_new();
     gtk_widget_show(statusBar);
     gtk_box_pack_start(GTK_BOX(mainVBox), statusBar, FALSE, FALSE, 0);
-
+    
     if(argv[1] != NULL)
-      openIso(argv[1]);
+        openIso(argv[1]);
     
     srandom((int)time(NULL));
     

@@ -22,8 +22,8 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <libintl.h>
-#include <regex.h>
 #include <errno.h>
+#include <regex.h>
 
 #include "isomaster.h"
 
@@ -47,7 +47,7 @@ bool GBLisoPaneActive = false;
 /* to know whether any changes to the image have been requested */
 bool GBLisoChangesProbable = false;
 /* the size of the iso if it were written right now */
-static off_t GBLisoSize = 0;
+static bk_off_t GBLisoSize = 0;
 /* the progress bar from the writing dialog box */
 static GtkWidget* GBLWritingProgressBar;
 /* the progress bar from the extracting dialog box */
@@ -246,10 +246,12 @@ void buildIsoBrowser(GtkWidget* boxToPackInto)
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
     
-    GBLisoListStore = gtk_list_store_new(NUM_COLUMNS, GDK_TYPE_PIXBUF, 
-                                         G_TYPE_STRING, 
-                                         G_TYPE_UINT, /* 64-bit sizes not allowed on an iso */
-                                         G_TYPE_UINT);
+    GBLisoListStore = gtk_list_store_new(NUM_COLUMNS, 
+                                         GDK_TYPE_PIXBUF, /* icon */
+                                         G_TYPE_STRING, /* name */
+                                         G_TYPE_UINT, /* size (64-bit sizes not allowed on an iso) */
+                                         G_TYPE_UINT /* file type */
+                                         );
     
     scrolledWindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindow),
@@ -1117,6 +1119,9 @@ void openIso(char* filename)
 {
     int rc;
     GtkWidget* warningDialog;
+    
+    if(GBLisoChangesProbable && !confirmCloseIso())
+        return;
     
     closeIso();
     

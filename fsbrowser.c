@@ -37,6 +37,8 @@ extern GdkPixbuf* GBLdirPixbuf;
 extern GdkPixbuf* GBLfilePixbuf;
 //~ extern GdkPixbuf* GBLsymlinkPixbuf;
 
+extern bool GBLisoChangesProbable;
+
 extern int errno;
 
 /* the column for the filename in the fs pane */
@@ -75,7 +77,12 @@ void buildFsBrowser(GtkWidget* boxToPackInto)
     GtkCellRenderer* renderer;
     GtkTreeViewColumn* column;
     
-    GBLfsListStore = gtk_list_store_new(NUM_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_UINT64, G_TYPE_UINT);
+    GBLfsListStore = gtk_list_store_new(NUM_COLUMNS, 
+                                        GDK_TYPE_PIXBUF, /* icon */
+                                        G_TYPE_STRING,  /* name */
+                                        G_TYPE_UINT64, /* size */
+                                        G_TYPE_UINT /* file type */
+                                        );
     
     scrolledWindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledWindow),
@@ -91,6 +98,10 @@ void buildFsBrowser(GtkWidget* boxToPackInto)
     gtk_container_add(GTK_CONTAINER(scrolledWindow), GBLfsTreeView);
     g_signal_connect(GBLfsTreeView, "row-activated", (GCallback)fsRowDblClickCbk, NULL);
     g_signal_connect(GBLfsTreeView, "select-cursor-parent", (GCallback)fsGoUpDirTreeCbk, NULL);
+    /* The problem with this is that i get a popup menu before the row is selected.
+    * if i do a connect_after the handler never gets called. So no right-click menu. */
+    g_signal_connect(GBLfsTreeView, "button-press-event", (GCallback)fsButtonPressedCbk, NULL);
+    g_signal_connect(GBLfsTreeView, "button-release-event", (GCallback)fsButtonReleasedCbk, NULL);
     gtk_widget_show(GBLfsTreeView);
     
     /* this won't be enabled until gtk allows me to drag a multiple selection */
@@ -198,12 +209,11 @@ void buildFsLocator(GtkWidget* boxToPackInto)
     gtk_widget_show(GBLfsCurrentDirField);
 }
 
-bool changeFsDirectory(char* newDirStr)
+bool changeFsDirectory(const char* newDirStr)
 {
     DIR* newDir;
     struct dirent* nextItem; /* for contents of the directory */
     char* nextItemPathAndName; /* for use with stat() */
-    struct stat nextItemInfo;
     GtkTreeIter listIterator;
     int rc;
     GtkTreeModel* model;
@@ -267,7 +277,7 @@ bool changeFsDirectory(char* newDirStr)
                                                    GTK_DIALOG_DESTROY_WITH_PARENT,
                                                    GTK_MESSAGE_ERROR,
                                                    GTK_BUTTONS_CLOSE,
-                                                   _("Skiping directory entry because "
+                                                   _("Skipping directory entry because "
                                                    "cannot handle filename longer than 256 chars"));
             gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
             gtk_dialog_run(GTK_DIALOG(warningDialog));
@@ -278,6 +288,7 @@ bool changeFsDirectory(char* newDirStr)
         strcpy(nextItemPathAndName, newDirStr);
         strcat(nextItemPathAndName, nextItem->d_name);
         
+        struct stat nextItemInfo;
         rc = lstat(nextItemPathAndName, &nextItemInfo);
         if(rc == -1)
         {
@@ -285,7 +296,7 @@ bool changeFsDirectory(char* newDirStr)
                                                    GTK_DIALOG_DESTROY_WITH_PARENT,
                                                    GTK_MESSAGE_ERROR,
                                                    GTK_BUTTONS_CLOSE,
-                                                   _("Skiping directory entry because "
+                                                   _("Skipping directory entry because "
                                                    "stat(%s) failed with %d"),
                                                    nextItemPathAndName,
                                                    errno);
@@ -322,7 +333,7 @@ bool changeFsDirectory(char* newDirStr)
                                -1);
         }
         else if(IS_SYMLINK(nextItemInfo.st_mode))
-        /* regular file */
+        /* symbolic link */
         {
             gtk_list_store_append(GBLfsListStore, &listIterator);
             gtk_list_store_set(GBLfsListStore, &listIterator, 
@@ -362,6 +373,37 @@ bool changeFsDirectory(char* newDirStr)
     gtk_entry_set_text(GTK_ENTRY(GBLfsCurrentDirField), GBLfsCurrentDir);
     
     return true;
+}
+
+/******************************************************************************
+* fsButtonPressedCbk()
+* Make sure that a right-click on the view doesn't send the signal to the
+* widget. If it did, a selection of multiple rows would be lost.
+* I have a feeling someone did this shit in GTK just to piss on users */
+gboolean fsButtonPressedCbk(GtkWidget* fsView, GdkEventButton* event, gpointer user_data)
+{
+    if(event->type == GDK_BUTTON_PRESS  &&  event->button == 3)
+    {
+        /* Stop event propagation */
+        /*!! Would be nice if I could only stop event propagation if click was on
+        * the selection, I have to look into how that may be done, if at all */
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+/******************************************************************************
+* fsButtonReleasedCbk()
+* Show context menu if releasing the right mouse button */
+gboolean fsButtonReleasedCbk(GtkWidget* fsView, GdkEventButton* event, gpointer user_data)
+{
+    if(event->type == GDK_BUTTON_RELEASE &&  event->button == 3)
+    {
+        showFsContextMenu(fsView, event);
+    }
+    
+    return FALSE;
 }
 
 /* this is called from a button and via a treeview event so don't use the parameters */
@@ -404,7 +446,7 @@ void fsRowDblClickCbk(GtkTreeView* treeview, GtkTreePath* path,
     GtkTreeModel* model;
     GtkTreeIter iterator;
     char* name;
-    char* newCurrentDir;
+    char* selectedPathAndName;
     int fileType;
     GtkWidget* warningDialog;
     
@@ -424,24 +466,66 @@ void fsRowDblClickCbk(GtkTreeView* treeview, GtkTreePath* path,
         return;
     }
     
+    gtk_tree_model_get(model, &iterator, COLUMN_FILENAME, &name, -1);
+    
+    /* 2 in case i need to append a '/' */
+    selectedPathAndName = (char*)malloc(strlen(GBLfsCurrentDir) + strlen(name) + 2);
+    if(selectedPathAndName == NULL)
+        fatalError("fsRowDblClicked(): malloc(strlen(GBLfsCurrentDir) + strlen(name) + 2) failed");
+    
+    strcpy(selectedPathAndName, GBLfsCurrentDir);
+    strcat(selectedPathAndName, name);
+    
     gtk_tree_model_get(model, &iterator, COLUMN_HIDDEN_TYPE, &fileType, -1);
     if(fileType == FILE_TYPE_DIRECTORY)
+    /* change directory */
     {
-        gtk_tree_model_get(model, &iterator, COLUMN_FILENAME, &name, -1);
-        
-        newCurrentDir = (char*)malloc(strlen(GBLfsCurrentDir) + strlen(name) + 2);
-        if(newCurrentDir == NULL)
-            fatalError("fsRowDblClicked(): malloc(strlen(GBLfsCurrentDir) + strlen(name) + 2) failed");
-        
-        strcpy(newCurrentDir, GBLfsCurrentDir);
-        strcat(newCurrentDir, name);
-        strcat(newCurrentDir, "/");
-        
-        changeFsDirectory(newCurrentDir);
-        
-        free(newCurrentDir);
-        g_free(name);
+        strcat(selectedPathAndName, "/");
+        changeFsDirectory(selectedPathAndName);
     }
+    else if(fileType == FILE_TYPE_SYMLINK)
+    /* if it's a symlink to a dir, change directory */
+    {
+        struct stat statStruct;
+        int rc;
+        
+        rc = stat(selectedPathAndName, &statStruct);
+        if( rc == 0 && (statStruct.st_mode & S_IFDIR) )
+        {
+            strcat(selectedPathAndName, "/");
+            changeFsDirectory(selectedPathAndName);
+        }
+    }
+    else if(fileType == FILE_TYPE_REGULAR)
+    /* if it's an image, open it */
+    {
+        int strLen = strlen(name);
+        
+        if( (name[strLen - 4] == '.' &&
+             (name[strLen - 3] == 'i' || name[strLen - 3] == 'I') &&
+             (name[strLen - 2] == 's' || name[strLen - 2] == 'S') &&
+             (name[strLen - 1] == 'o' || name[strLen - 1] == 'O'))
+            ||
+            (name[strLen - 4] == '.' &&
+             (name[strLen - 3] == 'n' || name[strLen - 3] == 'N') &&
+             (name[strLen - 2] == 'r' || name[strLen - 2] == 'R') &&
+             (name[strLen - 1] == 'g' || name[strLen - 1] == 'G'))
+            ||
+            (name[strLen - 4] == '.' &&
+             (name[strLen - 3] == 'm' || name[strLen - 3] == 'M') &&
+             (name[strLen - 2] == 'd' || name[strLen - 2] == 'D') &&
+             (name[strLen - 1] == 'f' || name[strLen - 1] == 'F')) )
+        {
+            if( !GBLisoChangesProbable || confirmCloseIso() )
+            {
+                openIso(selectedPathAndName);
+            }
+        }
+    }
+    
+        
+    free(selectedPathAndName);
+    g_free(name);
 }
 
 void refreshFsView(void)
@@ -464,6 +548,62 @@ void refreshFsView(void)
     gtk_tree_view_scroll_to_point(GTK_TREE_VIEW(GBLfsTreeView), visibleRect.x - 1, visibleRect.y - 1);
     
     free(fsCurrentDir);
+}
+
+void showFsContextMenu(GtkWidget* fsView, GdkEventButton* event)
+{
+    GtkWidget* menu;
+    GtkWidget* menuItem;
+    GtkTreeSelection* selection;
+    gint numSelectedRows;
+    GtkAccelGroup* accelGroup;
+    
+    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLfsTreeView));
+    
+    numSelectedRows = gtk_tree_selection_count_selected_rows(selection);
+    if(numSelectedRows == 0)
+        return;
+    
+    /* have this here just so that the shortcut keys show in the context menu */
+    accelGroup = gtk_accel_group_new();
+    gtk_window_add_accel_group(GTK_WINDOW(GBLmainWindow), accelGroup);
+    
+    menu = gtk_menu_new();
+    gtk_menu_set_accel_group(GTK_MENU(menu), accelGroup);
+    /*
+    menuItem = gtk_image_menu_item_new_with_label(_("Rename"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)renameSelectedBtnCbk, NULL);
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Contextmenu/Rename");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    if(numSelectedRows > 1)
+        gtk_widget_set_sensitive(menuItem, FALSE);
+    */
+    menuItem = gtk_image_menu_item_new_with_label(_("View"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)viewSelectedBtnCbk, NULL);
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Contextmenu/View");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    
+    menuItem = gtk_image_menu_item_new_with_label(_("Edit"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)editSelectedBtnCbk, NULL);
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Contextmenu/Edit");
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    /*
+    menuItem = gtk_image_menu_item_new_with_label(_("Change permissions"));
+    g_signal_connect(menuItem, "activate", 
+                     (GCallback)changePermissionsBtnCbk, NULL);
+    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
+    gtk_widget_show_all(menu);
+    if(numSelectedRows > 1)
+        gtk_widget_set_sensitive(menuItem, FALSE);
+    */
+    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
+                   event->button, gdk_event_get_time((GdkEvent*)event));
 }
 
 void showHiddenCbk(GtkButton *button, gpointer data)

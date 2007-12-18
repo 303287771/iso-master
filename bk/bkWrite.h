@@ -13,8 +13,8 @@ int writeDir(VolInfo* volInfo, DirToWrite* dir, int parentLbNum,
 int writeDr(VolInfo* volInfo, BaseToWrite* dir, time_t recordingTime, bool isADir, 
             bool isSelfOrParent, bool isFirstRecord, int filenameTypes);
 int writeElToritoBootCatalog(VolInfo* volInfo, 
-                             off_t* bootRecordSectorNumberOffset);
-int writeElToritoVd(VolInfo* volInfo, off_t* bootCatalogSectorNumberOffset);
+                             bk_off_t* bootRecordSectorNumberOffset);
+int writeElToritoVd(VolInfo* volInfo, bk_off_t* bootCatalogSectorNumberOffset);
 int writeFileContents(VolInfo* volInfo, DirToWrite* dir, int filenameTypes);
 int writeJolietStringField(VolInfo* volInfo, const char* name, size_t fieldSize);
 int writeLongNM(VolInfo* volInfo, BaseToWrite* dir);
@@ -31,9 +31,11 @@ int writeRockPX(VolInfo* volInfo, unsigned posixFileMode, bool isADir);
 int writeRockSL(VolInfo* volInfo, SymLinkToWrite* symlink, bool doWrite);
 int writeRockSP(VolInfo* volInfo);
 int writeVdsetTerminator(VolInfo* volInfo);
-int writeVolDescriptor(VolInfo* volInfo, off_t rootDrLocation,
-                       unsigned rootDrSize, off_t lPathTableLoc, 
-                       off_t mPathTableLoc, unsigned pathTableSize, 
+int writeVolDescriptor(VolInfo* volInfo, bk_off_t rootDrLocation,
+                       unsigned rootDrSize, bk_off_t lPathTableLoc, 
+                       bk_off_t mPathTableLoc, unsigned pathTableSize, 
                        time_t creationTime, bool isPrimary);
+int wroteIsolinuxBootRecord(VolInfo* volInfo, FileToWrite* file, 
+                            bool* isIsolinux);
 
 #endif

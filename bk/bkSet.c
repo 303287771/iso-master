@@ -12,11 +12,7 @@
 * 
 ******************************************************************************/
 
-#ifndef WIN32
-    #include <strings.h>
-#else
-    #define _CRT_SECURE_NO_WARNINGS 1
-#endif
+#include <strings.h>
 #include <string.h>
 #include <stdio.h>
 
@@ -25,6 +21,7 @@
 #include "bkDelete.h"
 #include "bkPath.h"
 #include "bkError.h"
+#include "bkIoWrappers.h"
 
 void bk_cancel_operation(VolInfo* volInfo)
 {
@@ -48,7 +45,7 @@ void bk_destroy_vol_info(VolInfo* volInfo)
         free(volInfo->bootRecordPathAndName);
     
     if(volInfo->imageForReading > 0)
-        close(volInfo->imageForReading);
+        bkClose(volInfo->imageForReading);
     
     currentLink = volInfo->fileLocations;
     while(currentLink != NULL)

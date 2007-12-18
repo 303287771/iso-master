@@ -17,9 +17,13 @@
 #include <libintl.h>
 #include <errno.h>
 #include <signal.h>
-#include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include "isomaster.h"
+#include "bk/bkIoWrappers.h"
+
+#include <sys/wait.h>
 
 #define MAX_RANDOM_BASE_NAME_LEN 26
 #define RANDOM_STR_NAME_LEN 6
@@ -30,20 +34,18 @@
 /* files that I created in the temp dir for editing */
 TempFileCreated* GBLtempFilesList = NULL;
 
+extern GtkWidget* GBLfsTreeView;
+extern char* GBLfsCurrentDir;
 extern bool GBLisoPaneActive;
 extern GtkWidget* GBLisoTreeView;
 extern char* GBLisoCurrentDir;
 extern VolInfo GBLvolInfo;
 extern GtkWidget* GBLmainWindow;
 extern bool GBLisoChangesProbable;
-extern GtkWidget* GBLeditorFld;
-extern GtkWidget* GBLviewerFld;
-extern GtkWidget* GBLtempDirFld;
+extern AppSettings GBLappSettings;
 
 static bool GBLeditFailed;
-static bool GBLcancelEditTimeout;
 static bool GBLviewFailed;
-static bool GBLcancelViewTimeout;
 
 /******************************************************************************
 * addToTempFilesList()
@@ -70,9 +72,6 @@ void addToTempFilesList(const char* pathAndName)
 
 gboolean checkEditFailed(gpointer data)
 {
-    if(GBLcancelEditTimeout)
-        return FALSE;
-    
     if(GBLeditFailed)
     {
         GtkWidget* warningDialog;
@@ -80,7 +79,7 @@ gboolean checkEditFailed(gpointer data)
                                                GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_ERROR,
                                                GTK_BUTTONS_CLOSE,
-                                               _("Edit failed, please check Settings/Editor"));
+                                               _("Edit failed, please check Options/Editor"));
         gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
         gtk_dialog_run(GTK_DIALOG(warningDialog));
         gtk_widget_destroy(warningDialog);
@@ -93,9 +92,6 @@ gboolean checkEditFailed(gpointer data)
 
 gboolean checkViewFailed(gpointer data)
 {
-    if(GBLcancelViewTimeout)
-        return FALSE;
-    
     if(GBLviewFailed)
     {
         GtkWidget* warningDialog;
@@ -103,7 +99,7 @@ gboolean checkViewFailed(gpointer data)
                                                GTK_DIALOG_DESTROY_WITH_PARENT,
                                                GTK_MESSAGE_ERROR,
                                                GTK_BUTTONS_CLOSE,
-                                               _("View failed, please check Settings/Viewer"));
+                                               _("View failed, please check Options/Viewer"));
         gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
         gtk_dialog_run(GTK_DIALOG(warningDialog));
         gtk_widget_destroy(warningDialog);
@@ -112,6 +108,79 @@ gboolean checkViewFailed(gpointer data)
     }
     else
         return TRUE;
+}
+
+bool copyFsToFs(const char* src, const char* dest)
+{
+    BkStatStruct statStruct;
+    int srcFile;
+    int destFile;
+    int rc;
+    const int blockSize = 102400;
+    int count;
+    int numBlocks;
+    int sizeLastBlock;
+    char buffer[blockSize];
+    
+    rc = bkStat(src, &statStruct);
+    if(rc != 0)
+        return false;
+    
+    srcFile = open(src, O_RDONLY);
+    if(srcFile <= 0)
+        return false;
+    
+    destFile = open(dest, O_WRONLY | O_CREAT | O_EXCL, 0600);
+    if(destFile <= 0)
+    {
+        bkClose(srcFile);
+        return false;
+    }
+    
+    numBlocks = statStruct.st_size / blockSize;
+    sizeLastBlock = statStruct.st_size % blockSize;
+    
+    for(count = 0; count < numBlocks; count++)
+    {
+        rc = bkRead(srcFile, buffer, blockSize);
+        if(rc != blockSize)
+        {
+            bkClose(srcFile);
+            bkClose(destFile);
+            return false;
+        }
+        
+        rc = bkWrite(destFile, buffer, blockSize);
+        if(rc != blockSize)
+        {
+            bkClose(srcFile);
+            bkClose(destFile);
+            return false;
+        }
+    }
+    
+    if(sizeLastBlock > 0)
+    {
+        rc = bkRead(srcFile, buffer, sizeLastBlock);
+        if(rc != sizeLastBlock)
+        {
+            bkClose(srcFile);
+            bkClose(destFile);
+            return false;
+        }
+        rc = bkWrite(destFile, buffer, sizeLastBlock);
+        if(rc != sizeLastBlock)
+        {
+            bkClose(srcFile);
+            bkClose(destFile);
+            return false;
+        }
+    }
+    
+    bkClose(srcFile);
+    bkClose(destFile);
+    
+    return true;
 }
 
 void deleteTempFiles(void)
@@ -134,33 +203,150 @@ void deleteTempFiles(void)
 void editSelectedBtnCbk(GtkMenuItem *menuitem, gpointer data)
 {
     GtkTreeSelection* selection;
-    
-    /* do nothing if no image open */
-    if(!GBLisoPaneActive)
-        return;
-    
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLisoTreeView));
-    
     static guint timeoutTag = 0;
     
-    /* kill the previous timeout function (if any) */
-    if(timeoutTag != 0)
-        g_source_remove(timeoutTag);
+    gboolean fsViewHasFocus;
+    gboolean isoViewHasFocus;
     
-    GBLeditFailed = false;
+    g_object_get(GBLfsTreeView, "is-focus", &fsViewHasFocus, NULL);
+    g_object_get(GBLisoTreeView, "is-focus", &isoViewHasFocus, NULL);
     
-    /* a timeout that will keep checking whether GBLeditFailed */
-    timeoutTag = g_timeout_add(TIMEOUT_TIME, checkEditFailed, NULL);
-    
-    /* there's just one row selected but this is the easiest way to do it */
-    gtk_tree_selection_selected_foreach(selection, editSelectedRowCbk, NULL);
-    
-    /* can't put this in the callback because gtk complains */
-    refreshIsoView();
+    if(fsViewHasFocus)
+    {
+        selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLfsTreeView));
+        
+        /* kill the previous timeout function (if any) */
+        if(timeoutTag != 0)
+            g_source_remove(timeoutTag);
+        
+        GBLeditFailed = false;
+        
+        /* a timeout that will keep checking whether GBLviewFailed */
+        timeoutTag = g_timeout_add(TIMEOUT_TIME, checkViewFailed, NULL);
+        
+        gtk_tree_selection_selected_foreach(selection, editSelectedFsRowCbk, NULL);
+    }
+    else if(isoViewHasFocus)
+    {
+        /* do nothing if no image open */
+        if(!GBLisoPaneActive)
+            return;
+        
+        selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLisoTreeView));
+        
+        /* kill the previous timeout function (if any) */
+        if(timeoutTag != 0)
+            g_source_remove(timeoutTag);
+        
+        GBLeditFailed = false;
+        
+        /* a timeout that will keep checking whether GBLeditFailed */
+        timeoutTag = g_timeout_add(TIMEOUT_TIME, checkEditFailed, NULL);
+        
+        gtk_tree_selection_selected_foreach(selection, editSelectedIsoRowCbk, NULL);
+        
+        /* can't put this in the callback because gtk complains */
+        //refreshIsoView();
+    }
 }
 
-void editSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
-                        GtkTreeIter* iterator, gpointer data)
+void editSelectedFsRowCbk(GtkTreeModel* model, GtkTreePath* path,
+                          GtkTreeIter* iterator, gpointer data)
+{
+    int fileType;
+    char* itemName;
+    char* randomizedItemName;
+    char* pathAndNameOnFs;
+    char* pathAndNameInTempDir;
+    GtkWidget* warningDialog;
+    bool copiedOk;
+    
+    gtk_tree_model_get(model, iterator, COLUMN_HIDDEN_TYPE, &fileType,
+                                        COLUMN_FILENAME, &itemName, -1);
+    if(fileType != FILE_TYPE_REGULAR)
+    {
+        warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               _("'%s' is not a regular file"),
+                                               itemName);
+        gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
+        gtk_dialog_run(GTK_DIALOG(warningDialog));
+        gtk_widget_destroy(warningDialog);
+        
+        g_free(itemName);
+        return;
+    }
+    
+    /* create full path and name for the file on the fs */
+    pathAndNameOnFs = malloc(strlen(GBLfsCurrentDir) + strlen(itemName) + 1);
+    if(pathAndNameOnFs == NULL)
+        fatalError("malloc(strlen(GBLfsCurrentDir) + strlen(itemName) + 1) failed");
+    strcpy(pathAndNameOnFs, GBLfsCurrentDir);
+    strcat(pathAndNameOnFs, itemName);
+    
+    /* create full path and name for the extracted file */
+    randomizedItemName = makeRandomFilename(itemName);
+    pathAndNameInTempDir = malloc(strlen(GBLappSettings.tempDir) + 
+                                  strlen(randomizedItemName) + 2);
+    if(pathAndNameInTempDir == NULL)
+        fatalError("malloc(strlen(GBLappSettings.tempDir) + "
+                   "strlen(randomizedItemName) + 2) failed");
+    strcpy(pathAndNameInTempDir, GBLappSettings.tempDir);
+    
+    strcat(pathAndNameInTempDir, "/"); /* doesn't hurt even if not needed */
+    
+    strcat(pathAndNameInTempDir, randomizedItemName);
+    
+    /* disable warnings, so user isn't confused with 'continue' buttons */
+    bool(*savedWarningCbk)(const char*) = GBLvolInfo.warningCbk;
+    GBLvolInfo.warningCbk = NULL;
+    
+    /* copy the file to the temporary directory */
+    copiedOk = copyFsToFs(pathAndNameOnFs, pathAndNameInTempDir);
+    if(!copiedOk)
+    {
+        warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               "Failed to copy '%s' to '%s'",
+                                               pathAndNameOnFs,
+                                               pathAndNameInTempDir);
+        gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
+        gtk_dialog_run(GTK_DIALOG(warningDialog));
+        gtk_widget_destroy(warningDialog);
+        
+        g_free(itemName);
+        free(randomizedItemName);
+        free(pathAndNameOnFs);
+        free(pathAndNameInTempDir);
+        GBLvolInfo.warningCbk = savedWarningCbk;
+        return;
+    }
+    
+    addToTempFilesList(pathAndNameInTempDir);
+    
+    /* start the viewer */
+    if(!fork())
+    {
+        execlp(GBLappSettings.editor, "editor", pathAndNameInTempDir, NULL);
+        
+        kill(getppid(), SIGUSR2);
+        
+        exit(1);
+    }
+    
+    g_free(itemName);
+    free(randomizedItemName);
+    free(pathAndNameOnFs);
+    free(pathAndNameInTempDir);
+    GBLvolInfo.warningCbk = savedWarningCbk;
+}
+
+void editSelectedIsoRowCbk(GtkTreeModel* model, GtkTreePath* path,
+                           GtkTreeIter* iterator, gpointer data)
 {
     int fileType;
     char* itemName;
@@ -198,13 +384,15 @@ void editSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
     
     /* create full path and name for the extracted file */
     randomizedItemName = makeRandomFilename(itemName);
-    pathAndNameOnFs = malloc(strlen(gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld))) + 
+    pathAndNameOnFs = malloc(strlen(GBLappSettings.tempDir) + 
                              strlen(randomizedItemName) + 2);
     if(pathAndNameOnFs == NULL)
-        fatalError("malloc(strlen(gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld))) + "
+        fatalError("malloc(strlen(GBLappSettings.tempDir) + "
                    "strlen(randomizedItemName) + 2) failed");
-    strcpy(pathAndNameOnFs, gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld)));
+    strcpy(pathAndNameOnFs, GBLappSettings.tempDir);
+    
     strcat(pathAndNameOnFs, "/"); /* doesn't hurt even if not needed */
+    
     strcat(pathAndNameOnFs, randomizedItemName);
     
     /* disable warnings, so user isn't confused with 'continue' buttons */
@@ -213,7 +401,7 @@ void editSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
     
     /* extract the file to the temporary directory */
     rc = bk_extract_as(&GBLvolInfo, pathAndNameOnIso, 
-                       gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld)), 
+                       GBLappSettings.tempDir, 
                        randomizedItemName, false, activityProgressUpdaterCbk);
     if(rc <= 0)
     {
@@ -241,7 +429,7 @@ void editSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
     /* start the editor */
     if(!fork())
     {
-        execlp(gtk_entry_get_text(GTK_ENTRY(GBLeditorFld)), "editor", pathAndNameOnFs, NULL);
+        execlp(GBLappSettings.editor, "editor", pathAndNameOnFs, NULL);
         
         kill(getppid(), SIGUSR1);
         
@@ -347,29 +535,146 @@ char* makeRandomFilename(const char* sourceName)
 void viewSelectedBtnCbk(GtkMenuItem *menuitem, gpointer data)
 {
     GtkTreeSelection* selection;
-    
-    /* do nothing if no image open */
-    if(!GBLisoPaneActive)
-        return;
-    
-    selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLisoTreeView));
-    
     static guint timeoutTag = 0;
     
-    /* kill the previous timeout function (if any) */
-    if(timeoutTag != 0)
-        g_source_remove(timeoutTag);
+    gboolean fsViewHasFocus;
+    gboolean isoViewHasFocus;
     
-    GBLviewFailed = false;
+    g_object_get(GBLfsTreeView, "is-focus", &fsViewHasFocus, NULL);
+    g_object_get(GBLisoTreeView, "is-focus", &isoViewHasFocus, NULL);
     
-    /* a timeout that will keep checking whether GBLviewFailed */
-    timeoutTag = g_timeout_add(TIMEOUT_TIME, checkViewFailed, NULL);
-    
-    /* there's just one row selected but this is the easiest way to do it */
-    gtk_tree_selection_selected_foreach(selection, viewSelectedRowCbk, NULL);
+    if(fsViewHasFocus)
+    {
+        selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLfsTreeView));
+        
+        /* kill the previous timeout function (if any) */
+        if(timeoutTag != 0)
+            g_source_remove(timeoutTag);
+        
+        GBLviewFailed = false;
+        
+        /* a timeout that will keep checking whether GBLviewFailed */
+        timeoutTag = g_timeout_add(TIMEOUT_TIME, checkViewFailed, NULL);
+        
+        gtk_tree_selection_selected_foreach(selection, viewSelectedFsRowCbk, NULL);
+    }
+    else if(isoViewHasFocus)
+    {
+        /* do nothing if no image open */
+        if(!GBLisoPaneActive)
+            return;
+        
+        selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(GBLisoTreeView));
+        
+        /* kill the previous timeout function (if any) */
+        if(timeoutTag != 0)
+            g_source_remove(timeoutTag);
+        
+        GBLviewFailed = false;
+        
+        /* a timeout that will keep checking whether GBLviewFailed */
+        timeoutTag = g_timeout_add(TIMEOUT_TIME, checkViewFailed, NULL);
+        
+        gtk_tree_selection_selected_foreach(selection, viewSelectedIsoRowCbk, NULL);
+    }
 }
 
-void viewSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
+void viewSelectedFsRowCbk(GtkTreeModel* model, GtkTreePath* path,
+                          GtkTreeIter* iterator, gpointer data)
+{
+    int fileType;
+    char* itemName;
+    char* randomizedItemName;
+    char* pathAndNameOnFs;
+    char* pathAndNameInTempDir;
+    GtkWidget* warningDialog;
+    bool copiedOk;
+    
+    gtk_tree_model_get(model, iterator, COLUMN_HIDDEN_TYPE, &fileType,
+                                        COLUMN_FILENAME, &itemName, -1);
+    if(fileType != FILE_TYPE_REGULAR)
+    {
+        warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               _("'%s' is not a regular file"),
+                                               itemName);
+        gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
+        gtk_dialog_run(GTK_DIALOG(warningDialog));
+        gtk_widget_destroy(warningDialog);
+        
+        g_free(itemName);
+        return;
+    }
+    
+    /* create full path and name for the file on the fs */
+    pathAndNameOnFs = malloc(strlen(GBLfsCurrentDir) + strlen(itemName) + 1);
+    if(pathAndNameOnFs == NULL)
+        fatalError("malloc(strlen(GBLfsCurrentDir) + strlen(itemName) + 1) failed");
+    strcpy(pathAndNameOnFs, GBLfsCurrentDir);
+    strcat(pathAndNameOnFs, itemName);
+    
+    /* create full path and name for the extracted file */
+    randomizedItemName = makeRandomFilename(itemName);
+    pathAndNameInTempDir = malloc(strlen(GBLappSettings.tempDir) + 
+                                  strlen(randomizedItemName) + 2);
+    if(pathAndNameInTempDir == NULL)
+        fatalError("malloc(strlen(GBLappSettings.tempDir) + "
+                   "strlen(randomizedItemName) + 2) failed");
+    strcpy(pathAndNameInTempDir, GBLappSettings.tempDir);
+    
+    strcat(pathAndNameInTempDir, "/"); /* doesn't hurt even if not needed */
+    
+    strcat(pathAndNameInTempDir, randomizedItemName);
+    
+    /* disable warnings, so user isn't confused with 'continue' buttons */
+    bool(*savedWarningCbk)(const char*) = GBLvolInfo.warningCbk;
+    GBLvolInfo.warningCbk = NULL;
+    
+    /* copy the file to the temporary directory */
+    copiedOk = copyFsToFs(pathAndNameOnFs, pathAndNameInTempDir);
+    if(!copiedOk)
+    {
+        warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               "Failed to copy '%s' to '%s'",
+                                               pathAndNameOnFs,
+                                               pathAndNameInTempDir);
+        gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
+        gtk_dialog_run(GTK_DIALOG(warningDialog));
+        gtk_widget_destroy(warningDialog);
+        
+        g_free(itemName);
+        free(randomizedItemName);
+        free(pathAndNameOnFs);
+        free(pathAndNameInTempDir);
+        GBLvolInfo.warningCbk = savedWarningCbk;
+        return;
+    }
+    
+    addToTempFilesList(pathAndNameInTempDir);
+    
+    /* start the viewer */
+    if(!fork())
+    {
+        execlp(GBLappSettings.viewer, "viewer", pathAndNameInTempDir, NULL);
+        
+        kill(getppid(), SIGUSR2);
+        
+        exit(1);
+    }
+    
+    g_free(itemName);
+    free(randomizedItemName);
+    free(pathAndNameOnFs);
+    free(pathAndNameInTempDir);
+    GBLvolInfo.warningCbk = savedWarningCbk;
+}
+
+void viewSelectedIsoRowCbk(GtkTreeModel* model, GtkTreePath* path,
                         GtkTreeIter* iterator, gpointer data)
 {
     int fileType;
@@ -379,9 +684,6 @@ void viewSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
     char* pathAndNameOnIso; /* to delete from iso */
     int rc;
     GtkWidget* warningDialog;
-    
-    gtk_tree_model_get(model, iterator, COLUMN_HIDDEN_TYPE, &fileType, -1);
-    
     
     gtk_tree_model_get(model, iterator, COLUMN_HIDDEN_TYPE, &fileType,
                                         COLUMN_FILENAME, &itemName, -1);
@@ -410,13 +712,15 @@ void viewSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
     
     /* create full path and name for the extracted file */
     randomizedItemName = makeRandomFilename(itemName);
-    pathAndNameOnFs = malloc(strlen(gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld))) + 
+    pathAndNameOnFs = malloc(strlen(GBLappSettings.tempDir) + 
                              strlen(randomizedItemName) + 2);
     if(pathAndNameOnFs == NULL)
-        fatalError("malloc(strlen(gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld))) + "
+        fatalError("malloc(strlen(GBLappSettings.tempDir) + "
                    "strlen(randomizedItemName) + 2) failed");
-    strcpy(pathAndNameOnFs, gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld)));
+    strcpy(pathAndNameOnFs, GBLappSettings.tempDir);
+    
     strcat(pathAndNameOnFs, "/"); /* doesn't hurt even if not needed */
+    
     strcat(pathAndNameOnFs, randomizedItemName);
     
     /* disable warnings, so user isn't confused with 'continue' buttons */
@@ -425,7 +729,7 @@ void viewSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
     
     /* extract the file to the temporary directory */
     rc = bk_extract_as(&GBLvolInfo, pathAndNameOnIso, 
-                       gtk_entry_get_text(GTK_ENTRY(GBLtempDirFld)), 
+                       GBLappSettings.tempDir, 
                        randomizedItemName, false, activityProgressUpdaterCbk);
     if(rc <= 0)
     {
@@ -453,7 +757,7 @@ void viewSelectedRowCbk(GtkTreeModel* model, GtkTreePath* path,
     /* start the viewer */
     if(!fork())
     {
-        execlp(gtk_entry_get_text(GTK_ENTRY(GBLviewerFld)), "viewer", pathAndNameOnFs, NULL);
+        execlp(GBLappSettings.viewer, "viewer", pathAndNameOnFs, NULL);
         
         kill(getppid(), SIGUSR2);
         

@@ -12,11 +12,7 @@
 * 
 ******************************************************************************/
 
-#ifndef WIN32
-    #include <dirent.h>
-#else
-    #define _CRT_SECURE_NO_WARNINGS 1
-#endif
+#include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -32,6 +28,7 @@
 #include "bkLink.h"
 #include "bkMisc.h"
 #include "bkSet.h"
+#include "bkIoWrappers.h"
 
 int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir, 
         const char* nameToUse)
@@ -39,7 +36,7 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
     int rc;
     char lastName[NCHARS_FILE_ID_MAX_STORE];
     BkFileBase* oldHead; /* of the children list */
-    struct stat statStruct;
+    BkStatStruct statStruct;
     
     if(volInfo->stopOperation)
         return BKERROR_OPER_CANCELED_BY_USER;
@@ -67,15 +64,11 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
     
     oldHead = destDir->children;
     
-#ifndef WIN32
+    /* windows doesn't have symbolic links */
     if(volInfo->followSymLinks)
-#endif
-        rc = stat(srcPathAndName, &statStruct);
-#ifndef WIN32 //!!WIN32
-    /* windows doesn't have symbolic links anyway */
+        rc = bkStat(srcPathAndName, &statStruct);
     else
         rc = lstat(srcPathAndName, &statStruct);
-#endif
     if(rc == -1)
         return BKERROR_STAT_FAILED;
     
@@ -166,7 +159,6 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
         
         destDir->children = BK_BASE_PTR(newFile);
     }
-#ifndef WIN32
     else if( IS_SYMLINK(statStruct.st_mode) )
     {
         BkSymLink* newSymLink;
@@ -195,14 +187,12 @@ int add(VolInfo* volInfo, const char* srcPathAndName, BkDir* destDir,
         
         destDir->children = BK_BASE_PTR(newSymLink);
     }
-#endif
     else
         return BKERROR_NO_SPECIAL_FILES;
     
     return 1;
 }
 
-//needs a rewrite for windows //!!WIN32
 int addDirContents(VolInfo* volInfo, const char* srcPath, BkDir* destDir)
 {
     int rc;
@@ -216,11 +206,12 @@ int addDirContents(VolInfo* volInfo, const char* srcPath, BkDir* destDir)
     srcPathLen = strlen(srcPath);
     
     /* including the new name and the possibly needed trailing '/' */
-    newSrcPathAndName = malloc(srcPathLen + NCHARS_FILE_ID_MAX_STORE + 1);
+    newSrcPathAndName = malloc(srcPathLen + NCHARS_FILE_ID_MAX_STORE + 2);
     if(newSrcPathAndName == NULL)
         return BKERROR_OUT_OF_MEMORY;
     
     strcpy(newSrcPathAndName, srcPath);
+    
     if(srcPath[srcPathLen - 1] != '/')
     {
         strcat(newSrcPathAndName, "/");
@@ -356,7 +347,7 @@ int bk_add_as(VolInfo* volInfo, const char* srcPathAndName,
 int bk_add_boot_record(VolInfo* volInfo, const char* srcPathAndName, 
                        int bootMediaType)
 {
-    struct stat statStruct;
+    BkStatStruct statStruct;
     int rc;
     
     if(bootMediaType != BOOT_MEDIA_NO_EMULATION &&
@@ -367,9 +358,13 @@ int bk_add_boot_record(VolInfo* volInfo, const char* srcPathAndName,
         return BKERROR_ADD_UNKNOWN_BOOT_MEDIA;
     }
     
-    rc = stat(srcPathAndName, &statStruct);
+    rc = bkStat(srcPathAndName, &statStruct);
     if(rc == -1)
         return BKERROR_STAT_FAILED;
+    
+    if(statStruct.st_size > 0xFFFFFFFF)
+    /* size won't fit in a 32bit variable on the iso */
+        return BKERROR_ADD_FILE_TOO_BIG;
     
     if( (bootMediaType == BOOT_MEDIA_1_2_FLOPPY &&
          statStruct.st_size != 1228800) ||

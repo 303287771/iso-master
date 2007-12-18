@@ -12,9 +12,6 @@
 * 
 ******************************************************************************/
 
-#ifdef WIN32
-    #define _CRT_SECURE_NO_WARNINGS 1
-#endif
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
@@ -30,7 +27,7 @@
 * Public function
 * Estimates the size of the directory trees + file contents on the iso
 * */
-off_t bk_estimate_iso_size(const VolInfo* volInfo, int filenameTypes)
+bk_off_t bk_estimate_iso_size(const VolInfo* volInfo, int filenameTypes)
 {
     /* reset alreadyCounted flags */
     BkHardLink* currentLink;
@@ -125,10 +122,10 @@ const char* bk_get_volume_name(const VolInfo* volInfo)
 * Recursive
 * Estimate the size of the directory trees + file contents on the iso
 * */
-off_t estimateIsoSize(const BkDir* tree, int filenameTypes)
+bk_off_t estimateIsoSize(const BkDir* tree, int filenameTypes)
 {
-    off_t estimateDrSize;
-    off_t thisDirSize;
+    bk_off_t estimateDrSize;
+    bk_off_t thisDirSize;
     int numItems; /* files and directories */
     BkFileBase* child;
     

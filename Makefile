@@ -35,7 +35,7 @@ DEFAULT_VIEWER ?= firefox
 
 # This enables overwriting the original iso,
 # don't uncomment it unless you are willing to risk losing data.
-#CFLAGS += -DENABLE_SAVE_OVERWRITE
+#CPPFLAGS += -DENABLE_SAVE_OVERWRITE
 
 # programs used in the Makefiles:
 export CC      ?= gcc
@@ -45,15 +45,17 @@ export INSTALL = install
 export CP      = cp
 export ECHO    = echo
 
+VERSION = 1.3
+
 # -DDEBUG and -g only used during development
 CFLAGS += -Wall -pedantic -std=gnu99 -Wundef -Wcast-align -W -Wpointer-arith -Wwrite-strings -Wno-unused-parameter `pkg-config --cflags gtk+-2.0`
 ifndef WITHOUT_NLS
 	CFLAGS += -DENABLE_NLS
 endif
 
-CPPFLAGS +=  -DICONPATH=\"$(ICONPATH)\" -DLOCALEDIR=\"$(LOCALEDIR)\" -DDEFAULT_EDITOR=\"$(DEFAULT_EDITOR)\" -DDEFAULT_VIEWER=\"$(DEFAULT_VIEWER)\"
+CPPFLAGS +=  -DICONPATH=\"$(ICONPATH)\" -DLOCALEDIR=\"$(LOCALEDIR)\" -DDEFAULT_EDITOR=\"$(DEFAULT_EDITOR)\" -DDEFAULT_VIEWER=\"$(DEFAULT_VIEWER)\" -DVERSION=\"$(VERSION)\"
 
-# the _FILE_OFFSET_BITS=64 is to enable stat() for large files
+# the _FILE_OFFSET_BITS=64 is to enable stat() for large files on linuxish systems
 CPPFLAGS += -D_FILE_OFFSET_BITS=64
 
 OBJECTS = isomaster.o window.o browser.o fsbrowser.o isobrowser.o error.o about.o settings.o boot.o editfile.o
@@ -65,7 +67,7 @@ isomaster: $(OBJECTS) lib iniparser
 	@$(CC) $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a $(CFLAGS) $(CPPFLAGS) `pkg-config --libs gtk+-2.0` -o isomaster
 
 # static pattern rule
-$(OBJECTS): %.o: %.c bk/bk.h Makefile
+$(OBJECTS): %.o: %.c %.h bk/bk.h Makefile
 	@echo 'Compiling' $<
 	@$(CC) $< $(CFLAGS) $(CPPFLAGS) -c -o $@
 

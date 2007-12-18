@@ -1,3 +1,4 @@
+# translation of sl.po to
 # Slovenian translation of ISO Master
 # This file is distributed under the same license as the ISO Master package.
 #
@@ -6,20 +7,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-26 23:45-0400\n"
-"PO-Revision-Date: 2007-09-09 15:59+0200\n"
-"Last-Translator: Uros Golob <na1pir@gmail.com>\n"
-"Language-Team: Slovenian <sl@li.org>\n"
+"POT-Creation-Date: 2007-12-16 23:50-0500\n"
+"PO-Revision-Date: 2007-12-12 01:18+0100\n"
+"Last-Translator: uros\n"
+"Language-Team:  <sl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
 
-#: ../window.c:474
+#: ../window.c:389
 msgid "      Estimated ISO Size: "
 msgstr "      Ocenjena velikost ISO slike: "
 
-#: ../isobrowser.c:1379
+#: ../isobrowser.c:1384
 #, c-format
 msgid ""
 "%s\n"
@@ -30,28 +31,28 @@ msgstr ""
 "\n"
 "Želiš nadaljevati?"
 
-#: ../editfile.c:182 ../editfile.c:394
+#: ../editfile.c:272 ../editfile.c:368 ../editfile.c:601 ../editfile.c:696
 #, c-format
 msgid "'%s' is not a regular file"
 msgstr "'%s' datoteka ni pravilna"
 
-#: ../isobrowser.c:141 ../isobrowser.c:1194
+#: ../isobrowser.c:141 ../isobrowser.c:1199
 msgid "(scanning for duplicate files)"
 msgstr "(iščem podvojene datoteke)"
 
-#: ../window.c:460
+#: ../window.c:375
 msgid "Add"
 msgstr "Dodaj"
 
-#: ../isobrowser.c:1616
+#: ../isobrowser.c:1621
 msgid "Add extension automatically"
 msgstr "Samodejno dodaj končnico"
 
-#: ../window.c:460
+#: ../window.c:375
 msgid "Add to the ISO"
 msgstr "Dodaj datoteki ISO"
 
-#: ../isobrowser.c:1325 ../isobrowser.c:1613
+#: ../isobrowser.c:1330 ../isobrowser.c:1618
 msgid "All files"
 msgstr "Vse datoteke"
 
@@ -81,9 +82,9 @@ msgstr "Tip zagonskega zapisa: 2880KiB Floppy"
 #: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
-msgstr "Tip zagonskega zapisa: Brez Emuliranja"
+msgstr "Tip zagonskega zapisa: Brez Posnemanja"
 
-#: ../isobrowser.c:500 ../isobrowser.c:1792
+#: ../isobrowser.c:502 ../isobrowser.c:1797
 msgid "Change permissions"
 msgstr "Spremni dovoljenja"
 
@@ -91,35 +92,35 @@ msgstr "Spremni dovoljenja"
 msgid "Choose Boot Record File"
 msgstr "Izberi zagonski zapis"
 
-#: ../window.c:456
+#: ../window.c:371
 msgid "Create new directory on the ISO"
 msgstr "Ustvari novo kazalo na ISO sliki"
 
-#: ../window.c:66
+#: ../window.c:60
 msgid "Create new directory on the filesystem"
 msgstr "Ustvari novo kazalo na datotečnem sistemu"
 
-#: ../settings.c:81
+#: ../settings.c:78
 msgid "Creation time:"
 msgstr "Čas izdelave:"
 
-#: ../window.c:470
+#: ../window.c:385
 msgid "Delete from the ISO"
 msgstr "Odstrani iz ISO slike"
 
-#: ../isobrowser.c:1785
+#: ../fsbrowser.c:590 ../isobrowser.c:1790
 msgid "Edit"
 msgstr "Uredi"
 
-#: ../editfile.c:83
-msgid "Edit failed, please check Settings/Editor"
-msgstr ""
+#: ../editfile.c:82
+msgid "Edit failed, please check Options/Editor"
+msgstr "Urejanje neuspešno, prosim preveri Lastnosti/Urejevalnik"
 
-#: ../settings.c:206 ../window.c:333 ../window.c:336
+#: ../settings.c:701
 msgid "Editor"
 msgstr "Urejevalnik"
 
-#: ../isobrowser.c:1458
+#: ../isobrowser.c:1463
 msgid "Enter a new name:"
 msgstr "Vnesi novo ime"
 
@@ -127,15 +128,15 @@ msgstr "Vnesi novo ime"
 msgid "Enter name for new directory"
 msgstr "Vnesi ime za novo kazalo"
 
-#: ../window.c:465
+#: ../window.c:380
 msgid "Extract"
-msgstr "Izvleči"
+msgstr "Razširi"
 
-#: ../window.c:465
+#: ../window.c:380
 msgid "Extract from the ISO"
-msgstr "Izvleči iz ISO slike"
+msgstr "Razširi iz ISO slike"
 
-#: ../editfile.c:285 ../isobrowser.c:214
+#: ../editfile.c:473 ../isobrowser.c:214
 #, c-format
 msgid "Failed to add '%s': '%s'"
 msgstr "Neuspečno dodajanje '%s': '%s'"
@@ -145,7 +146,7 @@ msgstr "Neuspečno dodajanje '%s': '%s'"
 msgid "Failed to add boot record: '%s'"
 msgstr "Neuspešno dodan zagonski zapis '%s'"
 
-#: ../isobrowser.c:363
+#: ../isobrowser.c:365
 #, c-format
 msgid "Failed to change directory: '%s'"
 msgstr "Neuspešno spremenjeno kazalo: '%s'"
@@ -160,12 +161,12 @@ msgstr "Neuspešno ustvarjeno kazalo %s"
 msgid "Failed to create directory %s: '%s'"
 msgstr "Neuspešno ustvarjeno kazalo %s: '%s'"
 
-#: ../editfile.c:259 ../isobrowser.c:786
+#: ../editfile.c:447 ../isobrowser.c:788
 #, c-format
 msgid "Failed to delete '%s': '%s'"
 msgstr "Neuspešno odstranjevanje '%s': '%s'"
 
-#: ../editfile.c:224 ../editfile.c:436 ../isobrowser.c:899
+#: ../editfile.c:412 ../editfile.c:740 ../isobrowser.c:901
 #, c-format
 msgid "Failed to extract '%s': '%s'"
 msgstr "Neuspešno izvlečen '%s': '%s'"
@@ -175,32 +176,32 @@ msgstr "Neuspešno izvlečen '%s': '%s'"
 msgid "Failed to extract boot record: '%s'"
 msgstr "Neuspešen pri izvlečevanju zagonskega zapisa: '%s'"
 
-#: ../isobrowser.c:1082 ../isobrowser.c:1130
+#: ../isobrowser.c:1084 ../isobrowser.c:1135
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
 msgstr "Neuspešno zagnan bkisofs: '%s'"
 
-#: ../fsbrowser.c:219
+#: ../fsbrowser.c:229
 #, c-format
 msgid "Failed to open directory '%s', error %d"
 msgstr "Neuspešno odpiranje kazala '%s', napaka %d"
 
-#: ../isobrowser.c:1149
+#: ../isobrowser.c:1154
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
 msgstr "Neuspešen pri odpiranju Iso slike za branje: '%s'"
 
-#: ../isobrowser.c:1224
+#: ../isobrowser.c:1229
 #, c-format
 msgid "Failed to read directory tree: '%s'"
 msgstr "Neuspešno branje kazalčnega drevesa: '%s'"
 
-#: ../isobrowser.c:1164
+#: ../isobrowser.c:1169
 #, c-format
 msgid "Failed to read volume info: '%s'"
 msgstr "Neuspešno branje informacij zbirčne naprave: '%s'"
 
-#: ../isobrowser.c:1487
+#: ../isobrowser.c:1492
 #, c-format
 msgid "Failed to rename '%s': %s"
 msgstr "Neuspešno preimenovanje '%s': %s"
@@ -210,55 +211,55 @@ msgstr "Neuspešno preimenovanje '%s': %s"
 msgid "Failed to set %s as boot record: '%s'"
 msgstr "Nastavljanje %s za zagonski zapis: '%s' neuspešno!"
 
-#: ../isobrowser.c:1559
+#: ../isobrowser.c:1564
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
 msgstr "Neuspešen zapis slike na '%s': '%s'"
 
-#: ../settings.c:125
+#: ../settings.c:122
 msgid "Filename types (both recommended):"
 msgstr "Tipi datotek (priporočljiva):"
 
-#: ../window.c:321
+#: ../settings.c:691
 msgid "Follow symbolic links"
 msgstr "Sledi bližnicam"
 
-#: ../window.c:284
+#: ../window.c:298
 msgid "From file: 1200KiB floppy"
 msgstr "Iz datoteke: 1200KiB floppy"
 
-#: ../window.c:290
+#: ../window.c:304
 msgid "From file: 1440KiB floppy"
 msgstr "Iz datoteke: 1440KiB floppy"
 
-#: ../window.c:296
+#: ../window.c:310
 msgid "From file: 2880KiB floppy"
 msgstr "Iz datoteke: 2880KiB floppy"
 
-#: ../window.c:278
+#: ../window.c:292
 msgid "From file: no emulation"
-msgstr "Iz datoteke: brez emuliranja"
+msgstr "Iz datoteke: brez posnemanja"
 
-#: ../isobrowser.c:804
+#: ../isobrowser.c:806
 msgid ""
 "GUI error, deleting anything other than files and directories doesn't work"
 msgstr ""
 "Napaka uporabniškega vmesnika, odstranjevanje vsega razen datotek in kazal "
 "ne deluje"
 
-#: ../window.c:59 ../window.c:449
+#: ../window.c:53 ../window.c:364
 msgid "Go back"
 msgstr "Nazaj"
 
-#: ../window.c:450
+#: ../window.c:365
 msgid "Go back up one directory on the ISO"
 msgstr "Nazaj za eno kazalo v sliki ISO"
 
-#: ../window.c:60
+#: ../window.c:54
 msgid "Go back up one directory on the filesystem"
 msgstr "Nazaj za eno kaazalo v datotečnem sistemu"
 
-#: ../isobrowser.c:1310 ../isobrowser.c:1608
+#: ../isobrowser.c:1315 ../isobrowser.c:1613
 msgid "ISO Images"
 msgstr "ISO slike"
 
@@ -266,16 +267,16 @@ msgstr "ISO slike"
 msgid "ISO Master Help"
 msgstr "ISO Master Pomoč"
 
-#: ../settings.c:65
+#: ../settings.c:62
 msgid "Image Information"
 msgstr "Informacije o sliki"
 
-#: ../settings.c:160
+#: ../settings.c:157
 #, c-format
 msgid "Invalid publisher '%s': '%s'"
 msgstr "Neveljaven založnik '%s': '%s'"
 
-#: ../settings.c:176
+#: ../settings.c:173
 #, c-format
 msgid "Invalid volume name '%s': '%s'"
 msgstr "Neveljavno ime datotečne naprave '%s': '%s'"
@@ -290,7 +291,7 @@ msgstr "Ni vidno na sliki"
 msgid "Is visible on image as '%s'"
 msgstr "Vidno na sliki kot '%s'"
 
-#: ../isobrowser.c:706
+#: ../isobrowser.c:708
 msgid ""
 "It seems that you have made changes to the ISO but haven't saved them. Are "
 "you sure you want to close it?"
@@ -312,29 +313,33 @@ msgstr "Lokacija: na izvirni sliki na 0x%llX"
 msgid "Location: to be added from '%s'"
 msgstr "Lokacija: bo dodano iz '%s'"
 
-#: ../isobrowser.c:1320
+#: ../isobrowser.c:1325
 msgid "MDF Images"
 msgstr "MDF slike"
 
-#: ../isobrowser.c:1315
+#: ../isobrowser.c:1320
 msgid "NRG Images"
 msgstr "NRG slike"
 
-#: ../fsbrowser.c:110 ../isobrowser.c:290
+#: ../fsbrowser.c:121 ../isobrowser.c:292
 msgid "Name"
 msgstr "Ime"
 
-#: ../window.c:65 ../window.c:455
+#: ../window.c:59 ../window.c:370
 msgid "New Directory"
 msgstr "Novo kazalo"
 
 #: ../boot.c:149 ../boot.c:327
 msgid "No boot record read from original or set on image"
-msgstr "Na sliki ali orginalu ni zagonskega zapisa"
+msgstr "Na sliki ali izvirniku ni zagonskega zapisa"
 
 #: ../boot.c:108
 msgid "No boot to delete"
 msgstr "Ni zagonskega zapisa za odstranitev"
+
+#: ../settings.c:666
+msgid "Options"
+msgstr "Možnosti"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
@@ -348,36 +353,36 @@ msgstr "V brskalinku ISO slik izberite le eno datoteko"
 msgid "Please wait while I'm adding the selected items..."
 msgstr "Počakajte dodajam izbrane datoteke..."
 
-#: ../isobrowser.c:841
+#: ../isobrowser.c:843
 msgid "Please wait while I'm extracting the selected files..."
 msgstr "Počakajte vlačujem izbrane datoteke..."
 
-#: ../isobrowser.c:1188
+#: ../isobrowser.c:1193
 msgid "Please wait while I'm reading the image..."
 msgstr "Počakajte berem sliko..."
 
-#: ../isobrowser.c:1531
+#: ../isobrowser.c:1536
 msgid "Please wait while I'm saving the new image to disk..."
 msgstr "Počakajte shranjujem sliko na disk..."
 
-#: ../isobrowser.c:128 ../isobrowser.c:833 ../isobrowser.c:1181
-#: ../isobrowser.c:1521
+#: ../isobrowser.c:128 ../isobrowser.c:835 ../isobrowser.c:1186
+#: ../isobrowser.c:1526
 msgid "Progress"
 msgstr "Napredek"
 
-#: ../settings.c:109
+#: ../settings.c:106
 msgid "Publisher:"
 msgstr "Založnik:"
 
-#: ../window.c:470
+#: ../window.c:385
 msgid "Remove"
 msgstr "Odstrani"
 
-#: ../isobrowser.c:1769
+#: ../isobrowser.c:1774
 msgid "Rename"
 msgstr "Preimenuj"
 
-#: ../isobrowser.c:1597
+#: ../isobrowser.c:1602
 msgid "Save File"
 msgstr "Shrani datoteko"
 
@@ -385,15 +390,15 @@ msgstr "Shrani datoteko"
 msgid "Save a copy of the boot record"
 msgstr "Shrani kopijo zagonskega zapisa"
 
-#: ../window.c:311
+#: ../settings.c:678
 msgid "Scan for duplicate files (slow)"
 msgstr "Išči podvojene datoteke (počasno)"
 
-#: ../window.c:218
+#: ../window.c:214
 msgid "Show _hidden files"
 msgstr "Prikaži _skrite datoteke"
 
-#: ../fsbrowser.c:131 ../isobrowser.c:313
+#: ../fsbrowser.c:142 ../isobrowser.c:315
 msgid "Size"
 msgstr "Velikost"
 
@@ -402,29 +407,34 @@ msgstr "Velikost"
 msgid "Size: %d bytes"
 msgstr "Velikost: %d bytes"
 
-#: ../fsbrowser.c:270
+#: ../fsbrowser.c:280
 msgid ""
-"Skiping directory entry because cannot handle filename longer than 256 chars"
+"Skipping directory entry because cannot handle filename longer than 256 chars"
 msgstr ""
 "Ker ne morem brati imen datotek večjih od 256 znakov preskakujem kazalo"
 
-#: ../fsbrowser.c:288
+#: ../fsbrowser.c:299
 #, c-format
-msgid "Skiping directory entry because stat(%s) failed with %d"
+msgid "Skipping directory entry because stat(%s) failed with %d"
 msgstr "Preskakujem kazalo ker (%s) neuspešen z %d"
 
-#: ../settings.c:244 ../window.c:385 ../window.c:388
+#: ../window.c:234
+msgid "Sort is _case sensitive"
+msgstr "Razlikuj _male in velike črke"
+
+#: ../settings.c:724
 msgid "Temporary directory"
 msgstr "Kazalo začasnih datotek"
 
 #: ../about.c:268
+#, fuzzy
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
 " - The top file browser shows files and directories on your machine.\n"
 " - The bottom file browser shows files and directories on the ISO image.\n"
 "\n"
-"To open an existing ISO file click on 'Image' and 'Open'. To create a new\n"
-"ISO file click on 'Image' and 'New'.\n"
+"To open an existing ISO file click on 'File' and 'Open'. To create a new\n"
+"ISO file click on 'File' and 'New'.\n"
 "\n"
 "To add one or more files or directories to the ISO select them in the top\n"
 "file browser and click the 'Add to the ISO' button in the middle toolbar.\n"
@@ -439,7 +449,7 @@ msgid ""
 "If you select something in the bottom file browser and right-click on it,\n"
 "there are several more options available.\n"
 "\n"
-"Once you made all the changes to the new ISO image, click on 'Image' and\n"
+"Once you made all the changes to the new ISO image, click on 'File' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
 "Okno ISO Masterja je razdeljeno na dva dela: \n"
@@ -458,56 +468,60 @@ msgstr ""
 "Ko enkrat opravite vse spremembe v novi ISO sliki, kliknite na 'Slika' in \n"
 "'Shrani kot'. Ne morete prepisati originalne slike ISO. \n"
 
-#: ../window.c:272
+#: ../window.c:286
 msgid "Use selected file on image (no emulation)"
-msgstr "Uporabi izbrano datoteko na sliki (brez emulacije)"
+msgstr "Uporabi izbrano datoteko na sliki (brez posnemanja)"
 
-#: ../isobrowser.c:1778
+#: ../fsbrowser.c:583 ../isobrowser.c:1783
 msgid "View"
-msgstr "Pogled"
+msgstr "Ogled"
 
-#: ../editfile.c:106
-msgid "View failed, please check Settings/Viewer"
-msgstr ""
+#: ../editfile.c:102
+msgid "View failed, please check Options/Viewer"
+msgstr "Pregled neuspešen, prosim preveri Možnosti/Pregledovalnik"
 
-#: ../settings.c:282 ../window.c:359 ../window.c:362
+#: ../settings.c:713
 msgid "Viewer"
 msgstr "Pregledovalnik"
 
-#: ../settings.c:97
+#: ../settings.c:94
 msgid "Volume name:"
 msgstr "Ime naprave:"
 
-#: ../settings.c:734
+#: ../settings.c:652
 msgid ""
 "You will have to close and reopen the ISO for this change to take effect"
 msgstr ""
 "Potrebno je zapreti in ponovno odpreti ISO sliko, da bodo spremembe delovale"
 
-#: ../window.c:240
-msgid "_BootRecord"
-msgstr "_ZagonskiZapis"
+#: ../window.c:254
+msgid "_Boot Record"
+msgstr "_Zagonski Zapis"
 
-#: ../window.c:411
+#: ../window.c:141
+msgid "_File"
+msgstr "_Datoteka"
+
+#: ../window.c:326
 msgid "_Help"
 msgstr "_Pomoč"
 
-#: ../window.c:145
-msgid "_Image"
-msgstr "_Slika"
+#: ../window.c:318
+msgid "_Options"
+msgstr "M_ožnosti"
 
-#: ../window.c:420
+#: ../window.c:335
 msgid "_Overview"
-msgstr "_Pregled"
+msgstr "Pr_iročnik"
 
-#: ../window.c:304
-msgid "_Settings"
-msgstr "_Nastavitve"
-
-#: ../window.c:228
+#: ../window.c:224
 msgid "_Sort directories first"
 msgstr "_Najprej razvrsti kazala"
 
-#: ../window.c:203
+#: ../window.c:246
+msgid "_Tools"
+msgstr "O_rodja"
+
+#: ../window.c:199
 msgid "_View"
-msgstr "_Pogled"
+msgstr "Po_gled"
