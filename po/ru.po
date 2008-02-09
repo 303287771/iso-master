@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: isomaster\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-16 23:50-0500\n"
+"POT-Creation-Date: 2008-02-03 14:48-0500\n"
 "PO-Revision-Date: 2007-12-06 12:34+0300\n"
 "Last-Translator: Antonio_99RUS <scsiman@yandex.ru>\n"
 "Language-Team: \n"
@@ -259,7 +259,7 @@ msgstr "Вернуться на каталог вверх вне образа"
 msgid "ISO Images"
 msgstr "ISO образы"
 
-#: ../about.c:327
+#: ../about.c:339
 msgid "ISO Master Help"
 msgstr "Справка по ISO Master"
 
@@ -298,7 +298,7 @@ msgstr ""
 #: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
 msgstr ""
-"Выбранное нечто не есть обычный файл и не может быть использовано как "
+"Выбранное не является обычным файлом и не может быть использовано как "
 "загрузочная запись"
 
 #: ../boot.c:373 ../boot.c:380
@@ -427,8 +427,7 @@ msgstr "Сортировка _регистрозависима"
 msgid "Temporary directory"
 msgstr "Временный каталог"
 
-#: ../about.c:268
-#, fuzzy
+#: ../about.c:280
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
 " - The top file browser shows files and directories on your machine.\n"
@@ -483,7 +482,7 @@ msgstr "Использовать выбранный файл в образе (б
 
 #: ../fsbrowser.c:583 ../isobrowser.c:1783
 msgid "View"
-msgstr "Вид"
+msgstr "Просмотр"
 
 #: ../editfile.c:102
 msgid "View failed, please check Options/Viewer"
@@ -491,7 +490,7 @@ msgstr "Сбой просмотра, проверьте Настройки/Пр�
 
 #: ../settings.c:713
 msgid "Viewer"
-msgstr "Просмотрщик"
+msgstr "Программа просмотра"
 
 #: ../settings.c:94
 msgid "Volume name:"

@@ -327,11 +327,11 @@ int bk_read_vol_info(VolInfo* volInfo)
             
             if(volInfo->bootMediaType == BOOT_MEDIA_NO_EMULATION)
                 volInfo->bootRecordSize *= NBYTES_VIRTUAL_SECTOR;
-            else if(bootMediaType == BOOT_MEDIA_1_2_FLOPPY)
+            else if(volInfo->bootMediaType == BOOT_MEDIA_1_2_FLOPPY)
                 volInfo->bootRecordSize = 1200 * 1024;
-            else if(bootMediaType == BOOT_MEDIA_1_44_FLOPPY)
+            else if(volInfo->bootMediaType == BOOT_MEDIA_1_44_FLOPPY)
                 volInfo->bootRecordSize = 1440 * 1024;
-            else if(bootMediaType == BOOT_MEDIA_2_88_FLOPPY)
+            else if(volInfo->bootMediaType == BOOT_MEDIA_2_88_FLOPPY)
                 volInfo->bootRecordSize = 2880 * 1024;
             
             volInfo->bootRecordIsOnImage = true;
@@ -917,7 +917,7 @@ int readFileInfo(VolInfo* volInfo, BkFile* file, int filenameType,
     readSeekSet(volInfo, lenSU, SEEK_CUR);
     
     file->onImage = true;
-    file->position = locExtent * NBYTES_LOGICAL_BLOCK;
+    file->position = ((bk_off_t)locExtent) * ((bk_off_t)NBYTES_LOGICAL_BLOCK);
     file->size = lenExtent;
     
     return recordLength;
