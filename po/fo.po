@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ISO Master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-03 14:48-0500\n"
-"PO-Revision-Date: 2007-12-23 22:19-0000\n"
+"POT-Creation-Date: 2008-06-30 18:03-0400\n"
+"PO-Revision-Date: 2008-02-15 17:10-0000\n"
 "Last-Translator: Magnus Valle <magnus@vallenett.no>\n"
 "Language-Team:  <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgstr "Skoyt uppí"
 
 #: ../isobrowser.c:1621
 msgid "Add extension automatically"
-msgstr ""
+msgstr "Skoyt fíl-endingar uppí av sær sjálvum"
 
 #: ../window.c:375
 msgid "Add to the ISO"
@@ -99,7 +99,7 @@ msgstr "Gerð eina nýggja fíluskrá á fílukervinum"
 
 #: ../settings.c:78
 msgid "Creation time:"
-msgstr ""
+msgstr "Skapt:"
 
 #: ../window.c:385
 msgid "Delete from the ISO"
@@ -111,7 +111,7 @@ msgstr "Ritstjórna"
 
 #: ../editfile.c:82
 msgid "Edit failed, please check Options/Editor"
-msgstr ""
+msgstr "Ritstjórv misednaðist, vinarliga hygg í Stillingar/Ritil"
 
 #: ../settings.c:701
 msgid "Editor"
@@ -141,7 +141,7 @@ msgstr "Misednaðist at leggja '%s' afturat: '%s'"
 #: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
-msgstr ""
+msgstr "Misednaðist at skoyta boot rit uppí: '%s'"
 
 #: ../isobrowser.c:365
 #, c-format
@@ -171,12 +171,12 @@ msgstr "Misednaðist at taka '%s' frá: '%s'"
 #: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
-msgstr ""
+msgstr "Misednaðist at taka boot rit frá: '%s'"
 
 #: ../isobrowser.c:1084 ../isobrowser.c:1135
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
-msgstr ""
+msgstr "Misednaðist at innleiða bkisofs: '%s'"
 
 #: ../fsbrowser.c:229
 #, c-format
@@ -186,7 +186,7 @@ msgstr "Misednaðist at opna fíluskrá '%s', feilur '%d'"
 #: ../isobrowser.c:1154
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
-msgstr ""
+msgstr "Misednaðist opna ISO fílun fyri at lesa hann: '%s'"
 
 #: ../isobrowser.c:1229
 #, c-format
@@ -196,7 +196,7 @@ msgstr "Misednaðist at lesa fíluskrás træði: '%s'"
 #: ../isobrowser.c:1169
 #, c-format
 msgid "Failed to read volume info: '%s'"
-msgstr ""
+msgstr "Misednaðist at lesa miðils kunning: '%s'"
 
 #: ../isobrowser.c:1492
 #, c-format
@@ -206,7 +206,7 @@ msgstr "Misednaðist at broyta navni '%s': '%s'"
 #: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
-msgstr ""
+msgstr "Misednaðist at seta %s sum boot rit: '%s'"
 
 #: ../isobrowser.c:1564
 #, c-format
@@ -259,7 +259,7 @@ msgstr "Far eitt fíluskrá uppá fílukervinum"
 msgid "ISO Images"
 msgstr "ISO myndur"
 
-#: ../about.c:339
+#: ../about.c:351
 msgid "ISO Master Help"
 msgstr "ISO Master Hjálp"
 
@@ -275,7 +275,7 @@ msgstr "Ógildin útgevari '%s': '%s'"
 #: ../settings.c:173
 #, c-format
 msgid "Invalid volume name '%s': '%s'"
-msgstr ""
+msgstr "Ógildugt navn á miðli '%s': '%s'"
 
 #: ../boot.c:391
 #, c-format
@@ -337,11 +337,11 @@ msgstr "Eingin boot at koyra burtur"
 
 #: ../settings.c:666
 msgid "Options"
-msgstr ""
+msgstr "Stillingar"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
-msgstr ""
+msgstr "Vinarliga vel eina fílu frá ISO kaganum til at búka sum boot rit"
 
 #: ../boot.c:243
 msgid "Please select no more than one file in the ISO browser"
@@ -387,7 +387,7 @@ msgstr "Goym Fílu"
 
 #: ../boot.c:156
 msgid "Save a copy of the boot record"
-msgstr "Goym eitt eintak av boot rit"
+msgstr "Goym eitt avrit av boot rit"
 
 #: ../settings.c:678
 msgid "Scan for duplicate files (slow)"
@@ -410,11 +410,12 @@ msgstr "Stødd: %d byte"
 msgid ""
 "Skipping directory entry because cannot handle filename longer than 256 chars"
 msgstr ""
+"Leypur fíluskrá um tí fílnøvn kunnu ikki verða longur enn 256 stavir langt"
 
 #: ../fsbrowser.c:299
 #, c-format
 msgid "Skipping directory entry because stat(%s) failed with %d"
-msgstr ""
+msgstr "Leypur fíluskrá um tí stat(%s) misednaðist við %d"
 
 #: ../window.c:234
 msgid "Sort is _case sensitive"
@@ -426,7 +427,7 @@ msgid "Temporary directory"
 msgstr "Fyribils fíluskrá"
 
 # !! the last paragraph is untranslated
-#: ../about.c:280
+#: ../about.c:289
 #, fuzzy
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
@@ -483,15 +484,15 @@ msgstr "Vís"
 
 #: ../editfile.c:102
 msgid "View failed, please check Options/Viewer"
-msgstr ""
+msgstr "Misednaðist at vísa, vinarliga hýgg í Stillingar/Vísari"
 
 #: ../settings.c:713
 msgid "Viewer"
-msgstr "Vísar"
+msgstr "Vísari"
 
 #: ../settings.c:94
 msgid "Volume name:"
-msgstr ""
+msgstr "Miðils navn:"
 
 #: ../settings.c:652
 msgid ""
@@ -514,11 +515,11 @@ msgstr "_Hjálp"
 
 #: ../window.c:318
 msgid "_Options"
-msgstr ""
+msgstr "_Stillingar"
 
 #: ../window.c:335
 msgid "_Overview"
-msgstr "_Ynirlit"
+msgstr "_Yvirlit"
 
 #: ../window.c:224
 msgid "_Sort directories first"

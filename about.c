@@ -119,7 +119,7 @@ GBLauthors[2] = {
 "- Mandriva package of ISO Master, versions 0.8 - 1.2\n"
 "\n"
 "Matias A. Fonzo\n"
-"- Slackware package of ISO Master, versions 0.8 - 1.2\n"
+"- Slackware package of ISO Master, versions 0.8 - 1.3.1\n"
 "\n"
 "Giovanni Bechis\n"
 "http://www.snb.it/\n"
@@ -166,6 +166,9 @@ GBLtranslators =
 "\n"
 "Toni Graffy\n"
 "- de (German) translation of ISO Master versions 0.6 - 1.3\n"
+"\n"
+"Magnus Valle\n"
+"- da (Danish) translation of ISO Master version 1.3\n"
 "\n"
 "Mike Kranidis\n"
 "- el (Greek) translation of ISO Master versions 1.1 - 1.3\n"
@@ -223,6 +226,9 @@ GBLtranslators =
 "\n"
 "Joao de Ferro\n"
 "- pt (Portuguese) translation of ISO Master version 0.8, 1.0\n"
+"\n"
+"Alexandre Marques\n"
+"- pt_BR (Portuguese/Brasil) translation of ISO Master version 1.3\n"
 "\n"
 "Bogdan Radulescu\n"
 "- ro (Romanian) translation of ISO Master version 0.7 - 0.8, 1.0\n"
@@ -324,6 +330,9 @@ void showAboutWindowCbk(GtkMenuItem* menuItem, gpointer data)
 #if GTK_MINOR_VERSION >= 6
     gtk_show_about_dialog(GTK_WINDOW(GBLmainWindow), 
                           "name", GBLprogramName,
+#if GTK_MINOR_VERSION >= 12
+                          "program-name", GBLprogramName,
+#endif
                           "authors", GBLauthors,
                           "translator-credits", GBLtranslators,
                           "comments", GBLcomments,

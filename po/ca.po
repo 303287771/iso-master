@@ -1,16 +1,16 @@
 # Catalan translation of ISO Master
 # This file is distributed under the same license as the ISO Master package.
 # Translation by Josep Sanchez Mesegue <papapep@gmail.com>
-# and Rafael Carreras <rcarreras@caliu.cat>, 2007.
-# 
-# 
+# and Rafael Carreras <r@caliu.cat>, 2007.
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: ISO Master Unknown\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-03 14:48-0500\n"
-"PO-Revision-Date: 2007-08-08 14:53+0200\n"
-"Last-Translator: Josep Sanchez Mesegue <papapep@gmail.com>\n"
+"POT-Creation-Date: 2008-06-30 18:03-0400\n"
+"PO-Revision-Date: 2008-02-11 14:29+0100\n"
+"Last-Translator: Josep Sànchez Mesegué <papapep@gmail.com>\n"
 "Language-Team: Catala\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -114,7 +114,7 @@ msgstr "Editar"
 
 #: ../editfile.c:82
 msgid "Edit failed, please check Options/Editor"
-msgstr ""
+msgstr "Error en editar, si us plau, verifiqueu Preferències/Editor"
 
 #: ../settings.c:701
 msgid "Editor"
@@ -263,7 +263,7 @@ msgstr "Puja un directori del sistema de fitxers"
 msgid "ISO Images"
 msgstr "Imatges ISO"
 
-#: ../about.c:339
+#: ../about.c:351
 msgid "ISO Master Help"
 msgstr "Ajuda d'ISO Master"
 
@@ -342,7 +342,7 @@ msgstr "No hi ha cap arrencada per a esborrar"
 
 #: ../settings.c:666
 msgid "Options"
-msgstr ""
+msgstr "Opcions"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
@@ -426,13 +426,13 @@ msgstr "S'omet el directori perquè l'estat (%s) ha fallat amb %d"
 
 #: ../window.c:234
 msgid "Sort is _case sensitive"
-msgstr ""
+msgstr "L'ordenació té en compte la mida de la _caixa"
 
 #: ../settings.c:724
 msgid "Temporary directory"
 msgstr "Directori temporal"
 
-#: ../about.c:280
+#: ../about.c:289
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
 " - The top file browser shows files and directories on your machine.\n"
@@ -494,7 +494,7 @@ msgstr "_Visor"
 
 #: ../editfile.c:102
 msgid "View failed, please check Options/Viewer"
-msgstr ""
+msgstr "Error en visualitzar, si us plau, verifiqueu Preferències/Visor"
 
 #: ../settings.c:713
 msgid "Viewer"
@@ -512,12 +512,11 @@ msgstr ""
 
 #: ../window.c:254
 msgid "_Boot Record"
-msgstr "_Registre D'arrencada"
+msgstr "_Registre d'arrencada"
 
 #: ../window.c:141
-#, fuzzy
 msgid "_File"
-msgstr "_Veure"
+msgstr "_Fitxer"
 
 #: ../window.c:326
 msgid "_Help"
@@ -525,7 +524,7 @@ msgstr "A_juda"
 
 #: ../window.c:318
 msgid "_Options"
-msgstr ""
+msgstr "_Opcions"
 
 #: ../window.c:335
 msgid "_Overview"
@@ -537,7 +536,7 @@ msgstr "Ordena directori_s primer"
 
 #: ../window.c:246
 msgid "_Tools"
-msgstr ""
+msgstr "_Eines"
 
 #: ../window.c:199
 msgid "_View"

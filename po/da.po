@@ -1,24 +1,21 @@
-# translation of sl.po to
-# Slovenian translation of ISO Master
+# Danish translation of ISO Master
 # This file is distributed under the same license as the ISO Master package.
 #
-# Uros Golob <na1pir@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: sl\n"
+"Project-Id-Version: ISO Master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-30 18:03-0400\n"
-"PO-Revision-Date: 2007-12-12 01:18+0100\n"
-"Last-Translator: uros\n"
-"Language-Team:  <sl@li.org>\n"
+"PO-Revision-Date: 2008-02-15 17:10-0000\n"
+"Last-Translator: Magnus Valle <magnus@vallenett.no>\n"
+"Language-Team:  <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #: ../window.c:389
 msgid "      Estimated ISO Size: "
-msgstr "      Ocenjena velikost ISO slike: "
+msgstr "      Vurderet ISO Størrelse:"
 
 #: ../isobrowser.c:1384
 #, c-format
@@ -29,404 +26,407 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Želiš nadaljevati?"
+"Vil do forsætte?"
 
 #: ../editfile.c:272 ../editfile.c:368 ../editfile.c:601 ../editfile.c:696
 #, c-format
 msgid "'%s' is not a regular file"
-msgstr "'%s' datoteka ni pravilna"
+msgstr "'%s' er ikke en vanlig fil"
 
 #: ../isobrowser.c:141 ../isobrowser.c:1199
 msgid "(scanning for duplicate files)"
-msgstr "(iščem podvojene datoteke)"
+msgstr "(skanner for dobbelte filer)"
 
 #: ../window.c:375
 msgid "Add"
-msgstr "Dodaj"
+msgstr "Tilføj"
 
 #: ../isobrowser.c:1621
 msgid "Add extension automatically"
-msgstr "Samodejno dodaj končnico"
+msgstr "Tilføj automatisk fil-endelser"
 
 #: ../window.c:375
 msgid "Add to the ISO"
-msgstr "Dodaj datoteki ISO"
+msgstr "Tilføj til ISO filen"
 
 #: ../isobrowser.c:1330 ../isobrowser.c:1618
 msgid "All files"
-msgstr "Vse datoteke"
+msgstr "Alle filer"
 
 #: ../boot.c:334
 msgid "Boot Record Information"
-msgstr "Informacije o zagonskem zapisu"
+msgstr "Boot Record Infromation"
 
 #: ../boot.c:122
 msgid "Boot record deleted"
-msgstr "Zagonski zapis odstranjen"
+msgstr "Boot record er sletter"
 
 #: ../boot.c:350
 #, c-format
 msgid "Boot record type: 1200KiB Floppy"
-msgstr "Tip zagonskega zapisa: 1200KiB Floppy"
+msgstr "Boot record type: 1200KiB Floppy"
 
 #: ../boot.c:352
 #, c-format
 msgid "Boot record type: 1440KiB Floppy"
-msgstr "Tip zagonskega zapisa: 1440KiB Floppy"
+msgstr "Boot record type: 1440KiB Floppy"
 
 #: ../boot.c:354
 #, c-format
 msgid "Boot record type: 2880KiB Floppy"
-msgstr "Tip zagonskega zapisa: 2880KiB Floppy"
+msgstr "Boot record type: 2880KiB Floppy"
 
 #: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
-msgstr "Tip zagonskega zapisa: Brez Posnemanja"
+msgstr "Boot record type: Ingen Emulation"
 
 #: ../isobrowser.c:502 ../isobrowser.c:1797
 msgid "Change permissions"
-msgstr "Spremni dovoljenja"
+msgstr "Skift tilaldelser"
 
 #: ../boot.c:40
 msgid "Choose Boot Record File"
-msgstr "Izberi zagonski zapis"
+msgstr "Velg Boot Record fil"
 
 #: ../window.c:371
 msgid "Create new directory on the ISO"
-msgstr "Ustvari novo kazalo na ISO sliki"
+msgstr "Lav en ny mappe på ISOen"
 
 #: ../window.c:60
 msgid "Create new directory on the filesystem"
-msgstr "Ustvari novo kazalo na datotečnem sistemu"
+msgstr "Lav en ny mappe på filsystemet"
 
 #: ../settings.c:78
 msgid "Creation time:"
-msgstr "Čas izdelave:"
+msgstr "Lavet:"
 
 #: ../window.c:385
 msgid "Delete from the ISO"
-msgstr "Odstrani iz ISO slike"
+msgstr "Stet fra ISOen"
 
 #: ../fsbrowser.c:590 ../isobrowser.c:1790
 msgid "Edit"
-msgstr "Uredi"
+msgstr "Rediger"
 
 #: ../editfile.c:82
 msgid "Edit failed, please check Options/Editor"
-msgstr "Urejanje neuspešno, prosim preveri Lastnosti/Urejevalnik"
+msgstr "Redigering mislykkedes, venligst se i Rediger/Editor"
 
 #: ../settings.c:701
 msgid "Editor"
-msgstr "Urejevalnik"
+msgstr "Editor"
 
 #: ../isobrowser.c:1463
 msgid "Enter a new name:"
-msgstr "Vnesi novo ime"
+msgstr "Skriv et nyt navn:"
 
 #: ../browser.c:71
 msgid "Enter name for new directory"
-msgstr "Vnesi ime za novo kazalo"
+msgstr "Skriv et navn for the nye mappe"
 
 #: ../window.c:380
 msgid "Extract"
-msgstr "Razširi"
+msgstr "Ekstrakt"
 
 #: ../window.c:380
 msgid "Extract from the ISO"
-msgstr "Razširi iz ISO slike"
+msgstr "Ekstrakt fra ISO filen"
 
 #: ../editfile.c:473 ../isobrowser.c:214
 #, c-format
 msgid "Failed to add '%s': '%s'"
-msgstr "Neuspečno dodajanje '%s': '%s'"
+msgstr "Mislykkedes at tilføje '%s': '%s'"
 
 #: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
-msgstr "Neuspešno dodan zagonski zapis '%s'"
+msgstr "Misslykkedes at tilføje boot record: '%s'"
 
 #: ../isobrowser.c:365
 #, c-format
 msgid "Failed to change directory: '%s'"
-msgstr "Neuspešno spremenjeno kazalo: '%s'"
+msgstr "Mislykkedes at skifte mappe: '%s'"
 
 #: ../browser.c:112
 #, c-format
 msgid "Failed to create directory %s"
-msgstr "Neuspešno ustvarjeno kazalo %s"
+msgstr "Mislykkedes at lave mappe '%s'"
 
 #: ../browser.c:135
 #, c-format
 msgid "Failed to create directory %s: '%s'"
-msgstr "Neuspešno ustvarjeno kazalo %s: '%s'"
+msgstr "Mislykkedes at lave mappe '%s': '%s'"
 
 #: ../editfile.c:447 ../isobrowser.c:788
 #, c-format
 msgid "Failed to delete '%s': '%s'"
-msgstr "Neuspešno odstranjevanje '%s': '%s'"
+msgstr "Mislykkedes at slette '%s': '%s'"
 
 #: ../editfile.c:412 ../editfile.c:740 ../isobrowser.c:901
 #, c-format
 msgid "Failed to extract '%s': '%s'"
-msgstr "Neuspešno izvlečen '%s': '%s'"
+msgstr "Mislykkedes at ekstraktere '%s': '%s'"
 
 #: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
-msgstr "Neuspešen pri izvlečevanju zagonskega zapisa: '%s'"
+msgstr "Misslykkedes at ekstrakte boor record: '%s'"
 
 #: ../isobrowser.c:1084 ../isobrowser.c:1135
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
-msgstr "Neuspešno zagnan bkisofs: '%s'"
+msgstr "Misslykkedes at starte bkisofs: '%s'"
 
 #: ../fsbrowser.c:229
 #, c-format
 msgid "Failed to open directory '%s', error %d"
-msgstr "Neuspešno odpiranje kazala '%s', napaka %d"
+msgstr "Mislykkedes at opne mappe '%s', feil '%d'"
 
 #: ../isobrowser.c:1154
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
-msgstr "Neuspešen pri odpiranju Iso slike za branje: '%s'"
+msgstr "Mislykkedes at åbne ISO filen til at læse: '%s'"
 
 #: ../isobrowser.c:1229
 #, c-format
 msgid "Failed to read directory tree: '%s'"
-msgstr "Neuspešno branje kazalčnega drevesa: '%s'"
+msgstr "Mislykkedes at lese mappe træ: '%s'"
 
 #: ../isobrowser.c:1169
 #, c-format
 msgid "Failed to read volume info: '%s'"
-msgstr "Neuspešno branje informacij zbirčne naprave: '%s'"
+msgstr "Misslykkedes at lese medie infromation: '%s'"
 
 #: ../isobrowser.c:1492
 #, c-format
 msgid "Failed to rename '%s': %s"
-msgstr "Neuspešno preimenovanje '%s': %s"
+msgstr "Mislykkedes at skifte navn '%s': '%s'"
 
 #: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
-msgstr "Nastavljanje %s za zagonski zapis: '%s' neuspešno!"
+msgstr "Mislykkedes at sette %s som boot revord: '%s'"
 
 #: ../isobrowser.c:1564
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
-msgstr "Neuspešen zapis slike na '%s': '%s'"
+msgstr "Mislykkedes at skrive billede til '%s': '%s'"
 
 #: ../settings.c:122
 msgid "Filename types (both recommended):"
-msgstr "Tipi datotek (priporočljiva):"
+msgstr "Slag av fílunavni (bæði tilrátt):"
 
 #: ../settings.c:691
 msgid "Follow symbolic links"
-msgstr "Sledi bližnicam"
+msgstr "Følg symbolsk link"
 
 #: ../window.c:298
 msgid "From file: 1200KiB floppy"
-msgstr "Iz datoteke: 1200KiB floppy"
+msgstr "Fra fil: 1200KiB diskette"
 
 #: ../window.c:304
 msgid "From file: 1440KiB floppy"
-msgstr "Iz datoteke: 1440KiB floppy"
+msgstr "Fra fil: 1440KiB diskette"
 
 #: ../window.c:310
 msgid "From file: 2880KiB floppy"
-msgstr "Iz datoteke: 2880KiB floppy"
+msgstr "Fra fil: 2880KiB diskette"
 
 #: ../window.c:292
 msgid "From file: no emulation"
-msgstr "Iz datoteke: brez posnemanja"
+msgstr "Fra fil: eingin emulatión"
 
 #: ../isobrowser.c:806
 msgid ""
 "GUI error, deleting anything other than files and directories doesn't work"
-msgstr ""
-"Napaka uporabniškega vmesnika, odstranjevanje vsega razen datotek in kazal "
-"ne deluje"
+msgstr "Grafisk feil, alt untaget filer og mapper kan ikke slettes"
 
 #: ../window.c:53 ../window.c:364
 msgid "Go back"
-msgstr "Nazaj"
+msgstr "Go tilbage"
 
 #: ../window.c:365
 msgid "Go back up one directory on the ISO"
-msgstr "Nazaj za eno kazalo v sliki ISO"
+msgstr "Go op en mappe på ISO'en"
 
 #: ../window.c:54
 msgid "Go back up one directory on the filesystem"
-msgstr "Nazaj za eno kaazalo v datotečnem sistemu"
+msgstr "Go op en mappe på filsystemet"
 
 #: ../isobrowser.c:1315 ../isobrowser.c:1613
 msgid "ISO Images"
-msgstr "ISO slike"
+msgstr "ISO Billeder"
 
 #: ../about.c:351
 msgid "ISO Master Help"
-msgstr "ISO Master Pomoč"
+msgstr "ISO Master Hjælp"
 
 #: ../settings.c:62
 msgid "Image Information"
-msgstr "Informacije o sliki"
+msgstr "Billede Infromation"
 
 #: ../settings.c:157
 #, c-format
 msgid "Invalid publisher '%s': '%s'"
-msgstr "Neveljaven založnik '%s': '%s'"
+msgstr "Ugyldig udgiver '%s': '%s'"
 
 #: ../settings.c:173
 #, c-format
 msgid "Invalid volume name '%s': '%s'"
-msgstr "Neveljavno ime datotečne naprave '%s': '%s'"
+msgstr "Ugyldigt medie navn: '%s': '%s'"
 
 #: ../boot.c:391
 #, c-format
 msgid "Is not visible on image"
-msgstr "Ni vidno na sliki"
+msgstr "Er ikki synligt på biledet"
 
 #: ../boot.c:389
 #, c-format
 msgid "Is visible on image as '%s'"
-msgstr "Vidno na sliki kot '%s'"
+msgstr "Er ikke synligt på billedet sum '%s'"
 
 #: ../isobrowser.c:708
 msgid ""
 "It seems that you have made changes to the ISO but haven't saved them. Are "
 "you sure you want to close it?"
 msgstr ""
-"ISO sliko ste urejali ampak niste shranili sprememb. Ste prepričani, da "
-"želite zapreti."
+"Der er endringer ISO'en, sum ikke er gemte. Er du sikker at du vil slukke?"
 
 #: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
-msgstr "Datoteka ni pravega tipa in ne more biti uporabljena za zagonski zapis"
+msgstr ""
+"Det du har valt er ikke en vanlig fil og kan ikke bruges sum boot record"
 
 #: ../boot.c:373 ../boot.c:380
 #, c-format
 msgid "Location: on original image at 0x%llX"
-msgstr "Lokacija: na izvirni sliki na 0x%llX"
+msgstr "Plassering: på oprindelige billede 0x%llX"
 
 #: ../boot.c:375 ../boot.c:382
 #, c-format
 msgid "Location: to be added from '%s'"
-msgstr "Lokacija: bo dodano iz '%s'"
+msgstr "Plassering: bliver tilføjet fra '%s'"
 
+#
 #: ../isobrowser.c:1325
 msgid "MDF Images"
-msgstr "MDF slike"
+msgstr "MDF Billeder"
 
 #: ../isobrowser.c:1320
 msgid "NRG Images"
-msgstr "NRG slike"
+msgstr "NRG Billeder"
 
 #: ../fsbrowser.c:121 ../isobrowser.c:292
 msgid "Name"
-msgstr "Ime"
+msgstr "Navn"
 
 #: ../window.c:59 ../window.c:370
 msgid "New Directory"
-msgstr "Novo kazalo"
+msgstr "Ny Mappe"
 
 #: ../boot.c:149 ../boot.c:327
 msgid "No boot record read from original or set on image"
-msgstr "Na sliki ali izvirniku ni zagonskega zapisa"
+msgstr "Ingen boot record er læst fra den oprindelig fil eller sat på billedet"
 
 #: ../boot.c:108
 msgid "No boot to delete"
-msgstr "Ni zagonskega zapisa za odstranitev"
+msgstr "Intet bott at slette"
 
 #: ../settings.c:666
 msgid "Options"
-msgstr "Možnosti"
+msgstr "Rediger"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
-msgstr "V brskalniku ISO slik izberite datoteko za zagonski zapis"
+msgstr "Venligst velg en fil i ISO broweren til at bruge sim boot record"
 
 #: ../boot.c:243
 msgid "Please select no more than one file in the ISO browser"
-msgstr "V brskalinku ISO slik izberite le eno datoteko"
+msgstr "Venligst ikke vælg flere end en fil ISO browseren"
 
 #: ../isobrowser.c:135
 msgid "Please wait while I'm adding the selected items..."
-msgstr "Počakajte dodajam izbrane datoteke..."
+msgstr "Venligst vent imenst jeg tilføjer de valgt filer..."
 
 #: ../isobrowser.c:843
 msgid "Please wait while I'm extracting the selected files..."
-msgstr "Počakajte vlačujem izbrane datoteke..."
+msgstr "Venligst vent imenst jeg ekstraker de valgte filer..."
 
 #: ../isobrowser.c:1193
 msgid "Please wait while I'm reading the image..."
-msgstr "Počakajte berem sliko..."
+msgstr "Venligst vent imenst jeg læser billedet..."
 
 #: ../isobrowser.c:1536
 msgid "Please wait while I'm saving the new image to disk..."
-msgstr "Počakajte shranjujem sliko na disk..."
+msgstr "Venligst vent imens jeg gemmer det nye billede på disken..."
 
 #: ../isobrowser.c:128 ../isobrowser.c:835 ../isobrowser.c:1186
 #: ../isobrowser.c:1526
 msgid "Progress"
-msgstr "Napredek"
+msgstr "Forløb"
 
 #: ../settings.c:106
 msgid "Publisher:"
-msgstr "Založnik:"
+msgstr "Udgiver:"
 
 #: ../window.c:385
 msgid "Remove"
-msgstr "Odstrani"
+msgstr "Fjern"
 
+#
 #: ../isobrowser.c:1774
 msgid "Rename"
-msgstr "Preimenuj"
+msgstr "Skift Navn"
 
 #: ../isobrowser.c:1602
 msgid "Save File"
-msgstr "Shrani datoteko"
+msgstr "Gem Fil"
 
 #: ../boot.c:156
 msgid "Save a copy of the boot record"
-msgstr "Shrani kopijo zagonskega zapisa"
+msgstr "Gem et en copy av boot record"
 
 #: ../settings.c:678
 msgid "Scan for duplicate files (slow)"
-msgstr "Išči podvojene datoteke (počasno)"
+msgstr "Let efter dobbelte filer (sent)"
 
 #: ../window.c:214
 msgid "Show _hidden files"
-msgstr "Prikaži _skrite datoteke"
+msgstr "vis _gemte filer"
 
 #: ../fsbrowser.c:142 ../isobrowser.c:315
 msgid "Size"
-msgstr "Velikost"
+msgstr "Størrelse"
 
 #: ../boot.c:363
 #, c-format
 msgid "Size: %d bytes"
-msgstr "Velikost: %d bytes"
+msgstr "Størrelse: '%d' bytes"
 
 #: ../fsbrowser.c:280
 msgid ""
 "Skipping directory entry because cannot handle filename longer than 256 chars"
 msgstr ""
-"Ker ne morem brati imen datotek večjih od 256 znakov preskakujem kazalo"
+"Hopper over mappen, fordi filnavne kan ikke være mere end 256 bokstaver"
 
 #: ../fsbrowser.c:299
 #, c-format
 msgid "Skipping directory entry because stat(%s) failed with %d"
-msgstr "Preskakujem kazalo ker (%s) neuspešen z %d"
+msgstr "Hopper over mappen, fordi stat(%s) mislykkedes med %d"
 
 #: ../window.c:234
 msgid "Sort is _case sensitive"
-msgstr "Razlikuj _male in velike črke"
+msgstr "Sortering er følsom overfor store og små bokstaver"
 
+#
 #: ../settings.c:724
 msgid "Temporary directory"
-msgstr "Kazalo začasnih datotek"
+msgstr "Midlertidig mappe"
 
+# !! the last paragraph is untranslated
 #: ../about.c:289
+#, fuzzy
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
 " - The top file browser shows files and directories on your machine.\n"
@@ -451,76 +451,87 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'File' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
-"Okno ISO Masterja je razdeljeno na dva dela: \n"
-" - zagornji je raziskovalec ki prikazuje datotekein kazala  na vašem trdem "
-"disku \n"
-" - spodnji raziskovalec prikazuje datoteke in kazala na ISO sliki \n"
-"Da odprete obstoječo ISO datoteko, klikni na 'Slika' in 'Odpri'. \n"
-"Da ustvarite novo ISO datoteko klikni na 'Slika' in 'Nova'. \n"
-"Za dodajanje ene ali več datotek ali kazal iz ISO izberi objekt v \n"
-"spodnjem brskalniku in klikni gumb Izvzemi iz ISO v srednji orodjarni. \n"
-"Lahko tudi odstranite datoteke ali kazala iz ISO slike in ustvarjate nova \n"
-"kazala na ISO sliki in na lokalnem zbirčnem sistemu. \n"
-" \n"
-"Če kaj izberete v spodnjem brskalniku in nanj kliknete z desno \n"
-"se pojavi več dodatnih opcij. \n"
-"Ko enkrat opravite vse spremembe v novi ISO sliki, kliknite na 'Slika' in \n"
-"'Shrani kot'. Ne morete prepisati originalne slike ISO. \n"
+"ISO Master vinduet er delt i 2 dele:\n"
+" - Øverste vindue viser file og mapper på maskinen.\n"
+" - Nederste delen viser filer og mapper på ISO billedet.\n"
+"\n"
+"For at opne en ISO fil som allerede eksisterer, klik på 'Filer' også "
+"'Åben'.\n"
+"For at lave en ny ISO fil, klik på 'Filer' også 'Ny'\n"
+"\n"
+"For at tilføje en eller flere filer eller mapper til ISO filen, velg dem i\n"
+"værktøjskassen i det øverste vindue og klik på 'Tilføj til ISO filen'.\n"
+"\n"
+"For at tage en eller flere filer fra ISO filen, velg dem i det nederste "
+"vidue\n"
+"og kilk på 'Ekstrakt fra ISO filen'\n"
+"\n"
+"Do kan også slette filer og mapper fra ISO filen og lave nye mapper\n"
+"både i ISO filen og i filsystemet\n"
+"\n"
+"Hvis du højre-klikker noget i det nederste vindue, har du flere "
+"valgmuligheder\n"
+"\n"
+"Da du har lavet alle ændringerne i den nye ISO fil, klik på 'Billede' og "
+"'Gem som'.\n"
+"Du kan ikke skrive over den oprindelige ISO fil.\n"
 
 #: ../window.c:286
 msgid "Use selected file on image (no emulation)"
-msgstr "Uporabi izbrano datoteko na sliki (brez posnemanja)"
+msgstr "Bruge valgte filer på billedet (ingen emulation)"
 
 #: ../fsbrowser.c:583 ../isobrowser.c:1783
 msgid "View"
-msgstr "Ogled"
+msgstr "Vis"
 
 #: ../editfile.c:102
 msgid "View failed, please check Options/Viewer"
-msgstr "Pregled neuspešen, prosim preveri Možnosti/Pregledovalnik"
+msgstr "Mislykkedes at vise, venligst se i Rediger/Viser"
 
 #: ../settings.c:713
 msgid "Viewer"
-msgstr "Pregledovalnik"
+msgstr "Viser"
 
 #: ../settings.c:94
 msgid "Volume name:"
-msgstr "Ime naprave:"
+msgstr "Medie navn:"
 
 #: ../settings.c:652
 msgid ""
 "You will have to close and reopen the ISO for this change to take effect"
-msgstr ""
-"Potrebno je zapreti in ponovno odpreti ISO sliko, da bodo spremembe delovale"
+msgstr "For at denne endring skal virke, må du genåbne ISO filen"
 
 #: ../window.c:254
 msgid "_Boot Record"
-msgstr "_Zagonski Zapis"
+msgstr "_Boot Record"
 
 #: ../window.c:141
 msgid "_File"
-msgstr "_Datoteka"
+msgstr "_Filer"
 
 #: ../window.c:326
 msgid "_Help"
-msgstr "_Pomoč"
+msgstr "_Hjælp"
 
 #: ../window.c:318
 msgid "_Options"
-msgstr "M_ožnosti"
+msgstr "_Rediger"
 
 #: ../window.c:335
 msgid "_Overview"
-msgstr "Pr_iročnik"
+msgstr "_Oversigt"
 
 #: ../window.c:224
 msgid "_Sort directories first"
-msgstr "_Najprej razvrsti kazala"
+msgstr "_Sorter mapper først"
 
 #: ../window.c:246
 msgid "_Tools"
-msgstr "O_rodja"
+msgstr "_Funktioner"
 
 #: ../window.c:199
 msgid "_View"
-msgstr "Po_gled"
+msgstr "_Vis"
+
+#~ msgid "_Image"
+#~ msgstr "_Mynd"
