@@ -1,22 +1,22 @@
-# Croatian translation of ISO Master.
-# This file is distributed under the same license as the ISO Master package.
-# Ante Karamatic <ivoks@grad.hr>, 2007.
+# Arabic translation of ISO Master.
+# This file is distributed under the same license as the isomaster package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ISO Master 1.0\n"
+"Project-Id-Version: isomaster\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-29 06:36-0500\n"
-"PO-Revision-Date: 2007-08-27 03:57-0500\n"
-"Last-Translator: ivoks <(null)>\n"
-"Language-Team: Croatian <lokalizacija@linux.hr>\n"
+"PO-Revision-Date: 2008-10-28 07:58-0000\n"
+"Last-Translator: Abdellah Chelli <sneetsher@gmail.com>\n"
+"Language-Team: Abdellah Chelli <sneetsher@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Arabic\n"
 
 #: ../window.c:389
 msgid "      Estimated ISO Size: "
-msgstr "      Predviđena ISO veličina: "
+msgstr "      حجم ISO المقدر: "
 
 #: ../isobrowser.c:1384
 #, c-format
@@ -27,409 +27,399 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Želite li nastaviti?"
+"هل تريد المواصلة؟"
 
 #: ../editfile.c:272 ../editfile.c:368 ../editfile.c:601 ../editfile.c:696
 #, c-format
 msgid "'%s' is not a regular file"
-msgstr ""
+msgstr "'%s' ليس ملفا نظاميا"
 
 #: ../isobrowser.c:141 ../isobrowser.c:1199
 msgid "(scanning for duplicate files)"
-msgstr "(tražim duplicirane datoteke)"
+msgstr "(المسح عن ملفات مكررة)"
 
 #: ../window.c:375
 msgid "Add"
-msgstr "Dodaj"
+msgstr "إضافة"
 
 #: ../isobrowser.c:1621
 msgid "Add extension automatically"
-msgstr "Automatski dodaj nastavak"
+msgstr "أضف الملحق آليا"
 
 #: ../window.c:375
 msgid "Add to the ISO"
-msgstr "Dodaj u ISO"
+msgstr "أضف إلى صورة ISO"
 
 #: ../isobrowser.c:1330 ../isobrowser.c:1618
 msgid "All files"
-msgstr "Sve datoteke"
+msgstr "جميع الملفات"
 
 #: ../boot.c:334
 msgid "Boot Record Information"
-msgstr "Informacije o Boot zapisu"
+msgstr "معلومات سجل الاقلاع"
 
 #: ../boot.c:122
 msgid "Boot record deleted"
-msgstr "Boot zapis obrisan"
+msgstr "سجل الاقلاع حذف"
 
 #: ../boot.c:350
 #, c-format
 msgid "Boot record type: 1200KiB Floppy"
-msgstr "Tip Boot zapisa: 1200KiB disketa"
+msgstr "نوع سجل الإقلاع: قرص مرن 1200 كيلو بايت"
 
 #: ../boot.c:352
 #, c-format
 msgid "Boot record type: 1440KiB Floppy"
-msgstr "Tip Boot zapisa: 1440KiB disketa"
+msgstr "نوع سجل الإقلاع: قرص مرن 1440 كيلو بايت"
 
 #: ../boot.c:354
 #, c-format
 msgid "Boot record type: 2880KiB Floppy"
-msgstr "Tip Boot zapisa: 2880KiB disketa"
+msgstr "نوع سجل الإقلاع: قرص مرن 2880 كيلو بايت"
 
 #: ../boot.c:348
 #, c-format
 msgid "Boot record type: No Emulation"
-msgstr "Tip Boot zapisa: bez emulacije"
+msgstr "نوع سجل الإقلاع: لا محاكاة"
 
 #: ../isobrowser.c:502 ../isobrowser.c:1797
 msgid "Change permissions"
-msgstr ""
+msgstr "تغيير التصاريح"
 
 #: ../boot.c:40
 msgid "Choose Boot Record File"
-msgstr "Odaberite datoteku Boot zapisa"
+msgstr "إختر ملف سجل الإقلاع"
 
 #: ../window.c:371
 msgid "Create new directory on the ISO"
-msgstr "Izradi novi direktorij u ISO-u"
+msgstr "أنشأ مجلدا جديدا في صورة ISO"
 
 #: ../window.c:60
 msgid "Create new directory on the filesystem"
-msgstr "Izradi novi direktorij na datotečnom sustavu"
+msgstr "أنشأ مجلدا جديدا في نظام الملفات"
 
 #: ../settings.c:78
 msgid "Creation time:"
-msgstr "Datum izrade:"
+msgstr "وقت الإنشاء:"
 
 #: ../window.c:385
 msgid "Delete from the ISO"
-msgstr "Obriši sa ISO-a"
+msgstr "إحذف من صورة ISO"
 
 #: ../fsbrowser.c:590 ../isobrowser.c:1790
 msgid "Edit"
-msgstr ""
+msgstr "تحرير"
 
 #: ../editfile.c:82
 msgid "Edit failed, please check Options/Editor"
-msgstr ""
+msgstr "فشل التحرير، من فضلك راجع خيارات/محرر"
 
 #: ../settings.c:701
 msgid "Editor"
-msgstr ""
+msgstr "محرر"
 
 #: ../isobrowser.c:1463
 msgid "Enter a new name:"
-msgstr "Upišite novo ime:"
+msgstr "أدخل إسما جديدا:"
 
 #: ../browser.c:71
 msgid "Enter name for new directory"
-msgstr "Upišite novo ime za direktorij"
+msgstr "أدخل إسما للمجلد الجديد"
 
 #: ../window.c:380
 msgid "Extract"
-msgstr "Izvuci"
+msgstr "استخرج"
 
 #: ../window.c:380
 msgid "Extract from the ISO"
-msgstr "Izvuci iz ISO-a"
+msgstr "استخراج من صورة ISO"
 
 #: ../editfile.c:473 ../isobrowser.c:214
 #, c-format
 msgid "Failed to add '%s': '%s'"
-msgstr "Neuspjeh pri dodavanju '%s': '%s'"
+msgstr "فشلت إضافة '%s': '%s'"
 
 #: ../boot.c:79
 #, c-format
 msgid "Failed to add boot record: '%s'"
-msgstr "Neuspjeh pri dodavanju boot zapisa: '%s'"
+msgstr "فشلت إضافة سجل الإقلاع: '%s'"
 
 #: ../isobrowser.c:365
 #, c-format
 msgid "Failed to change directory: '%s'"
-msgstr "Neuspjeh pri promjeni direktorija: '%s'"
+msgstr "فشل تغيير المجلد: '%s'"
 
 #: ../browser.c:112
 #, c-format
 msgid "Failed to create directory %s"
-msgstr "Neuspjeh pri izradi direktorija %s"
+msgstr "فشل إنشاء المجلد %s"
 
 #: ../browser.c:135
 #, c-format
 msgid "Failed to create directory %s: '%s'"
-msgstr "Neuspjeh pri izradi direktorija %s: '%s'"
+msgstr "فشل إنشاء المجلد %s: '%s'"
 
 #: ../editfile.c:447 ../isobrowser.c:788
 #, c-format
 msgid "Failed to delete '%s': '%s'"
-msgstr "Neuspjeh pri brisanju '%s': '%s'"
+msgstr "فشل حذف '%s': '%s'"
 
 #: ../editfile.c:412 ../editfile.c:740 ../isobrowser.c:901
 #, c-format
 msgid "Failed to extract '%s': '%s'"
-msgstr "Neuspjeh pri izvlačenju '%s': '%s'"
+msgstr "فشل استخراج '%s': '%s'"
 
 #: ../boot.c:202
 #, c-format
 msgid "Failed to extract boot record: '%s'"
-msgstr "Neuspjeh pri izvlačenju boot zapisa: '%s'"
+msgstr "فشل استخراج سجل الإقلاع: '%s'"
 
 #: ../isobrowser.c:1084 ../isobrowser.c:1135
 #, c-format
 msgid "Failed to initialise bkisofs: '%s'"
-msgstr "Neuspjeh pri inicijaciji bkisofs: '%s'"
+msgstr "فشل التحضير الأولي لـ bkisofs: ‪'%s'"
 
 #: ../fsbrowser.c:229
 #, c-format
 msgid "Failed to open directory '%s', error %d"
-msgstr "Neuspjeh pri otvaranju direktorija '%s', greška %d"
+msgstr "فشل فتح المجلد '%s'، خطأ %d"
 
 #: ../isobrowser.c:1154
 #, c-format
 msgid "Failed to open iso file for reading: '%s'"
-msgstr "Neuspjeh pri otvaranju iso datoteke za čitanje: '%s'"
+msgstr "فشل فتح ملف ISO للقراءة: '%s'"
 
 #: ../isobrowser.c:1229
 #, c-format
 msgid "Failed to read directory tree: '%s'"
-msgstr "Neuspjeh pri čitanju stabla direktorija: '%s'"
+msgstr "فشل قراءة شجرة المجلدات: '%s'"
 
 #: ../isobrowser.c:1169
 #, c-format
 msgid "Failed to read volume info: '%s'"
-msgstr "Neuspjeh pri čitanju informacija volumena: '%s'"
+msgstr "فشل قراءة معلومات الحجم: '%s'"
 
 #: ../isobrowser.c:1492
 #, c-format
 msgid "Failed to rename '%s': %s"
-msgstr "Neuspjeh pri promjeni imena '%s': %s"
+msgstr "فشلت اعادة تسمية '%s': %s"
 
 #: ../boot.c:296
 #, c-format
 msgid "Failed to set %s as boot record: '%s'"
-msgstr "Neuspjeh pri postavljanju %s kao boot zapisa: '%s'"
+msgstr "فشل تعيين %s كسجل إقلاع: '%s'"
 
 #: ../isobrowser.c:1564
 #, c-format
 msgid "Failed to write image to '%s': '%s'"
-msgstr "Neuspjeh pri pisanju slika na '%s': '%s'"
+msgstr "فشل كتابة الصورة إلى '%s': '%s'"
 
 #: ../settings.c:122
 msgid "Filename types (both recommended):"
-msgstr "Tipovi imena datoteka (uključujući predložene):"
+msgstr "أنواع اسم الملف (مستحسن، الإثنين معا):"
 
 #: ../settings.c:691
 msgid "Follow symbolic links"
-msgstr "Prati simboličke linkove"
+msgstr "تتبع الوصلات الرمزية"
 
 #: ../window.c:298
 msgid "From file: 1200KiB floppy"
-msgstr "Iz datoteke: 1200KiB disketa"
+msgstr "من ملف: قرص مرن 1200 كيلو بايت"
 
 #: ../window.c:304
 msgid "From file: 1440KiB floppy"
-msgstr "Iz datoteke: 1440KiB disketa"
+msgstr "من ملف: قرص مرن 1440 كيلو بايت"
 
 #: ../window.c:310
 msgid "From file: 2880KiB floppy"
-msgstr "Iz datoteke: 2880KiB disketa"
+msgstr "من ملف: قرص مرن 2880 كيلو بايت"
 
 #: ../window.c:292
 msgid "From file: no emulation"
-msgstr "Iz datoteke: bez emulacije"
+msgstr "من ملف: لا محاكاة"
 
 #: ../isobrowser.c:806
 msgid ""
 "GUI error, deleting anything other than files and directories doesn't work"
-msgstr "GUI greška, brisanje svega osim datoteka i direktorija ne radi"
+msgstr ""
+"خطأ في واجهة المستعمل الرسومية، حذف أي شيء آخر غير الملفات و المجلدات لن يعمل"
 
 #: ../window.c:53 ../window.c:364
 msgid "Go back"
-msgstr "Idi natrag"
+msgstr "تراجع"
 
 #: ../window.c:365
 msgid "Go back up one directory on the ISO"
-msgstr "Idi natrag jedan direktorij na ISO-u"
+msgstr "تراجع مجلدا واحدا إلى أعلى  في صورة ISO"
 
 #: ../window.c:54
 msgid "Go back up one directory on the filesystem"
-msgstr "Idi natrag jedan direktorij na datotečnom sustavu"
+msgstr "تراجع مجلدا واحدا إلى الأعلى في نظام الملفات"
 
 #: ../isobrowser.c:1315 ../isobrowser.c:1613
 msgid "ISO Images"
-msgstr "ISO slike"
+msgstr "صور ISO"
 
 #: ../about.c:360
 msgid "ISO Master Help"
-msgstr "ISO Master pomoć"
+msgstr "مساعدة ISO Master"
 
 #: ../settings.c:62
 msgid "Image Information"
-msgstr "Informacije o slici"
+msgstr "معلومات الصورة"
 
 #: ../settings.c:157
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid publisher '%s': '%s'"
-msgstr "Neuspjeh pri brisanju '%s': '%s'"
+msgstr "ناشر غير صحيح '%s': '%s'"
 
 #: ../settings.c:173
-#, fuzzy, c-format
+#, c-format
 msgid "Invalid volume name '%s': '%s'"
-msgstr "Neuspjeh pri promjeni imena '%s': %s"
+msgstr "اسم حجم غير صحيح '%s': '%s'"
 
 #: ../boot.c:391
 #, c-format
 msgid "Is not visible on image"
-msgstr "Nije vidljivo na slici"
+msgstr "ليس مرأي في الصورة"
 
 #: ../boot.c:389
 #, c-format
 msgid "Is visible on image as '%s'"
-msgstr "Vidljivo je na slici kao '%s'"
+msgstr "مرئي في الصورة كـ '%s'"
 
 #: ../isobrowser.c:708
 msgid ""
 "It seems that you have made changes to the ISO but haven't saved them. Are "
 "you sure you want to close it?"
-msgstr ""
-"Napravili ste izmjene na ISO-u, ali ih niste pohranili. Jeste li sigurni da "
-"gaželite zatvoriti?"
+msgstr "يبدو أنك أجريت تغييرات في صورة ISO لكنك لم تحفظها.هل تريد حقا إغلاقها؟"
 
 #: ../boot.c:271
 msgid "Item selected is not a regular file and cannot be used as a boot record"
-msgstr ""
-"Odabrana stavka nije uobičajena datoteka i ne može se koristiti kao boot "
-"zapis"
+msgstr "العنصر المحدد ليس ملفا نظاميا و لا يمكن إستخدامه كسجل إقلاع"
 
 #: ../boot.c:373 ../boot.c:380
 #, c-format
 msgid "Location: on original image at 0x%llX"
-msgstr "Lokacija: na originalnoj slici, na 0x%llX"
+msgstr "المكان: في الصورة الأصلية عند 0x%llX"
 
 #: ../boot.c:375 ../boot.c:382
 #, c-format
 msgid "Location: to be added from '%s'"
-msgstr "Lokacija: dodati iz '%s'"
+msgstr "المكان: سيضاف من '%s'"
 
 #: ../isobrowser.c:1325
-#, fuzzy
 msgid "MDF Images"
-msgstr "ISO slike"
+msgstr "صور MDF"
 
 #: ../isobrowser.c:1320
 msgid "NRG Images"
-msgstr "NRG slike"
+msgstr "صور NRG"
 
 #: ../fsbrowser.c:121 ../isobrowser.c:292
 msgid "Name"
-msgstr "Ime"
+msgstr "الاسم"
 
 #: ../window.c:59 ../window.c:370
 msgid "New Directory"
-msgstr "Novi direktorij"
+msgstr "مجلد جديد"
 
 #: ../boot.c:149 ../boot.c:327
 msgid "No boot record read from original or set on image"
-msgstr "Nema boot zapisa na originalnoj slici"
+msgstr "لا سجل إقلاع قرأ من الأصلي أو وضع في الصورة"
 
 #: ../boot.c:108
 msgid "No boot to delete"
-msgstr "Nema boota za brisanje"
+msgstr "لا ملف إقلاع لحذفه"
 
 #: ../settings.c:666
 msgid "Options"
-msgstr ""
+msgstr "خيارات"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
-msgstr ""
-"Odaberite datoteku u ISO pregledniku koja će se koristiti kao boot zapis"
+msgstr "من فضلك إختر ملف من مستعرض صور ISO لاستخدامه كسجل إقلاع"
 
 #: ../boot.c:243
 msgid "Please select no more than one file in the ISO browser"
-msgstr "Odaberite ne više od jedne datoteke u ISO pregledniku"
+msgstr "من فضلك حدد ملفا واحدا فقط في مستعرض صور ISO"
 
 #: ../isobrowser.c:135
 msgid "Please wait while I'm adding the selected items..."
-msgstr "Pričekajte dok unosim odabrane stavke..."
+msgstr "انتظر من فضلك ريثما أضيف العناصر المحددة..."
 
 #: ../isobrowser.c:843
 msgid "Please wait while I'm extracting the selected files..."
-msgstr "Pričekajte dok izvlačim odabrane datoteke"
+msgstr "انتظر من فضلك ريثما أستخرج الملفات المحددة..."
 
 #: ../isobrowser.c:1193
 msgid "Please wait while I'm reading the image..."
-msgstr "Pričekajte dok čitam sliku..."
+msgstr "انتظر من فضلك ريثما أقرأ الصورة..."
 
 #: ../isobrowser.c:1536
 msgid "Please wait while I'm saving the new image to disk..."
-msgstr "Pričekajte dok spremam novu sliku na disk..."
+msgstr "انتظر من فضلك ريثما أحفظ الصورة الجديدة إلى القرص..."
 
 #: ../isobrowser.c:128 ../isobrowser.c:835 ../isobrowser.c:1186
 #: ../isobrowser.c:1526
 msgid "Progress"
-msgstr "Napredak"
+msgstr "التقدم"
 
 #: ../settings.c:106
 msgid "Publisher:"
-msgstr "Izdavač:"
+msgstr "الناشر:"
 
 #: ../window.c:385
 msgid "Remove"
-msgstr "Ukloni"
+msgstr "إزالة"
 
 #: ../isobrowser.c:1774
-#, fuzzy
 msgid "Rename"
-msgstr "Ukloni"
+msgstr "إعادة تسمية "
 
 #: ../isobrowser.c:1602
 msgid "Save File"
-msgstr "Spremi datoteku"
+msgstr "حفظ الملف"
 
 #: ../boot.c:156
 msgid "Save a copy of the boot record"
-msgstr "Spremi kopiju boot zapisa"
+msgstr "حفظ نسخة لسجل الاقلاع"
 
 #: ../settings.c:678
 msgid "Scan for duplicate files (slow)"
-msgstr "Pretraži duplicirane datoteke (sporo)"
+msgstr "إجراء مسح من أجل الملفات المكررة (بطيء)"
 
 #: ../window.c:214
 msgid "Show _hidden files"
-msgstr "Prikaži sk_rivene datoteke"
+msgstr "إظهار الملفات الم_خفية"
 
 #: ../fsbrowser.c:142 ../isobrowser.c:315
 msgid "Size"
-msgstr "Veličina"
+msgstr "الحجم"
 
 #: ../boot.c:363
 #, c-format
 msgid "Size: %d bytes"
-msgstr "Veličina: %d byteova"
+msgstr "الحجم: %d بايت"
 
 #: ../fsbrowser.c:280
 msgid ""
 "Skipping directory entry because cannot handle filename longer than 256 chars"
-msgstr ""
-"Preskačem direktorij jer nije moguće baratati imenima datoteka dužim od 256 "
-"znakova"
+msgstr "تجاوز المجلد لعدم القدرة على التعامل مع اسم ملف أطول من 256 رمزا"
 
 #: ../fsbrowser.c:299
 #, c-format
 msgid "Skipping directory entry because stat(%s) failed with %d"
-msgstr "Preskačem direktorij jer stat(%s) nije uspio s %d"
+msgstr "تجاوز المجلد لأن (%s) فشل (خطأ %d)"
 
 #: ../window.c:234
 msgid "Sort is _case sensitive"
-msgstr ""
+msgstr "ترتيب _حسّاس لحالة الأحرف"
 
 #: ../settings.c:724
-#, fuzzy
 msgid "Temporary directory"
-msgstr "Novi direktorij"
+msgstr "مجلد الملفات المؤقتة"
 
-# !! this translation is incomplete
 #: ../about.c:298
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
@@ -455,95 +445,81 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'File' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
-"ISO Master prozor podjenjen je u 2 dijela:\n"
-" - Gornji pretraživač prikazuje datoteke i direktorije na vašem računalu.\n"
-" - Donji pretraživač prikazuje datoteke i direktorije na ISO slici.\n"
+"نافذة ISO Master تنقسم إلى جزئين:\n"
+"- مستعرض ملفات علوي يعرض الملفات و المجلدات في حاسوبك.\n"
+"- مستعرض ملفات سفلي يعرض الملفات و المجلدات في صورة ISO.\n"
 "\n"
-"Kako biste otvorili ISO datoteku, kliknite na 'Slika' i 'Otvori'. Kako "
-"biste\n"
-"napravili novu ISO sliku, kliknite na 'Slika' i 'Novi'.\n"
+"لفتح ملف ISO أنقر على 'ملف' ثم 'إفتح'. لإنشاء ملف ISO جديد أنقر على 'ملف' ثم "
+"'جديد'.\n"
 "\n"
-"Kako biste dodali jednu ili više datoteka ili direktorija na ISO, odaberite "
-"ih\n"
-"u gornjem pretraživaču i kliknite 'Dodaj na ISO' tipku u sredinjoj pomoćnoj\n"
-"trakci.\n"
+"لإضافة ملف أو أكثر أو مجلدات إلى صورة ISO حدد ما تريد من خلال مستعرض الملفات "
+"العلوي و أنقر  زر 'إضافة إلى صورة ISO' في لوحة الأدوات الوسطى.\n"
 "\n"
-"Kako biste izvukli jednu ili više datoteka ili direktorija sa ISO slike, "
-"odaberite\n"
-"ih u donjem pretraživaču i kliknite 'Izvuci sa ISO' tipku u srednjoj "
-"pomoćnoj\n"
-"traci.\n"
+"لاستخراج ملف أو أكثر أو مجلدات من صورة ISO حدد ما تريد من خلال مستعرض "
+"الملفات السفلي و أنقر  زر 'إستخراج من صورة ISO' في لوحة الأدوات الوسطى.\n"
+" \n"
+"يمكنك حذف ملفات أو مجلدات من صورة ISO و إنشاء مجلدات جديدة في كل من صورة ISO "
+"و نظام الملفات المحلي.\n"
 "\n"
-"Možete obrisati datoteke ili direktorije sa ISO i napraviti nove direktorije "
-"na\n"
-"njemu i na datotečnom sustavu.\n"
+"عند تحديدك لأي عنصر من مستعرض الملفات السفلي و نقرة يمنى عليه، ستجد خيارات "
+"أخرى متوفرة.\n"
 "\n"
-"Jednom kada napravite sve promjene na ISO slici, kliknite 'Slika' i potom\n"
-"'Spremi kao'. Možete prepisati originalni ISO.\n"
+"حينما تنهي كل التغييرات على صورة ISO، أنقر على 'ملف' ثم 'إحفظ كـ'. فلا يمكنك "
+"إعادة الكتابة على ISO الأصلي مباشرة.\n"
 
 #: ../window.c:286
 msgid "Use selected file on image (no emulation)"
-msgstr "Upotrijebi odabranu datoteku na slici (bez emulacije)"
+msgstr "استخدم الملف المحدد في الصورة (لا محاكاة)"
 
 #: ../fsbrowser.c:583 ../isobrowser.c:1783
-#, fuzzy
 msgid "View"
-msgstr "P_ogled"
+msgstr "عرض"
 
 #: ../editfile.c:102
 msgid "View failed, please check Options/Viewer"
-msgstr ""
+msgstr "فشل العرض، من فضلك راجع خيارات/عارض"
 
 #: ../settings.c:713
-#, fuzzy
 msgid "Viewer"
-msgstr "P_ogled"
+msgstr "عارض"
 
 #: ../settings.c:94
 msgid "Volume name:"
-msgstr "Ime volumena:"
+msgstr "اسم الحجم:"
 
 #: ../settings.c:652
 msgid ""
 "You will have to close and reopen the ISO for this change to take effect"
-msgstr ""
-"Morate zatvoriti i ponovo otvoriti ISO kako bi promjene bile prihvaćene"
+msgstr "يجب عليك غلق و إعادة فتح ملف ISO من أجل تطبيق التغييرات"
 
 #: ../window.c:254
 msgid "_Boot Record"
-msgstr "Boot _Zapis"
+msgstr "_سجل الاقلاع"
 
 #: ../window.c:141
-#, fuzzy
 msgid "_File"
-msgstr "P_ogled"
+msgstr "_ملف"
 
 #: ../window.c:326
 msgid "_Help"
-msgstr "_Pomoć"
+msgstr "م_ساعدة"
 
 #: ../window.c:318
 msgid "_Options"
-msgstr ""
+msgstr "_خيارات"
 
 #: ../window.c:335
 msgid "_Overview"
-msgstr "P_regled"
+msgstr "_نظرة عامة "
 
 #: ../window.c:224
 msgid "_Sort directories first"
-msgstr "Posloži _direktorije ispred"
+msgstr "ترتيب الم_جلدات في المقدمة"
 
 #: ../window.c:246
 msgid "_Tools"
-msgstr ""
+msgstr "_أدوات"
 
 #: ../window.c:199
 msgid "_View"
-msgstr "P_ogled"
-
-#~ msgid "_Image"
-#~ msgstr "Sli_ka"
-
-#~ msgid "_Settings"
-#~ msgstr "Po_stavke"
+msgstr "_عرض"
