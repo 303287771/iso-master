@@ -30,7 +30,8 @@ build-stamp: configure-stamp
 
 	# commands to compile the package.
 	CFLAGS="$(CFLAGS)" $(MAKE) PREFIX=/usr ICONPATH=/usr/share/icons/isomaster \
-		MYMANPATH=/usr/share/man/man1
+		MYMANPATH=/usr/share/man/man1 \
+		MYDOCPATH=/usr/share/doc/isomaster/bkisofs
 
 	touch $@
 
@@ -53,7 +54,8 @@ install: build
 	# commands to install the package into debian/isomaster.
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/isomaster PREFIX=/usr \
 		ICONPATH=/usr/share/icons/isomaster \
-                MYMANPATH=/usr/share/man/man1
+                MYMANPATH=/usr/share/man/man1 \
+		MYDOCPATH=/usr/share/doc/isomaster/bkisofs
 
 # Build architecture-independent files here.
 binary-indep: build install
@@ -67,7 +69,6 @@ binary-arch: build install
 	dh_installdocs
 	dh_installmenu
 	dh_installman
-	dh_desktop
 	dh_link
 	dh_strip
 	dh_compress

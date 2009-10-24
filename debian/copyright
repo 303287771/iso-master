@@ -5,7 +5,7 @@ It was downloaded from http://littlesvr.ca/isomaster/
 
 Upstream Author: Andrew Smith <asmith15@littlesvr.ca>
 
-isomaster copyright: 2005-2008 Andrew Smith.
+isomaster copyright: 2005-2009 Andrew Smith.
 
 License:
 
@@ -47,6 +47,6 @@ License:
    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
    DEALINGS IN THE SOFTWARE.
 
-The Debian packaging is (C) 2007-2008, David Johnson <dj@david-web.co.uk> and
+The Debian packaging is (C) 2007-2009, David Johnson <dj@david-web.co.uk> and
 is licensed under the GPL version 2 (see above), or (at your option) any
 later version.
