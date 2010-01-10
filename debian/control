@@ -8,7 +8,7 @@ Standards-Version: 3.8.3
 
 Package: isomaster
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: mousepad
 Description: A graphical CD image editor
  You can use isomaster to:

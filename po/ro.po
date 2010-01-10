@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ro\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-23 11:31-0400\n"
-"PO-Revision-Date: 2007-10-31 09:54+0200\n"
-"Last-Translator: Bogdan <bogdan@nimblex.net>\n"
+"POT-Creation-Date: 2010-01-04 15:33-0500\n"
+"PO-Revision-Date: 2009-09-18 11:04-0000\n"
+"Last-Translator: Bogdan Radulescu <bogdan@nimblex.net>\n"
 "Language-Team: English <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -113,7 +113,6 @@ msgid "Edit"
 msgstr "Editează"
 
 #: ../editfile.c:82
-#, fuzzy
 msgid "Edit failed, please check Options/Editor"
 msgstr "Editarea a eşuat, te rog verifică Setari/Editor"
 
@@ -264,7 +263,7 @@ msgstr "Du-te un director în sus pe sistemul de fişiere"
 msgid "ISO Images"
 msgstr "Imagini ISO"
 
-#: ../about.c:366
+#: ../about.c:375
 msgid "ISO Master Help"
 msgstr "ISO Master Ajutor"
 
@@ -342,11 +341,11 @@ msgstr "Nici un boot de şters"
 
 #: ../window.c:168
 msgid "Open Recent"
-msgstr ""
+msgstr "Deschide Recent"
 
 #: ../settings.c:688
 msgid "Options"
-msgstr ""
+msgstr "Opţiuni"
 
 #: ../boot.c:229
 msgid "Please select a file in the ISO browser to use as the boot record"
@@ -428,15 +427,13 @@ msgstr "Exclud această intrare pentru că stat(%s) a eşuat cu %d"
 
 #: ../window.c:262
 msgid "Sort is _case sensitive"
-msgstr ""
+msgstr "Sortarea este sensibila la _majuscule"
 
 #: ../settings.c:746 ../settings.c:750
 msgid "Temporary directory"
 msgstr "Director Temporar"
 
-# !! this translation is incomplete
-#: ../about.c:304
-#, fuzzy
+#: ../about.c:313
 msgid ""
 "The ISO Master window is split in 2 parts:\n"
 " - The top file browser shows files and directories on your machine.\n"
@@ -461,7 +458,7 @@ msgid ""
 "Once you made all the changes to the new ISO image, click on 'File' and\n"
 "'Save As'. You cannot overwrite the original ISO.\n"
 msgstr ""
-"Fereastra ISO Master este împărtită în două:\n"
+"Fereastra ISO Master este împărţită în două:\n"
 " - Partea de sus arată fişierele şi directoarele de pe calculatorul tău.\n"
 " - Partea de jos arată fişierele şi directoarele de pe imaginea ISO.\n"
 "\n"
@@ -480,6 +477,9 @@ msgstr ""
 "De asemenea puteţi şterge fişiere şi directoare din ISO şi crea noi \n"
 "fişiere şi directoare atat pe ISO cat şi pe calculatorul dumneavoastră.\n"
 "\n"
+"Daca selectaţi ceva in partea de jos şi daţi click-dreapta pe el,\n"
+"sunt cateva opţiuni suplimentare disponibile.\n"
+"\n"
 "Odată ce aţi făcut toate modificările pe noua imagine ISO daţi click\n"
 "pe 'Imagine' si pe 'Salveaza ca'.Nu puteţi rescrie imaginea originală.\n"
 
@@ -492,9 +492,8 @@ msgid "View"
 msgstr "Vizualizează"
 
 #: ../editfile.c:102
-#, fuzzy
 msgid "View failed, please check Options/Viewer"
-msgstr "Vizualizarea a eşuat, Verifică Setari/Vizualizare"
+msgstr "Vizualizarea a eşuat, Verifică Opţiuni/Vizualizare"
 
 #: ../settings.c:735
 msgid "Viewer"
@@ -512,14 +511,12 @@ msgstr ""
 "aibă efect"
 
 #: ../window.c:282
-#, fuzzy
 msgid "_Boot Record"
-msgstr "_BootRecord"
+msgstr "_Boot Record"
 
 #: ../window.c:143
-#, fuzzy
 msgid "_File"
-msgstr "_Vizualizează"
+msgstr "_Fişier"
 
 #: ../window.c:354
 msgid "_Help"
@@ -527,7 +524,7 @@ msgstr "_Ajutor"
 
 #: ../window.c:346
 msgid "_Options"
-msgstr ""
+msgstr "_Opţiuni"
 
 #: ../window.c:363
 msgid "_Overview"
@@ -539,7 +536,7 @@ msgstr "_Sortează directoarele primele"
 
 #: ../window.c:274
 msgid "_Tools"
-msgstr ""
+msgstr "_Utilitare"
 
 #: ../window.c:227
 msgid "_View"

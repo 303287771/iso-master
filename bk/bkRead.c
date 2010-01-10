@@ -394,8 +394,9 @@ int bk_read_vol_info(VolInfo* volInfo)
 /*******************************************************************************
 * dirDrFollows()
 * checks whether the next directory record is for a directory (not a file)
+* returns 2 if it does, and 1 if it does not
 * */
-bool dirDrFollows(VolInfo* volInfo)
+int dirDrFollows(VolInfo* volInfo)
 {
     unsigned char fileFlags;
     bk_off_t origPos;
@@ -412,9 +413,9 @@ bool dirDrFollows(VolInfo* volInfo)
     readSeekSet(volInfo, origPos, SEEK_SET);
     
     if((fileFlags >> 1 & 1) == 1)
-        return true;
+        return 2;
     else
-        return false;
+        return 1;
 }
 
 /*******************************************************************************
@@ -580,7 +581,7 @@ int readDir(VolInfo* volInfo, BkDir* dir, int filenameType,
             readSeekSet(volInfo, locExtent * NBYTES_LOGICAL_BLOCK, SEEK_SET);
             
             /* read record length */
-            readRead(volInfo, &realRootRecordLen, 1);
+            rc = readRead(volInfo, &realRootRecordLen, 1);
             if(rc != 1)
                 return BKERROR_READ_GENERIC;
             
@@ -656,7 +657,8 @@ int readDirContents(VolInfo* volInfo, BkDir* dir, unsigned size,
         {
             int recordLength;
             
-            if( dirDrFollows(volInfo) )
+            rc = dirDrFollows(volInfo);
+            if(rc == 2)
             /* directory descriptor record */
             {
                 *nextChild = malloc(sizeof(BkDir));
