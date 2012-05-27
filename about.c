@@ -67,6 +67,10 @@ GBLauthors[2] = {
 "- gave me access to a 32bit ARM box running Debian for testing\n"
 "- gave me access to a big endian SuperSPARC II box running Debian for testing\n"
 "\n"
+"Sebastian Pipping\n"
+"https://blog.hartwork.org/\n"
+"- Patch to fix a crash when opening a file from the \"Recently used\" section of the file browser\n"
+"\n"
 "Ernst W. Winter\n"
 "December 2006\n"
 "- gave me access to an AMD64 box running OpenBSD for testing\n"
@@ -233,6 +237,9 @@ GBLtranslators =
 "Hajime Taira\n"
 "- ja (Japanese) translation of ISO Master version 1.3\n"
 "\n"
+"Mindaugas Baranauskas\n"
+"- lt (Lithuanian) translation of ISO Master version 1.3\n"
+"\n"
 "Rihards Prieditis\n"
 "- lv (Latvian) translation of ISO Master version 1.3\n"
 "\n"
@@ -314,8 +321,8 @@ GBLwebsite = "http://littlesvr.ca/isomaster/";
 
 static const char* 
 GBLlicense = 
-"ISO Master and bkisofs are distributed under the GNU General Public Licence version 2,\n"
-"on Debian systems please see /usr/share/common-licenses/GPL-2 for the complete text\n";
+"ISO Master and bkisofs are distributed under the GNU General Public Licence\n"
+"version 2, please see LICENCE.TXT for the complete text\n";
 
 static const char*
 GBLhelp = 
