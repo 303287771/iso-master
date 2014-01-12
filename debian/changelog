@@ -1,3 +1,13 @@
+isomaster (1.3.9-2) unstable; urgency=medium
+
+  * Add ld-as-needed.diff patch from Ubuntu
+  * Add use-actual-boot-image-size-in-eltorito-boot-catalog.diff patch from
+    Ubuntu (Closes: #734390, LP: #1266461)
+  * Standards-version to 3.9.5
+  * Bump packaging copyright year to 2014
+
+ -- David Johnson <dj@david-web.co.uk>  Sun, 12 Jan 2014 17:56:29 +0000
+
 isomaster (1.3.9-1) unstable; urgency=low
 
   * New upstream release (Closes: #673419)

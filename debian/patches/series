@@ -1,1 +1,3 @@
+use-actual-boot-image-size-in-eltorito-boot-catalog.diff
+ld-as-needed.diff
 gpl-path.diff
