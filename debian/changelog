@@ -1,3 +1,19 @@
+isomaster (1.3.13-1) unstable; urgency=low
+
+  * New upstream release (Closes: #795377)
+  * Remove patches integrated upstream
+  * Add sensible-tools.patch by Riley Baird (Closes: #788686)
+  * Remove mousepad suggestion
+  * Add %f exec code and keywords to .desktop file
+  * Tidy cruft left over from bkisofs manual, which has been removed
+  * Standards-version to 3.9.6
+  * Make copyright machine-readable
+  * Remove menu file per policy
+  * Update rules file
+  * Make build verbose, allow flags to be overridden in build
+
+ -- David Johnson <dj@david-web.co.uk>  Sun, 03 Jan 2016 14:48:20 +0000
+
 isomaster (1.3.9-2) unstable; urgency=medium
 
   * Add ld-as-needed.diff patch from Ubuntu

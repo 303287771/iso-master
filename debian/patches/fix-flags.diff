@@ -1,0 +1,140 @@
+Description: Modify makefiles to allow us to override flags in the build system
+ if needed
+Author: Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+Author: David Johnson <dj@david-web.co.uk>
+Index: isomaster-1.3.13/Makefile
+===================================================================
+--- isomaster-1.3.13.orig/Makefile	2016-01-03 15:55:48.402186530 +0000
++++ isomaster-1.3.13/Makefile	2016-01-03 15:56:07.549801114 +0000
+@@ -45,11 +45,11 @@
+ 
+ # programs used in the Makefiles:
+ export CC      ?= gcc
+-export AR      = ar
+-export RM      = rm -f
+-export INSTALL = install
+-export CP      = cp
+-export ECHO    = echo
++export AR      ?= ar
++export RM      ?= rm -f
++export INSTALL ?= install
++export CP      ?= cp
++export ECHO    ?= echo
+ 
+ VERSION = 1.3.13
+ 
+@@ -75,15 +75,15 @@
+ isomaster: $(OBJECTS) lib iniparser
+ 	@echo 'Linking isomaster'
+ ifndef USE_SYSTEM_INIPARSER
+-	@$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a -o isomaster `pkg-config --libs gtk+-2.0`
++	$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a -o isomaster `pkg-config --libs gtk+-2.0`
+ else
+-	@$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a -liniparser -o isomaster `pkg-config --libs gtk+-2.0`
++	$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a -liniparser -o isomaster `pkg-config --libs gtk+-2.0`
+ endif
+ 
+ # static pattern rule
+ $(OBJECTS): %.o: %.c %.h bk/bk.h Makefile
+ 	@echo 'Compiling' $<
+-	@$(CC) $(CFLAGS) $(CPPFLAGS) $< -c -o $@
++	$(CC) $(CFLAGS) $(CPPFLAGS) $< -c -o $@
+ 
+ lib:
+ 	cd bk && $(MAKE)
+Index: isomaster-1.3.13/bk/Makefile
+===================================================================
+--- isomaster-1.3.13.orig/bk/Makefile	2016-01-03 15:55:48.402186530 +0000
++++ isomaster-1.3.13/bk/Makefile	2016-01-03 15:56:25.869432309 +0000
+@@ -6,7 +6,7 @@
+ CFLAGS  += -Wall -pedantic -std=gnu99 -Wundef -Wcast-align -W -Wpointer-arith -Wwrite-strings -Wno-unused-parameter
+ 
+ # the _FILE_OFFSET_BITS=64 is to enable stat() for large files
+-CPPFLAGS = -D_FILE_OFFSET_BITS=64
++CPPFLAGS += -D_FILE_OFFSET_BITS=64
+ 
+ ifdef WINDOWS_BUILD
+   CPPFLAGS += -DWINDOWS_BUILD
+@@ -14,12 +14,12 @@
+ 
+ bk.a: $(OBJECTS)
+ 	@echo 'Creating bk.a'
+-	@$(AR) -cr bk.a $(OBJECTS)
++	$(AR) -cr bk.a $(OBJECTS)
+ 
+ # static pattern rule
+ $(OBJECTS): %.o: %.c %.h Makefile bk.h bkInternal.h
+ 	@echo 'Compiling' $<
+-	@$(CC) $< $(CFLAGS) $(CPPFLAGS) -c -o $@
++	$(CC) $< $(CFLAGS) $(CPPFLAGS) -c -o $@
+ 
+ example: example.c
+ 	$(CC) $(CFLAGS) $(CPPFLAGS) example.c bk.a -o example
+Index: isomaster-1.3.13/iniparser-2.17/Makefile
+===================================================================
+--- isomaster-1.3.13.orig/iniparser-2.17/Makefile	2016-01-03 15:55:48.402186530 +0000
++++ isomaster-1.3.13/iniparser-2.17/Makefile	2016-01-03 15:56:44.621054750 +0000
+@@ -3,22 +3,22 @@
+ #
+ 
+ # Compiler settings
+-CC      = gcc
+-CFLAGS  = -O3 -fPIC
++CC      ?= gcc
++CFLAGS  ?= -O3 -fPIC
+ 
+ # Ar settings to build the library
+-AR	    = ar
+-ARFLAGS = rcv
++AR	    ?= ar
++ARFLAGS ?= rcv
+ 
+-SHLD = ${CC} ${CFLAGS}
+-LDSHFLAGS = -shared -Wl,-Bsymbolic  -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
+-LDFLAGS = -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
++SHLD ?= ${CC} ${CFLAGS}
++LDSHFLAGS ?= -shared -Wl,-Bsymbolic  -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
++LDFLAGS ?= -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
+ 
+ # Set RANLIB to ranlib on systems that require it (Sun OS < 4, Mac OSX)
+ # RANLIB  = ranlib
+-RANLIB = true
++RANLIB ?= true
+ 
+-RM      = rm -f
++RM      ?= rm -f
+ 
+ 
+ # Implicit rules
+@@ -45,7 +45,7 @@
+ 	@($(RANLIB) libiniparser.a)
+ 
+ libiniparser.so:	$(OBJS)
+-	@$(SHLD) $(LDSHFLAGS) -o $@.0 $(OBJS) $(LDFLAGS) \
++	$(SHLD) $(LDSHFLAGS) -o $@.0 $(OBJS) $(LDFLAGS) \
+ 		-Wl,-soname=`basename $@`.0
+ 
+ clean:
+Index: isomaster-1.3.13/iniparser-2.17/test/Makefile
+===================================================================
+--- isomaster-1.3.13.orig/iniparser-2.17/test/Makefile	2016-01-03 15:55:48.402186530 +0000
++++ isomaster-1.3.13/iniparser-2.17/test/Makefile	2016-01-03 15:55:48.398186609 +0000
+@@ -2,12 +2,12 @@
+ # iniparser tests Makefile
+ #
+ 
+-CC      = gcc
+-CFLAGS  = -g -I../src
+-LFLAGS  = -L.. -liniparser
+-AR	    = ar
+-ARFLAGS = rcv
+-RM      = rm -f
++CC      ?= gcc
++CFLAGS  ?= -g -I../src
++LFLAGS  ?= -L.. -liniparser
++AR	    ?= ar
++ARFLAGS ?= rcv
++RM      ?= rm -f
+ 
+ 
+ default: all

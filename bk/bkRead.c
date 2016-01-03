@@ -36,9 +36,6 @@
 #define VDTYPE_VOLUMEPARTITION 3
 #define VDTYPE_TERMINATOR 255
 
-/* for el torito boot images */
-#define NBYTES_VIRTUAL_SECTOR 512
-
 /* this function is really just for use in readRockridgeSymlink()
 * returns number of chars appended
 * destMaxLen doesn't include '\0'
@@ -1115,6 +1112,9 @@ int readRockridgeSymlink(VolInfo* volInfo, BkSymLink** dest, int lenSU)
     int rc;
     int count;
     int count2;
+    
+    if (lenSU <= 0)
+        return 1;
     
     suFields = malloc(lenSU);
     if(suFields == NULL)

@@ -1,3 +1,5 @@
-use-actual-boot-image-size-in-eltorito-boot-catalog.diff
-ld-as-needed.diff
+fix-flags.diff
+sensible-tools.diff
+desktopfile.diff
 gpl-path.diff
+tidybkdoc.diff

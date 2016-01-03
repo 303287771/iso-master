@@ -1,0 +1,24 @@
+Description: Adopt sensible-tools in place of mousepad and firefox
+ sensible-editor and sensible-browser do not require any particular editor
+ or browser to be installed, instead choosing one that the user has on their
+ system.
+Forwarded: not-needed
+Author: Riley Baird <BM-2cVqnDuYbAU5do2DfJTrN7ZbAJ246S4XiX@bitmessage.ch>
+Index: isomaster-1.3.13/Makefile
+===================================================================
+--- isomaster-1.3.13.orig/Makefile	2016-01-03 15:19:07.000000000 +0000
++++ isomaster-1.3.13/Makefile	2016-01-03 15:19:35.681983879 +0000
+@@ -25,11 +25,11 @@
+ # The default editor for files from the image. Users can change this. I
+ # recommend you set it to a graphical text editor that is likely to be 
+ # installed by default on your distribution.
+-DEFAULT_EDITOR ?= mousepad
++DEFAULT_EDITOR ?= sensible-editor
+ 
+ # The default viewer for files from the image. I recommend you make it 
+ # a web browser because it can display the widest range of files.
+-DEFAULT_VIEWER ?= firefox
++DEFAULT_VIEWER ?= sensible-browser
+ 
+ # To disable i18n completely, uncomment the following line 
+ # or define WITHOUT_NLS somewhere else.

@@ -51,7 +51,7 @@ export INSTALL = install
 export CP      = cp
 export ECHO    = echo
 
-VERSION = 1.3.9
+VERSION = 1.3.13
 
 # -DDEBUG and -g only used during development
 CFLAGS += -Wall -pedantic -std=gnu99 -Wundef -Wcast-align -W -Wpointer-arith -Wwrite-strings -Wno-unused-parameter `pkg-config --cflags gtk+-2.0`
@@ -75,9 +75,9 @@ all: translations isomaster.desktop isomaster
 isomaster: $(OBJECTS) lib iniparser
 	@echo 'Linking isomaster'
 ifndef USE_SYSTEM_INIPARSER
-	@$(CC) $(LDFLAGS) `pkg-config --libs gtk+-2.0` $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a -o isomaster
+	@$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a -o isomaster `pkg-config --libs gtk+-2.0`
 else
-	@$(CC) $(LDFLAGS) `pkg-config --libs gtk+-2.0` $(OBJECTS) bk/bk.a -liniparser -o isomaster
+	@$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a -liniparser -o isomaster `pkg-config --libs gtk+-2.0`
 endif
 
 # static pattern rule
@@ -129,9 +129,6 @@ endif
 	$(INSTALL) -d $(DESTDIR)$(DESKTOPPATH)
 	$(INSTALL) -m 644 isomaster.desktop $(DESTDIR)$(DESKTOPPATH)
 	$(INSTALL) -d $(DESTDIR)$(MYDOCPATH)
-	for FILE in bkisofs-manual/*html; do \
-            $(INSTALL) -m 644 $$FILE $(DESTDIR)$(MYDOCPATH); \
-        done;
 
 uninstall: 
 	$(RM) -f $(DESTDIR)$(BINPATH)/isomaster

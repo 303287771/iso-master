@@ -1,9 +1,11 @@
 This patch updates text displayed in the about box to tell the user where they
 can find a copy of the GPL on their system, since we don't install upstream's
 LICENSE.TXT file.
---- a/about.c
-+++ b/about.c
-@@ -321,8 +321,8 @@
+Index: isomaster-1.3.13/about.c
+===================================================================
+--- isomaster-1.3.13.orig/about.c	2015-08-16 15:33:13.131264639 +0100
++++ isomaster-1.3.13/about.c	2015-08-16 15:33:13.127264721 +0100
+@@ -331,8 +331,8 @@
  
  static const char* 
  GBLlicense = 
