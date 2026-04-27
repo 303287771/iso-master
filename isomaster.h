@@ -11,7 +11,6 @@
 #include "settings.h"
 #include "error.h"
 #include "boot.h"
-#include "about.h"
 #include "editfile.h"
 
 #ifdef ENABLE_NLS

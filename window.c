@@ -108,11 +108,6 @@ void buildMenu(GtkWidget* boxToPackInto)
     gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
     gtk_accel_map_add_entry("<ISOMaster>/File/Quit", accelKey, accelModifier);
     
-    gtk_accelerator_parse("F1", &accelKey, &accelModifier);
-    closure = g_cclosure_new(G_CALLBACK(showHelpOverviewCbk), NULL, NULL);
-    gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
-    gtk_accel_map_add_entry("<ISOMaster>/Help/Overview", accelKey, accelModifier);
-    
     gtk_accelerator_parse("F2", &accelKey, &accelModifier);
     closure = g_cclosure_new(G_CALLBACK(renameSelectedBtnCbk), NULL, NULL);
     gtk_accel_group_connect(accelGroup, accelKey, accelModifier, GTK_ACCEL_VISIBLE, closure);
@@ -189,13 +184,12 @@ void buildMenu(GtkWidget* boxToPackInto)
     }
     /* END OPEN recent submenu */
     
-#ifdef ENABLE_SAVE_OVERWRITE
     menuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE, NULL);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
     gtk_widget_show(menuItem);
     g_signal_connect(G_OBJECT(menuItem), "activate",
                      G_CALLBACK(saveOverwriteIsoCbk), NULL);
-#endif
+    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/File/Save");
     
     menuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE_AS, NULL);
     gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
@@ -348,33 +342,6 @@ void buildMenu(GtkWidget* boxToPackInto)
     g_signal_connect(G_OBJECT(menuItem), "activate",
                      G_CALLBACK(showPreferencesWindowCbk), (gpointer)BOOT_MEDIA_1_44_FLOPPY);
     /* END TOOLS menu */
-    
-    /* HELP menu */
-    rootMenu = gtk_menu_item_new_with_mnemonic(_("_Help"));
-    gtk_menu_shell_append(GTK_MENU_SHELL(menuBar), rootMenu);
-    gtk_widget_show(rootMenu);
-    
-    menu = gtk_menu_new();
-    gtk_menu_item_set_submenu(GTK_MENU_ITEM(rootMenu), menu);
-    gtk_menu_set_accel_group(GTK_MENU(menu), accelGroup);
-    
-    icon = gtk_image_new_from_stock(GTK_STOCK_HELP, GTK_ICON_SIZE_MENU);
-    menuItem = gtk_image_menu_item_new_with_mnemonic(_("_Overview"));
-    gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuItem), icon);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
-    gtk_widget_show(menuItem);
-    g_signal_connect(G_OBJECT(menuItem), "activate",
-                     G_CALLBACK(showHelpOverviewCbk), NULL);
-    gtk_menu_item_set_accel_path(GTK_MENU_ITEM(menuItem), "<ISOMaster>/Help/Overview");
-    
-#if GTK_MINOR_VERSION >= 6
-    menuItem = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT, NULL);
-    gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuItem);
-    gtk_widget_show(menuItem);
-    g_signal_connect(G_OBJECT(menuItem), "activate",
-                     G_CALLBACK(showAboutWindowCbk), NULL);
-#endif
-    /* END HELP menu */
 }
 
 void buildMiddleToolbar(GtkWidget* boxToPackInto)

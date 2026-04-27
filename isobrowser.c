@@ -41,6 +41,7 @@ extern GdkPixbuf* GBLdirPixbuf;
 extern GdkPixbuf* GBLfilePixbuf;
 extern AppSettings GBLappSettings;
 extern GtkWidget* GBLrecentlyOpenWidgets[5];
+extern char* GBLuserHomeDir;
 
 /* info about the image being worked on */
 VolInfo GBLvolInfo;
@@ -58,9 +59,8 @@ static GtkWidget* GBLactivityProgressBar;
 static GtkTreeViewColumn* GBLfilenameIsoColumn;
 /* the window with the progress bar for writing */
 GtkWidget* GBLwritingProgressWindow;
-#ifdef ENABLE_SAVE_OVERWRITE
+/* the path of the currently opened ISO */
 static char* openIsoPathAndName = NULL;
-#endif
 /* to really stop an operation, not just for one row */
 static bool GBLoperationCanceled;
 
@@ -750,13 +750,11 @@ void closeIso(void)
     
     GBLisoPaneActive = false;
     
-#ifdef ENABLE_SAVE_OVERWRITE
     if(openIsoPathAndName != NULL)
     {
         free(openIsoPathAndName);
         openIsoPathAndName = NULL;
     }
-#endif
 }
 
 bool confirmCloseIso(void)
@@ -1171,6 +1169,20 @@ gboolean newIsoCbk(GtkMenuItem* menuItem, gpointer data)
     
     GBLisoChangesProbable = false;
     
+    const char* docsDir = getenv("HOME");
+    if(docsDir == NULL)
+        docsDir = GBLuserHomeDir;
+    if(docsDir == NULL)
+        docsDir = "/";
+    
+    char* defaultPath = malloc(strlen(docsDir) + strlen("/Documents/untitled.iso") + 1);
+    if(defaultPath == NULL)
+        fatalError("defaultPath = malloc() failed");
+    strcpy(defaultPath, docsDir);
+    strcat(defaultPath, "/Documents/untitled.iso");
+    
+    openIsoPathAndName = defaultPath;
+    
     changeIsoDirectory("/");
     
     /* the accelerator callback must return true */
@@ -1356,10 +1368,8 @@ void openIso(char* filename)
         return;
     }
     
-#ifdef ENABLE_SAVE_OVERWRITE
-    openIsoPathAndName = malloc(strlen(filename) + 1);
+openIsoPathAndName = malloc(strlen(filename) + 1);
     strcpy(openIsoPathAndName, filename);
-#endif
     
     /* iso size label */
     char sizeStr[20];
@@ -1829,7 +1839,6 @@ gboolean saveIsoCbk(GtkWidget *widget, GdkEvent *event)
     return TRUE;
 }
 
-#ifdef ENABLE_SAVE_OVERWRITE
 #define TEMPFILENAME "/tmp/isomaster-temp.iso"
 gboolean saveOverwriteIsoCbk(GtkWidget *widget, GdkEvent *event)
 {
@@ -1838,6 +1847,41 @@ gboolean saveOverwriteIsoCbk(GtkWidget *widget, GdkEvent *event)
     int numBytesRead;
     char line[1024];
     GtkWidget* warningDialog;
+    
+    if(openIsoPathAndName == NULL)
+    {
+        warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               "No ISO file path found. Please use Save As instead.");
+        gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
+        gtk_dialog_run(GTK_DIALOG(warningDialog));
+        gtk_widget_destroy(warningDialog);
+        return FALSE;
+    }
+    
+    char* dirPath = strdup(openIsoPathAndName);
+    char* lastSlash = strrchr(dirPath, '/');
+    if(lastSlash != NULL)
+    {
+        *lastSlash = '\0';
+        if(mkdir(dirPath, 0755) == -1 && errno != EEXIST)
+        {
+            free(dirPath);
+            warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
+                                               GTK_DIALOG_DESTROY_WITH_PARENT,
+                                               GTK_MESSAGE_ERROR,
+                                               GTK_BUTTONS_CLOSE,
+                                               "Failed to create directory: %s",
+                                               dirPath);
+            gtk_window_set_modal(GTK_WINDOW(warningDialog), TRUE);
+            gtk_dialog_run(GTK_DIALOG(warningDialog));
+            gtk_widget_destroy(warningDialog);
+            return FALSE;
+        }
+    }
+    free(dirPath);
     
     saveIso(TEMPFILENAME);
     
@@ -1859,7 +1903,7 @@ gboolean saveOverwriteIsoCbk(GtkWidget *widget, GdkEvent *event)
             gtk_widget_destroy(GBLwritingProgressWindow);
     }
     
-    destFile = open(openIsoPathAndName, O_WRONLY | O_CREAT);
+    destFile = open(openIsoPathAndName, O_WRONLY | O_CREAT, 0644);
     if(destFile == -1)
     {
         warningDialog = gtk_message_dialog_new(GTK_WINDOW(GBLmainWindow),
@@ -1883,7 +1927,6 @@ gboolean saveOverwriteIsoCbk(GtkWidget *widget, GdkEvent *event)
     
     return FALSE;
 }
-#endif
 
 void showIsoContextMenu(GtkWidget* isoView, GdkEventButton* event)
 {

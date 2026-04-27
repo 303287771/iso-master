@@ -1,0 +1,19 @@
+# Build artifacts
+*.o
+*.a
+*.so*
+isomaster
+isomaster.desktop
+
+# Deb build
+debian/*.debhelper
+debian/*.substvars
+debian/isomaster/
+debian/files
+debian/*.log
+
+# Quilt
+.pc/
+
+# Editor
+*~

@@ -3,22 +3,22 @@
 #
 
 # Compiler settings
-CC      = gcc
-CFLAGS  = -O3 -fPIC
+CC      ?= gcc
+CFLAGS  ?= -O3 -fPIC
 
 # Ar settings to build the library
-AR	    = ar
-ARFLAGS = rcv
+AR	    ?= ar
+ARFLAGS ?= rcv
 
-SHLD = ${CC} ${CFLAGS}
-LDSHFLAGS = -shared -Wl,-Bsymbolic  -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
-LDFLAGS = -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
+SHLD ?= ${CC} ${CFLAGS}
+LDSHFLAGS ?= -shared -Wl,-Bsymbolic  -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
+LDFLAGS ?= -Wl,-rpath -Wl,/usr/lib -Wl,-rpath,/usr/lib
 
 # Set RANLIB to ranlib on systems that require it (Sun OS < 4, Mac OSX)
 # RANLIB  = ranlib
-RANLIB = true
+RANLIB ?= true
 
-RM      = rm -f
+RM      ?= rm -f
 
 
 # Implicit rules
@@ -45,7 +45,7 @@ libiniparser.a:	$(OBJS)
 	@($(RANLIB) libiniparser.a)
 
 libiniparser.so:	$(OBJS)
-	@$(SHLD) $(LDSHFLAGS) -o $@.0 $(OBJS) $(LDFLAGS) \
+	$(SHLD) $(LDSHFLAGS) -o $@.0 $(OBJS) $(LDFLAGS) \
 		-Wl,-soname=`basename $@`.0
 
 clean:

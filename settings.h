@@ -60,6 +60,8 @@ typedef struct
     
 } PrefWidgets;
 
+extern char* GBLuserHomeDir;
+
 void buildImagePropertiesWindow(GtkWidget *widget, GdkEvent *event);
 void findHomeDir(void);
 void getDefaultTempDir(char** destStr);

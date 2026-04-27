@@ -25,16 +25,16 @@ DESKTOPPATH ?= $(PREFIX)/share/applications
 # The default editor for files from the image. Users can change this. I
 # recommend you set it to a graphical text editor that is likely to be 
 # installed by default on your distribution.
-DEFAULT_EDITOR ?= mousepad
+DEFAULT_EDITOR ?= sensible-editor
 
 # The default viewer for files from the image. I recommend you make it 
 # a web browser because it can display the widest range of files.
-DEFAULT_VIEWER ?= firefox
+DEFAULT_VIEWER ?= sensible-browser
 
 # To disable i18n completely, uncomment the following line 
 # or define WITHOUT_NLS somewhere else.
 # This option is desired in the FreeBSD ports guidelines.
-#WITHOUT_NLS = 1
+WITHOUT_NLS = 1
 
 # This enables overwriting the original iso,
 # don't uncomment it unless you are willing to risk losing data.
@@ -45,11 +45,11 @@ DEFAULT_VIEWER ?= firefox
 
 # programs used in the Makefiles:
 export CC      ?= gcc
-export AR      = ar
-export RM      = rm -f
-export INSTALL = install
-export CP      = cp
-export ECHO    = echo
+export AR      ?= ar
+export RM      ?= rm -f
+export INSTALL ?= install
+export CP      ?= cp
+export ECHO    ?= echo
 
 VERSION = 1.3.13
 
@@ -68,22 +68,22 @@ ifdef USE_SYSTEM_INIPARSER
 CPPFLAGS += -DUSE_SYSTEM_INIPARSER=$(USE_SYSTEM_INIPARSER)
 endif
 
-OBJECTS = isomaster.o window.o browser.o fsbrowser.o isobrowser.o error.o about.o settings.o boot.o editfile.o
+OBJECTS = isomaster.o window.o browser.o fsbrowser.o isobrowser.o error.o settings.o boot.o editfile.o
 
 all: translations isomaster.desktop isomaster
 
 isomaster: $(OBJECTS) lib iniparser
 	@echo 'Linking isomaster'
 ifndef USE_SYSTEM_INIPARSER
-	@$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a -o isomaster `pkg-config --libs gtk+-2.0`
+	$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a iniparser-2.17/libiniparser.a -o isomaster `pkg-config --libs gtk+-2.0`
 else
-	@$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a -liniparser -o isomaster `pkg-config --libs gtk+-2.0`
+	$(CC) $(LDFLAGS) $(OBJECTS) bk/bk.a -liniparser -o isomaster `pkg-config --libs gtk+-2.0`
 endif
 
 # static pattern rule
 $(OBJECTS): %.o: %.c %.h bk/bk.h Makefile
 	@echo 'Compiling' $<
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $< -c -o $@
+	$(CC) $(CFLAGS) $(CPPFLAGS) $< -c -o $@
 
 lib:
 	cd bk && $(MAKE)
