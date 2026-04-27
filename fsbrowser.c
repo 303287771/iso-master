@@ -309,39 +309,59 @@ bool changeFsDirectory(const char* newDirStr)
         if(IS_DIR(nextItemInfo.st_mode))
         /* directory */
         {
+            char* utf8name = g_filename_to_utf8(nextItem->d_name, -1, NULL, NULL, NULL);
+            if(!utf8name)
+                utf8name = g_locale_to_utf8(nextItem->d_name, -1, NULL, NULL, NULL);
+            if(!utf8name)
+                utf8name = nextItem->d_name;
+            
             gtk_list_store_append(GBLfsListStore, &listIterator);
             gtk_list_store_set(GBLfsListStore, &listIterator, 
                                COLUMN_ICON, GBLdirPixbuf,
-                               COLUMN_FILENAME, nextItem->d_name,
-                               //COLUMN_FILENAME, g_filename_to_utf8(nextItem->d_name, -1, 0, 0, 0),
-                               //COLUMN_FILENAME, g_locale_to_utf8(nextItem->d_name, -1, 0, 0, 0),
+                               COLUMN_FILENAME, utf8name,
                                COLUMN_SIZE, 0LL,
                                COLUMN_HIDDEN_TYPE, FILE_TYPE_DIRECTORY,
                                -1);
+            if(utf8name != nextItem->d_name)
+                g_free(utf8name);
         }
         else if(IS_REG_FILE(nextItemInfo.st_mode))
         /* regular file */
         {
+            char* utf8name = g_filename_to_utf8(nextItem->d_name, -1, NULL, NULL, NULL);
+            if(!utf8name)
+                utf8name = g_locale_to_utf8(nextItem->d_name, -1, NULL, NULL, NULL);
+            if(!utf8name)
+                utf8name = nextItem->d_name;
+            
             gtk_list_store_append(GBLfsListStore, &listIterator);
             gtk_list_store_set(GBLfsListStore, &listIterator, 
                                COLUMN_ICON, GBLfilePixbuf,
-                               COLUMN_FILENAME, nextItem->d_name,
-                               //COLUMN_FILENAME, g_filename_to_utf8(nextItem->d_name, -1, 0, 0, 0),
-                               //COLUMN_FILENAME, g_locale_to_utf8(nextItem->d_name, -1, 0, 0, 0), 
+                               COLUMN_FILENAME, utf8name,
                                COLUMN_SIZE, nextItemInfo.st_size,
                                COLUMN_HIDDEN_TYPE, FILE_TYPE_REGULAR,
                                -1);
+            if(utf8name != nextItem->d_name)
+                g_free(utf8name);
         }
         else if(IS_SYMLINK(nextItemInfo.st_mode))
         /* symbolic link */
         {
+            char* utf8name = g_filename_to_utf8(nextItem->d_name, -1, NULL, NULL, NULL);
+            if(!utf8name)
+                utf8name = g_locale_to_utf8(nextItem->d_name, -1, NULL, NULL, NULL);
+            if(!utf8name)
+                utf8name = nextItem->d_name;
+            
             gtk_list_store_append(GBLfsListStore, &listIterator);
             gtk_list_store_set(GBLfsListStore, &listIterator, 
                                COLUMN_ICON, GBLfilePixbuf,
-                               COLUMN_FILENAME, nextItem->d_name,
+                               COLUMN_FILENAME, utf8name,
                                COLUMN_SIZE, 0LL,
                                COLUMN_HIDDEN_TYPE, FILE_TYPE_SYMLINK,
                                -1);
+            if(utf8name != nextItem->d_name)
+                g_free(utf8name);
         }
         /* else fancy file, ignore it */
         
