@@ -296,9 +296,47 @@ bool nameIsValid(const char* name)
     
     for(count = 0; count < nameLen; count++)
     {
-        /* can be any ascii char between decimal 32 and 126 except '/' (47) */
-        if(name[count] < 32 || name[count] > 126 || name[count] == 47)
+        unsigned char ch = (unsigned char)name[count];
+        
+        if(ch < 32 || ch == 47)
             return false;
+        
+        if(ch < 128)
+            continue;
+        
+        if((ch & 0xE0) == 0xC0)
+        {
+            if(count + 1 >= nameLen)
+                return false;
+            count++;
+            continue;
+        }
+        
+        if((ch & 0xF0) == 0xE0)
+        {
+            count++;
+            if(count >= nameLen)
+                return false;
+            if((name[count] & 0xC0) != 0x80)
+                return false;
+            count++;
+            if(count >= nameLen)
+                return false;
+            if((name[count] & 0xC0) != 0x80)
+                return false;
+            continue;
+        }
+        
+        if((ch & 0xF8) == 0xF0)
+        {
+            for(int i = 0; i < 3 && count < nameLen; i++)
+            {
+                count++;
+                if(count >= nameLen || (name[count] & 0xC0) != 0x80)
+                    return false;
+            }
+            continue;
+        }
     }
     
     return true;
